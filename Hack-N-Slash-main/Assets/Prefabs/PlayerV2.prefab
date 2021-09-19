@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 5887373266890729744}
   - component: {fileID: 3004014602359645400}
   - component: {fileID: 7439213706804591973}
+  - component: {fileID: 8546104586434210288}
   - component: {fileID: 7300793082100157938}
   - component: {fileID: 4253273602517231103}
-  - component: {fileID: 8104408694479479850}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PlayerV2
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,10 +100,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63e7c71e6ed84f2448b9314e8350dfe4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horizontalSpeed: 9
-  verticalSpeed: 9
-  acceleration: 75
-  deceleration: 70
+  movementSpeed: 10
+--- !u!70 &8546104586434210288
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2066121053523600750}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 1, y: 2}
+  m_Direction: 0
 --- !u!50 &7300793082100157938
 Rigidbody2D:
   serializedVersion: 4
@@ -149,22 +162,6 @@ HingeJoint2D:
   m_AngleLimits:
     m_LowerAngle: -90
     m_UpperAngle: 90
---- !u!70 &8104408694479479850
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2066121053523600750}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.5, y: 1}
-  m_Direction: 0
 --- !u!1 &2235314057051779445
 GameObject:
   m_ObjectHideFlags: 0
@@ -178,9 +175,9 @@ GameObject:
   - component: {fileID: 3346809765117095502}
   - component: {fileID: 60030280375189458}
   - component: {fileID: 7909556679795084940}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Arm_02
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -314,9 +311,9 @@ GameObject:
   - component: {fileID: 388702925165990167}
   - component: {fileID: 1117400282950881335}
   - component: {fileID: 4317085768207586529}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Arm_01
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
