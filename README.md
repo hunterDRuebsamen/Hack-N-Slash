@@ -23,3 +23,13 @@ Whenever you start working on a new issue, please CLONE and pull the latest rele
 ### Issues/Tasks
 ---
 Please see the Project [Issue Tracker](https://github.com/WheeledParasite/Hack-N-Slash/issues).
+
+### Valuable Skills you will learn
+---
+- How to use source control software (Git) [Valuable for employers]
+- How to work on a team of software engineers [Valuable for employers]
+- Problem Solving
+- Unity Framework
+- C# coding [75,000+ jobs on Indeed need C# Skills]
+- Game Design
+- Project Management
