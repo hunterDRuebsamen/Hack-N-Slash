@@ -7,16 +7,12 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField, Tooltip("Max horizontal speed, in units per second, that the character moves.")]
     float horizontalSpeed = 3;
- 
     [SerializeField, Tooltip("Max vertical speed, in units per second, that the character moves.")]
     float verticalSpeed = 3;
-    
     [SerializeField, Tooltip("Dodge Speed Factor, how many times faster is a dodge move")]
     float dodgeFactor = 3.5f;
- 
     [SerializeField, Tooltip("Acceleration while grounded.")]
     float acceleration = 75;
- 
     [SerializeField, Tooltip("Deceleration applied when character is grounded and not attempting to move.")]
     float deceleration = 70;
     [SerializeField, Tooltip("Cooldown Timer before you get your dodge boosts back")]
@@ -24,8 +20,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField, Tooltip("Max Number of Dodge Boosts")]
     int maxDodgeBoosts = 3;
     [SerializeField, Tooltip("Length in Time a Dodge boost lasts")]
+
     public float dodgeLength = 0.5f;
- 
     float horizontalInput;
     float verticalInput;
  
@@ -36,9 +32,7 @@ public class PlayerMovement : MonoBehaviour
  
     private float mulFactor = 1;
     private CapsuleCollider2D capsuleCollider;
- 
     private Vector2 velocity;
- 
  
     private void Awake()
     {      
@@ -115,7 +109,6 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
- 
  
     /*
     This function freezes the character's ability to dodge after a given number of dodges. 
