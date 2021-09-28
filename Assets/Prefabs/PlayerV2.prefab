@@ -102,8 +102,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   horizontalSpeed: 9
   verticalSpeed: 9
+  dodgeFactor: 3.5
   acceleration: 75
   deceleration: 70
+  dodgeCoolDownTime: 10
+  maxDodgeBoosts: 3
+  dodgeLength: 0.5
 --- !u!50 &7300793082100157938
 Rigidbody2D:
   serializedVersion: 4
@@ -147,8 +151,8 @@ HingeJoint2D:
     m_MaximumMotorForce: 10000
   m_UseLimits: 1
   m_AngleLimits:
-    m_LowerAngle: -90
-    m_UpperAngle: 90
+    m_LowerAngle: -85
+    m_UpperAngle: 45
 --- !u!70 &2047311166149304007
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -429,5 +433,5 @@ HingeJoint2D:
     m_MaximumMotorForce: 10000
   m_UseLimits: 1
   m_AngleLimits:
-    m_LowerAngle: 0
-    m_UpperAngle: 180
+    m_LowerAngle: -20
+    m_UpperAngle: 90
