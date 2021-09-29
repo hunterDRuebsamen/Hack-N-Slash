@@ -212,14 +212,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 60030280375189458, guid: 77767a00023585efc822725add655cd7, type: 3}
-      propertyPath: m_Frequency
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 60030280375189458, guid: 77767a00023585efc822725add655cd7, type: 3}
-      propertyPath: m_DampingRatio
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 2066121053523600750, guid: 77767a00023585efc822725add655cd7, type: 3}
       propertyPath: m_Icon
       value: 
@@ -248,38 +240,10 @@ PrefabInstance:
       propertyPath: m_SortingLayerID
       value: 519901987
       objectReference: {fileID: 0}
-    - target: {fileID: 3346809765117095502, guid: 77767a00023585efc822725add655cd7, type: 3}
-      propertyPath: m_Constraints
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4253273602517231103, guid: 77767a00023585efc822725add655cd7, type: 3}
-      propertyPath: m_Anchor.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4253273602517231103, guid: 77767a00023585efc822725add655cd7, type: 3}
-      propertyPath: m_ConnectedAnchor.x
-      value: -0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4253273602517231103, guid: 77767a00023585efc822725add655cd7, type: 3}
-      propertyPath: m_AngleLimits.m_LowerAngle
-      value: -85
-      objectReference: {fileID: 0}
-    - target: {fileID: 4253273602517231103, guid: 77767a00023585efc822725add655cd7, type: 3}
-      propertyPath: m_AngleLimits.m_UpperAngle
-      value: 85
-      objectReference: {fileID: 0}
-    - target: {fileID: 4317085768207586529, guid: 77767a00023585efc822725add655cd7, type: 3}
-      propertyPath: m_ConnectedAnchor.x
-      value: -0.5000005
-      objectReference: {fileID: 0}
-    - target: {fileID: 4317085768207586529, guid: 77767a00023585efc822725add655cd7, type: 3}
-      propertyPath: m_ConnectedAnchor.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4317085768207586529, guid: 77767a00023585efc822725add655cd7, type: 3}
-      propertyPath: m_AngleLimits.m_LowerAngle
-      value: -90
-      objectReference: {fileID: 0}
+    - target: {fileID: 4957457181913552969, guid: 77767a00023585efc822725add655cd7, type: 3}
+      propertyPath: healthBar
+      value: 
+      objectReference: {fileID: 325778112}
     - target: {fileID: 5887373266890729744, guid: 77767a00023585efc822725add655cd7, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -323,18 +287,6 @@ PrefabInstance:
     - target: {fileID: 5887373266890729744, guid: 77767a00023585efc822725add655cd7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7300793082100157938, guid: 77767a00023585efc822725add655cd7, type: 3}
-      propertyPath: m_UseFullKinematicContacts
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7439213706804591973, guid: 77767a00023585efc822725add655cd7, type: 3}
-      propertyPath: verticalSpeed
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7439213706804591973, guid: 77767a00023585efc822725add655cd7, type: 3}
-      propertyPath: horizontalSpeed
-      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77767a00023585efc822725add655cd7, type: 3}
@@ -2821,21 +2773,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2066121053523600750, guid: 77767a00023585efc822725add655cd7, type: 3}
   m_PrefabInstance: {fileID: 208380587}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1888477655
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1888477649}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f52b5489e030774491b2efa381900ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  currentHealth: 100
-  healthBar: {fileID: 325778112}
 --- !u!1 &1922294289
 GameObject:
   m_ObjectHideFlags: 3
@@ -3450,9 +3387,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
-    - target: {fileID: 7400595517385289061, guid: 9fef7c11c2a5f7b49b61a1537404ba1b, type: 3}
-      propertyPath: speed
-      value: 1.5
+    - target: {fileID: 7400595517385289058, guid: 9fef7c11c2a5f7b49b61a1537404ba1b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7400595517385289061, guid: 9fef7c11c2a5f7b49b61a1537404ba1b, type: 3}
       propertyPath: target
