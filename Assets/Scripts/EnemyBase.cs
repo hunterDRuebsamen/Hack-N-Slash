@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,17 +11,12 @@ public class EnemyBase : MonoBehaviour
     float knockback = 0.6f;
 
     Rigidbody2D rigidBody;
+    public static event Action onEnemyTriggerHit;
 
     // Start is called before the first frame update
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     // We use OnTriggerEnter2D instead of OnCollisionEnter2D because the player hand is set to "isTrigger"
@@ -29,6 +25,7 @@ public class EnemyBase : MonoBehaviour
         // check to see what we just got hit with
         if (col.tag == "Weapon")
         {
+            onEnemyTriggerHit?.Invoke();
             // add a knockback effect
             StartCoroutine(FakeAddForceMotion(knockback));
 
