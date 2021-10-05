@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -39,6 +40,7 @@ public class PlayerMovement : MonoBehaviour
     private float mulFactor = 1;
     private CapsuleCollider2D capsuleCollider;
     private Vector2 velocity;
+    public static event Action onPlayerTriggerHit;
  
     private void Awake()
     {      
@@ -80,10 +82,12 @@ public class PlayerMovement : MonoBehaviour
  
         if (horizontalInput != 0)
         {
+            //Calculate x component of velocity with an acceleration rate when pressing "A" or "D"
             velocity.x = Mathf.MoveTowards(velocity.x, horizontalSpeed * mulFactor * horizontalInput, acceleration * Time.deltaTime);
         }
         else
         {
+            //Deccelerates x component of velocity when no longer pressing "A" or "D"
             velocity.x = Mathf.MoveTowards(velocity.x, 0, deceleration * Time.deltaTime);
         }
         if (verticalInput != 0) 
@@ -110,8 +114,11 @@ public class PlayerMovement : MonoBehaviour
         }
         else 
         {
+            //Deccelerates x component of velocity when no longer pressing "A" or "D"
             velocity.y = Mathf.MoveTowards(velocity.y, 0, deceleration * Time.deltaTime);
         }
+        //Moves our player by the velocity vector we have calculated multiplied by the amount of time that has elasped
+        //to get the total units that should be moved
         transform.Translate(velocity * Time.deltaTime);
     }
  
@@ -130,6 +137,9 @@ public class PlayerMovement : MonoBehaviour
             if (colliderDistance.isOverlapped)
             {
                 transform.Translate(colliderDistance.pointA - colliderDistance.pointB);
+                if(hit.tag == "Enemy"){ // 
+                    onPlayerTriggerHit?.Invoke();
+                }
             }
         }
     }
@@ -141,9 +151,9 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator DodgeRoutine(float time) { 
         canDodge = false;                       // canDodge is false so you can't dodge
         Debug.Log("canDodge = false");
-        mulFactor = dodgeFactor;
+        mulFactor = dodgeFactor;                //Changes speed multiplier when dodging
         yield return new WaitForSeconds(time);     // wait for 3 seconds until you can dodge
-        mulFactor = 1.0f;
+        mulFactor = 1.0f;                       //Resets speed multiplier to base speed  
         if (numDodgeLeft > 0)
             canDodge = true;                        // now you can dodge
     }   
