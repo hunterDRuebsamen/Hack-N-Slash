@@ -7,31 +7,35 @@ public class EnemyBase : MonoBehaviour
 {
     [SerializeField, Tooltip("Enemy Health (hitpoints)")]
     int health = 15;
-    [SerializeField, Tooltip("Knockback Force")]
-    float knockback = 0.6f;
+    [SerializeField, Tooltip("Knockback Multiplier")]
+    float knockbackFactor = 0.6f;
 
     Rigidbody2D rigidBody;
-    public static event Action onEnemyTriggerHit;
+    public static event Action<GameObject> onEnemyDeath;
 
     // Start is called before the first frame update
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
     }
+    private void OnEnable() { // Watches for when the enemy gets hit
+        WeaponBase.onWeaponTriggerHit += onEnemyHit;
+    } 
+    private void onDisable() {
+        WeaponBase.onWeaponTriggerHit -= onEnemyHit;
+    } 
 
     // We use OnTriggerEnter2D instead of OnCollisionEnter2D because the player hand is set to "isTrigger"
-    private void OnTriggerEnter2D(Collider2D col) 
+    private void onEnemyHit(float damage) 
     {
-        // check to see what we just got hit with
-        if (col.tag == "Weapon")
-        {
-            onEnemyTriggerHit?.Invoke();
-            // add a knockback effect
-            StartCoroutine(FakeAddForceMotion(knockback));
-
-            // take damage (perhaps based on weapon type)
-            
-        }     
+        health -= (int)Math.Round(damage);
+        if(health <= 0) {
+            //send death event
+            onEnemyDeath?.Invoke(this.gameObject);
+        }
+        Debug.Log("Enemy Health: "+health);
+        //Calculate knockback force
+        StartCoroutine(FakeAddForceMotion(damage*knockbackFactor));     
     }
 
     // This function adds a fake force to a Kinematic body
