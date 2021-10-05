@@ -6,15 +6,15 @@ using UnityEngine;
 public class GameEvents : MonoBehaviour
 {
     private void OnEnable() {
-        EnemyBase.onEnemyTriggerHit += enemyHit;
+        WeaponBase.onWeaponTriggerHit += enemyHit;
         PlayerMovement.onPlayerTriggerHit += playerHit;
     } 
     private void onDisable() {
-        EnemyBase.onEnemyTriggerHit -= enemyHit;
+        WeaponBase.onWeaponTriggerHit -= enemyHit;
         PlayerMovement.onPlayerTriggerHit -= playerHit;
     } 
-    private void enemyHit() {
-        Debug.Log("Enemy has been hit.");
+    private void enemyHit(float damage) {
+        Debug.Log("Enemy has been hit for: "+ damage);
     }
     private void playerHit() {
         Debug.Log("Player has been hit.");
