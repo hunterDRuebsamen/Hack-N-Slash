@@ -15,6 +15,12 @@ public class PlayerMovement : MonoBehaviour
     float acceleration = 75;
     [SerializeField, Tooltip("Deceleration applied when character is grounded and not attempting to move.")]
     float deceleration = 70;
+
+    [SerializeField, Tooltip("Limits the postiive vertical distance that the character can travel.")]
+    float maxY = 4f;
+    [SerializeField, Tooltip("Limits the negative vertical distance that the character can travel.")]
+    float minY = 2.5f;
+
     [SerializeField, Tooltip("Cooldown Timer before you get your dodge boosts back")]
     float dodgeCoolDownTime = 10f;
     [SerializeField, Tooltip("Max Number of Dodge Boosts")]
@@ -82,6 +88,24 @@ public class PlayerMovement : MonoBehaviour
         }
         if (verticalInput != 0) 
         {
+            // This will keep the player's movement within specified y bounds (courdicy of @courtesy)
+            if (verticalInput > 0)
+            {
+                //checks if the player has moved too far up and prevents any more lateral movement when they do 
+                if (transform.position.y > maxY)
+                {
+                    verticalInput = 0;
+                }
+
+            }
+            else if (verticalInput < 0)
+            {
+                // checks if the player has moved too far up and prevents any more lateral movement when they do
+                if (transform.position.y < minY)
+                {
+                   verticalInput = 0;
+                }
+            }
             velocity.y = Mathf.MoveTowards(velocity.y, verticalSpeed * mulFactor * verticalInput, acceleration * Time.deltaTime);
         }
         else 
