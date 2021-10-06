@@ -277,7 +277,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 1.5
   damage: 1
-  cooldown: 3
+  cooldown: 5
   target: {fileID: 0}
 --- !u!114 &363308924562537962
 MonoBehaviour:

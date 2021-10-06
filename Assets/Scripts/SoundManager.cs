@@ -22,7 +22,7 @@ public class SoundManager : MonoBehaviour
 
     private void onPlayerHit(float dmg)
     {
-        Debug.Log("play auido");
+        //Debug.Log("play auido");
         effectSource1.PlayOneShot(hitImpactClip);
     }
 }

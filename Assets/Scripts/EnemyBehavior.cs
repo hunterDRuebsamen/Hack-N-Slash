@@ -11,7 +11,7 @@ public class EnemyBehavior : MonoBehaviour
     [SerializeField, Tooltip("Attack distance")]
     private const float attackDist = 2.5f;
     [SerializeField, Tooltip("Attack cooldown in seconds")]
-    float cooldown = 2f;
+    float cooldown = 5f;
     [SerializeField, Tooltip("target of the enemy pathing")]
     GameObject target;
     private CapsuleCollider2D capsuleCollider;
@@ -64,12 +64,16 @@ public class EnemyBehavior : MonoBehaviour
         // check if player is to the right or left of enemy, flip enemy gameobjects based on player position
         if (target.transform.position.x > transform.position.x)
         {
+            // player is to the right;
+            attackAnimation.clip = attackAnimation.GetClip("EnemySwordRight");
             enemyBodySprite.flipX = true;
             weaponGameObject.transform.localPosition = new Vector3(weaponXpos,weaponGameObject.transform.localPosition.y,0);
         }
         else
         {
-            enemyBodySprite.flipX = true;
+            // player is to the left
+            attackAnimation.clip = attackAnimation.GetClip("EnemySwordLeft");
+            enemyBodySprite.flipX = false;
             weaponGameObject.transform.localPosition = new Vector3(-weaponXpos,weaponGameObject.transform.localPosition.y,0);
         }
 
@@ -79,7 +83,7 @@ public class EnemyBehavior : MonoBehaviour
             //Debug.Log("attack");
             // attack the player
             if (!isAttacking) {
-                attackAnimation.Play("EnemySword");
+                attackAnimation.Play();
                 onAttack?.Invoke();
             }
             StartCoroutine(AttackCoolDown(cooldown));
