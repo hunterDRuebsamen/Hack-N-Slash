@@ -12,8 +12,8 @@ public class EnemyBehavior : MonoBehaviour
     private const float attackDist = 2.5f;
     [SerializeField, Tooltip("Attack cooldown in seconds")]
     float cooldown = 5f;
-    [SerializeField, Tooltip("target of the enemy pathing")]
-    GameObject target;
+
+    private GameObject target;
     private CapsuleCollider2D capsuleCollider;
     private GameObject weaponGameObject;
     private SpriteRenderer enemyBodySprite;
@@ -32,6 +32,8 @@ public class EnemyBehavior : MonoBehaviour
         enemyBodySprite = GetComponent<SpriteRenderer>();
         attackAnimation = transform.GetChild(0).GetComponent<Animation>();
         weaponGameObject = transform.GetChild(0).gameObject;  // grab first child gameobject
+
+        target = GameObject.Find("PlayerV2"); // find the player game object and target him
     }
 
     // Update is called once per frame
