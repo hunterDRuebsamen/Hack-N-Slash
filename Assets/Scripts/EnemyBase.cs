@@ -9,14 +9,16 @@ public class EnemyBase : MonoBehaviour
     int health = 15;
     [SerializeField, Tooltip("Knockback Multiplier")]
     float knockbackFactor = 0.6f;
-
+    
     Rigidbody2D rigidBody;
+    BoxCollider2D enemyWeapon;
     public static event Action<GameObject> onEnemyDeath;
 
     // Start is called before the first frame update
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
+        enemyWeapon = transform.GetChild(0).GetComponent<BoxCollider2D>();
     }
     private void OnEnable() { // Watches for when the enemy gets hit
         WeaponBase.onWeaponTriggerHit += onEnemyHit;
@@ -25,7 +27,7 @@ public class EnemyBase : MonoBehaviour
         WeaponBase.onWeaponTriggerHit -= onEnemyHit;
     } 
 
-    // We use OnTriggerEnter2D instead of OnCollisionEnter2D because the player hand is set to "isTrigger"
+    // when we receive the onEnemyHit event, we do knockback + damage.
     private void onEnemyHit(float damage) 
     {
         health -= (int)Math.Round(damage);

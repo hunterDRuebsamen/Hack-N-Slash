@@ -126,7 +126,7 @@ public class PlayerMovement : MonoBehaviour
          foreach (Collider2D hit in hits)
         {
             // Ignore our own collider.
-            if (hit.tag == "Player")
+            if (hit.tag == "Player" || hit.tag == "Weapon" || hit.tag == "EnemyWeapon")
                 continue;
  
             ColliderDistance2D colliderDistance = hit.Distance(capsuleCollider);
