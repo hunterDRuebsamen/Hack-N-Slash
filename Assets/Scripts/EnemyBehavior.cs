@@ -33,7 +33,7 @@ public class EnemyBehavior : MonoBehaviour
         attackAnimation = transform.GetChild(0).GetComponent<Animation>();
         weaponGameObject = transform.GetChild(0).gameObject;  // grab first child gameobject
 
-        target = GameObject.Find("PlayerV2"); // find the player game object and target him
+        target = GameObject.FindWithTag("Player"); // find the player game object and target him
     }
 
     // Update is called once per frame
