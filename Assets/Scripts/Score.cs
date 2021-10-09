@@ -8,12 +8,11 @@ public class Score : MonoBehaviour
    int scoreValue = 0;
    public Text score;
 
-   void Awake() {
-       score = GetComponent<Text>();
-   }
-
    private void OnEnable() {
        WeaponBase.onWeaponTriggerHit += changeScore;
+   }
+    private void onDisable() {
+       WeaponBase.onWeaponTriggerHit -= changeScore;
    }
 
    void changeScore(float damage) {

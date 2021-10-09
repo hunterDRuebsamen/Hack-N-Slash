@@ -214,6 +214,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 63654555}
+  - component: {fileID: 63654556}
   m_Layer: 0
   m_Name: ScoreSystem
   m_TagString: Untagged
@@ -235,6 +236,19 @@ Transform:
   m_Father: {fileID: 956495882}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &63654556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 63654554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aca4893ccc2ddf240aa02c463bf7412c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score: {fileID: 975563801}
 --- !u!1001 &208380587
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -284,15 +298,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5887373266890729744, guid: 77767a00023585efc822725add655cd7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.42338
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5887373266890729744, guid: 77767a00023585efc822725add655cd7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.77788067
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5887373266890729744, guid: 77767a00023585efc822725add655cd7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.01
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5887373266890729744, guid: 77767a00023585efc822725add655cd7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -300,15 +314,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5887373266890729744, guid: 77767a00023585efc822725add655cd7, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5887373266890729744, guid: 77767a00023585efc822725add655cd7, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5887373266890729744, guid: 77767a00023585efc822725add655cd7, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5887373266890729744, guid: 77767a00023585efc822725add655cd7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -349,7 +363,7 @@ GameObject:
   - component: {fileID: 276735705}
   - component: {fileID: 276735704}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: ScoreCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1063,7 +1077,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.42338, y: -0.77788067, z: -10.01}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1723,7 +1737,6 @@ GameObject:
   - component: {fileID: 975563799}
   - component: {fileID: 975563802}
   - component: {fileID: 975563801}
-  - component: {fileID: 975563800}
   m_Layer: 5
   m_Name: Score Counter
   m_TagString: Untagged
@@ -1747,22 +1760,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -273.13, y: 110}
+  m_AnchoredPosition: {x: -275, y: 172.61}
   m_SizeDelta: {x: 250, y: 105}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &975563800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 975563798}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aca4893ccc2ddf240aa02c463bf7412c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  score: {fileID: 0}
 --- !u!114 &975563801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1796,7 +1796,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 'Score: 0'
 --- !u!222 &975563802
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2606,7 +2606,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1840438654}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.42338, y: -0.77788067, z: -10.01}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1922294290}
