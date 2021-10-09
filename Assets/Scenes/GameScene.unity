@@ -336,6 +336,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7329747000833273885, guid: 77767a00023585efc822725add655cd7, type: 3}
+      propertyPath: damageFactor
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 7439213706804591973, guid: 77767a00023585efc822725add655cd7, type: 3}
       propertyPath: minY
       value: -2.5
