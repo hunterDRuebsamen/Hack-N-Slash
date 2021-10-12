@@ -795,7 +795,6 @@ MonoBehaviour:
   speed: 1.5
   damage: 1
   cooldown: 5
-  target: {fileID: 0}
 --- !u!114 &363308924562537962
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -809,4 +808,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 25
-  knockbackFactor: 0.6
+  knockbackFactor: 0.15
