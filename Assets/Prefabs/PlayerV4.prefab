@@ -346,17 +346,17 @@ HingeJoint2D:
   m_Enabled: 1
   serializedVersion: 4
   m_EnableCollision: 0
-  m_ConnectedRigidBody: {fileID: 0}
+  m_ConnectedRigidBody: {fileID: 6700300176983163841}
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 0
   m_Anchor: {x: 0.67, y: 0.15}
-  m_ConnectedAnchor: {x: -7.24, y: -0.46}
+  m_ConnectedAnchor: {x: 0, y: 0.1}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
     m_MaximumMotorForce: 10000
-  m_UseLimits: 1
+  m_UseLimits: 0
   m_AngleLimits:
     m_LowerAngle: 30
     m_UpperAngle: 150
@@ -484,9 +484,9 @@ TargetJoint2D:
   m_Anchor: {x: 0.012171745, y: 1.9427538}
   m_Target: {x: 0, y: 0}
   m_AutoConfigureTarget: 0
-  m_MaxForce: 10000
-  m_DampingRatio: 0.5
-  m_Frequency: 0.5
+  m_MaxForce: 10
+  m_DampingRatio: 0.01
+  m_Frequency: 1
 --- !u!114 &6599629119253940367
 MonoBehaviour:
   m_ObjectHideFlags: 0
