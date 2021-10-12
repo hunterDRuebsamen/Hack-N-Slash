@@ -6,18 +6,17 @@ using UnityEngine;
 public class EnemyBase : MonoBehaviour
 {
     [SerializeField, Tooltip("Enemy Health (hitpoints)")]
-    int health = 15;
+    public int health = 15;
     [SerializeField, Tooltip("Knockback Multiplier")]
     float knockbackFactor = 0.6f;
     
-    Rigidbody2D rigidBody;
+    Rigidbody2D rigidBody; 
     BoxCollider2D enemyWeapon;
     public static event Action<GameObject> onEnemyDeath;
 
     // Start is called before the first frame update
     void Start()
     {
-        rigidBody = GetComponent<Rigidbody2D>();
         enemyWeapon = transform.GetChild(0).GetComponent<BoxCollider2D>();
     }
     private void OnEnable() { // Watches for when the enemy gets hit
@@ -32,8 +31,8 @@ public class EnemyBase : MonoBehaviour
     {
         health -= (int)Math.Round(damage);
         if(health <= 0) {
-            //send death event
             onEnemyDeath?.Invoke(this.gameObject);
+            Destroy(this.gameObject);
         }
         Debug.Log("Enemy Health: "+health);
         //Calculate knockback force

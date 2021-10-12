@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class EnemyHealth : MonoBehaviour
 {
     
-    public int maxHealth = 15;
     public int currentHealth;
 
     public EnemyHealthbar EnemyHealthbar;
@@ -13,22 +13,21 @@ public class EnemyHealth : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentHealth = maxHealth;
-        EnemyHealthbar.SetMaxHealth(maxHealth);
+        currentHealth = transform.parent.parent.GetComponent<EnemyBase>().health;
+        EnemyHealthbar.SetMaxHealth(currentHealth);
     }
 
-    // Update is called once per frame
-    //void Update()
-    /*{
-        if (Input.GetKeyDown("y"))
-        {
-            TakeDamage(3);
-        }
-    }*/
+    void OnEnable() {
+        WeaponBase.onWeaponTriggerHit += TakeDamage;
+    }
 
-    void TakeDamage(int damage)
+    void onDisable() {
+        WeaponBase.onWeaponTriggerHit -= TakeDamage;
+    }
+
+    void TakeDamage(float damage)
     {
-        currentHealth -= damage;
+        currentHealth -= (int)Math.Round(damage);
 
         EnemyHealthbar.SetHealth(currentHealth);
     }

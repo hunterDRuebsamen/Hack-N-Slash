@@ -36,6 +36,7 @@ public class EnemyBehavior : MonoBehaviour
         target = GameObject.FindWithTag("Player"); // find the player game object and target him
     }
 
+
     // Update is called once per frame
     void Update()
     {
