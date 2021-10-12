@@ -9,9 +9,9 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField, Tooltip("Takes the x position of the player or GameManager as a whole to determine where the enemy is spawned")]
     public float fromPlayer; //= transform.position.x
    [SerializeField, Tooltip("The maximum number of enemies that will appear")]
-    public float enemyLimit ;
+    public int enemyLimit ;
     [Tooltip("The current amount of enemies on screen")]
-    private float enemyCounter = 0;
+    private int enemyCounter = 0;
     [SerializeField, Tooltip("How much time should occur between spawns")]
     public float spawnTime;
     [SerializeField, Tooltip("Store the time taken inbetween spawns and tells the system when to spawn an enemy")]
