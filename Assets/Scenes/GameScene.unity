@@ -1685,9 +1685,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6435031237716441508, guid: 8aa7b1e53e8cf4f47a54008408471bc6, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7656498296597040370, guid: 8aa7b1e53e8cf4f47a54008408471bc6, type: 3}
       propertyPath: m_Name
       value: PlayerV4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7656498296597040370, guid: 8aa7b1e53e8cf4f47a54008408471bc6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7833475100808334977, guid: 8aa7b1e53e8cf4f47a54008408471bc6, type: 3}
       propertyPath: dodgeCoolDownTime

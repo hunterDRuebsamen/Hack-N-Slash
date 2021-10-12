@@ -137,12 +137,11 @@ public class PlayerMovement : MonoBehaviour
             if (colliderDistance.isOverlapped)
             {
                 transform.Translate(colliderDistance.pointA - colliderDistance.pointB);
-                if(hit.tag == "Enemy"){ // 
-                    onPlayerTriggerHit?.Invoke();
-                }
             }
         }
     }
+
+ 
  
     /*
     This function freezes the character's ability to dodge after a given number of dodges. 
