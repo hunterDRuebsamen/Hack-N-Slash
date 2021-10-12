@@ -10,8 +10,8 @@ public class EnemySpawner : MonoBehaviour
     public float fromPlayer; //= transform.position.x
    [SerializeField, Tooltip("The maximum number of enemies that will appear")]
     public float enemyLimit ;
-    [ Tooltip("The current amount of enemies on screen")]
-    private float enemyCount = 0;
+    [Tooltip("The current amount of enemies on screen")]
+    private float enemyCounter = 0;
     [SerializeField, Tooltip("How much time should occur between spawns")]
     public float spawnTime;
     [SerializeField, Tooltip("Store the time taken inbetween spawns and tells the system when to spawn an enemy")]
@@ -19,11 +19,15 @@ public class EnemySpawner : MonoBehaviour
 
     private void Update()
     {
-        if (btwSpawns <= 0 && enemyCount < enemyLimit)
+        if (btwSpawns <= 0 && enemyCounter < enemyLimit)
         {
-            Instantiate(enemyPrefab1, new Vector3(fromPlayer + 10, 0, 0) , Quaternion.identity);
+            for(int enemyCount = 0; enemyCount < enemyLimit; enemyCount++)
+            {
+                Instantiate(enemyPrefab1, new Vector3(fromPlayer + 10, Random.Range(0,4), 0), Quaternion.identity);
+            }
+            
             btwSpawns = spawnTime;
-            enemyCount += 1;
+            enemyCounter += enemyLimit;
         }
         else
         {
