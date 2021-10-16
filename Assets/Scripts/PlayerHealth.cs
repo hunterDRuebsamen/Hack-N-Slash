@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,8 @@ public class PlayerHealth : MonoBehaviour
 
     public HealthBar healthBar;
 
+    public static event Action onPlayerDeath;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,19 +20,34 @@ public class PlayerHealth : MonoBehaviour
         healthBar.SetMaxHealth(maxHealth);
     }
 
-    // Update is called once per frame
-    void Update()
+    // Watches for when the enemy gets hit
+    private void OnEnable() 
+    { 
+        EnemyBehavior.onPlayerDamaged += playerHit;
+        //PlayerMovement.onPlayerTriggerHit += playerHit;
+    } 
+    private void onDisable() 
     {
-        if (Input.GetKeyDown("l"))
-        {
-            TakeDamage(5);
-        }
-    }
+        EnemyBehavior.onPlayerDamaged -= playerHit;
+        //PlayerMovement.onPlayerTriggerHit -= playerHit;
+    } 
 
-    void TakeDamage(int damage)
+    // when we receive the playerHit event, we take damage
+    void playerHit(float damage)
     {
-        currentHealth -= damage;
+        currentHealth -= (int)Math.Round(damage);
 
         healthBar.SetHealth(currentHealth);
+
+        Debug.Log("Player Health: " + currentHealth);
+
+        if(currentHealth <= 0) {
+            onPlayerDeath?.Invoke();
+            Debug.Log("Player has died");
+            //Destroy();
+        }
+
     }
+
+
 }
