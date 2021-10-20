@@ -44,7 +44,6 @@ public class PlayerHealth : MonoBehaviour
         if(currentHealth <= 0) {
             onPlayerDeath?.Invoke();
             Debug.Log("Player has died");
-            //Destroy();
         }
 
     }
