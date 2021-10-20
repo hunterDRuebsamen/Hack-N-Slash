@@ -21,16 +21,16 @@ public class EnemySpawner : MonoBehaviour
     }
 
     void OnEnable() {
-        EnemyBase.onEnemyDeath += enemySubtractor;
+        EnemyBase.onEnemyDeath += enemyDeath;
         PlayerHealth.onPlayerDeath += playerDeath;
     }
 
     void OnDisable() {
-        EnemyBase.onEnemyDeath -= enemySubtractor;
+        EnemyBase.onEnemyDeath -= enemyDeath;
         PlayerHealth.onPlayerDeath += playerDeath;
     }
 
-    private void enemySubtractor(GameObject gO) {
+    private void enemyDeath(GameObject gO) {
         numEnemies--;
     }
 
