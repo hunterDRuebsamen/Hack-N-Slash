@@ -14,9 +14,11 @@ public class EnemySpawner : MonoBehaviour
 
     private int numEnemies = 0;
     private bool _stopSpawn = false;
+    private GameObject player;
 
     void Start() 
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         StartCoroutine(SpawnRoutine());
     }
 
@@ -46,7 +48,7 @@ public class EnemySpawner : MonoBehaviour
             yield return new WaitForSeconds(spawnTime);
             if (numEnemies < maxEnemies) 
             {
-                float _xSpawnPos = spawnDist + Mathf.Round(Random.Range(-4f,4f) * 10) / 10;
+                float _xSpawnPos = player.transform.position.x + spawnDist + Mathf.Round(Random.Range(-4f,4f) * 10) / 10;
                 float _ySpawnPos = Random.Range(0f,4f);
 
                 // spawn a new enemy
