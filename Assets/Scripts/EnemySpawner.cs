@@ -1,17 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField, Tooltip("The enemies that will be spawned")]
-    public GameObject enemyPrefab1;
+    public GameObject enemyPrefab;
     [SerializeField, Tooltip("Takes the x position of the player or GameManager as a whole to determine where the enemy is spawned")]
-    public float fromPlayer; //= transform.position.x
-   [SerializeField, Tooltip("The maximum number of enemies that will appear")]
-    public int enemyLimit ;
+    public float spawnDist; //= transform.position.x
+    [SerializeField, Tooltip("The maximum number of enemies that will appear")]
+    public int maxEnemies;
     [Tooltip("The current amount of enemies on screen")]
-    private int enemyCounter = 0;
+    private int numEnemies = 0;
     [SerializeField, Tooltip("How much time should occur between spawns")]
     public float spawnTime;
     [SerializeField, Tooltip("Store the time taken inbetween spawns and tells the system when to spawn an enemy")]
@@ -27,15 +25,15 @@ public class EnemySpawner : MonoBehaviour
 
     private void Update()
     {
-        if (btwSpawns <= 0 && enemyCounter < enemyLimit)
+        if (btwSpawns <= 0 && numEnemies < maxEnemies)
         {
-            for(int enemyCount = 0; enemyCount < enemyLimit; enemyCount++)
+            for(int enemyCount = 0; enemyCount < maxEnemies; enemyCount++)
             {
-                Instantiate(enemyPrefab1, new Vector3(fromPlayer + 10, Random.Range(0,4), 0), Quaternion.identity);
+                Instantiate(enemyPrefab, new Vector3(spawnDist + 10, Random.Range(0,4), 0), Quaternion.identity);
 
             }
             btwSpawns = spawnTime;
-            enemyCounter += enemyLimit;
+            numEnemies += maxEnemies;
         }
         else
         {
@@ -44,6 +42,6 @@ public class EnemySpawner : MonoBehaviour
     }
 
     private void enemySubtractor(GameObject gO) {
-        enemyCounter--;
+        numEnemies--;
     }
 }
