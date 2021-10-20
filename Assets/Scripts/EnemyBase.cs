@@ -18,6 +18,7 @@ public class EnemyBase : MonoBehaviour
     void Start()
     {
         enemyWeapon = transform.GetChild(0).GetComponent<BoxCollider2D>();
+        rigidBody = GetComponent<Rigidbody2D>();
     }
     private void OnEnable() { // Watches for when the enemy gets hit
         WeaponBase.onWeaponTriggerHit += onEnemyHit;
@@ -40,7 +41,7 @@ public class EnemyBase : MonoBehaviour
     }
 
     // This function adds a fake force to a Kinematic body
-    IEnumerator FakeAddForceMotion(float forceAmount)
+    public IEnumerator FakeAddForceMotion(float forceAmount)
     {
         float i = 0.01f;
         while (forceAmount > i)

@@ -140,6 +140,8 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+
+ 
  
     /*
     This function freezes the character's ability to dodge after a given number of dodges. 

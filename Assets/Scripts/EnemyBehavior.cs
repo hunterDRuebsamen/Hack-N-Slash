@@ -9,9 +9,11 @@ public class EnemyBehavior : MonoBehaviour
     [SerializeField, Tooltip("Attack damage")]
     public float damage = 1f;
     [SerializeField, Tooltip("Attack distance")]
-    private const float attackDist = 2.5f;
+    private float attackDist = 3.5f;
     [SerializeField, Tooltip("Attack cooldown in seconds")]
     float cooldown = 5f;
+    [SerializeField, Tooltip("Parry knockback")]
+    float parryKnockback = 0.5f;
 
     private GameObject target;
     private CapsuleCollider2D capsuleCollider;
@@ -26,16 +28,24 @@ public class EnemyBehavior : MonoBehaviour
     public static event Action<float> onPlayerDamaged;
     public static event Action onAttack;
 
+    private EnemyBase enemyBase;
+
     void Awake()
     {
+        enemyBase = GetComponent<EnemyBase>();
         capsuleCollider = GetComponent<CapsuleCollider2D>();
         enemyBodySprite = GetComponent<SpriteRenderer>();
         attackAnimation = transform.GetChild(0).GetComponent<Animation>();
         weaponGameObject = transform.GetChild(0).gameObject;  // grab first child gameobject
 
-        target = GameObject.Find("PlayerV2"); // find the player game object and target him
+        target = GameObject.FindWithTag("Player"); // find the player game object and target him
     }
-
+    void OnEnable() {
+        WeaponBase.parriedEvent += attackParried;
+    }
+    void OnDisable() {
+        WeaponBase.parriedEvent -= attackParried;
+    }
 
     // Update is called once per frame
     void Update()
@@ -118,5 +128,12 @@ public class EnemyBehavior : MonoBehaviour
     public void damagePlayerEvent() {
         // send the onPlayerDamaged event.  This public function can be called from the EnemyBaseWeapon script
         onPlayerDamaged?.Invoke(getWeaponDamage());
+    }
+
+    public void attackParried() {
+        // send the onparried event.  This public function can be called from the EnemyBaseWeapon script
+        Debug.Log("Parried");
+        isAttacking = false;
+        StartCoroutine(enemyBase.FakeAddForceMotion(parryKnockback));
     }
 }

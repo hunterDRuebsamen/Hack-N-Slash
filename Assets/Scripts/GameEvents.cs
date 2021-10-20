@@ -10,7 +10,7 @@ public class GameEvents : MonoBehaviour
         WeaponBase.onWeaponTriggerHit += weaponHit;
         //PlayerMovement.onPlayerTriggerHit += playerHit;
     } 
-    private void onDisable() {
+    private void OnDisable() {
         EnemyBehavior.onPlayerDamaged -= playerHit;
         WeaponBase.onWeaponTriggerHit -= weaponHit;
         //PlayerMovement.onPlayerTriggerHit -= playerHit;
