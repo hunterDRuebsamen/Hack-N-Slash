@@ -18,11 +18,11 @@ public class EnemySpawner : MonoBehaviour
     private float btwSpawns;
 
     void OnEnable() {
-        EnemyBase.onEnemyDeath += enemySubtractor(enemyPrefab1);
+        EnemyBase.onEnemyDeath += enemySubtractor;
     }
 
     void OnDisable() {
-        EnemyBase.onEnemyDeath -= enemySubtractor(enemyPrefab1);
+        EnemyBase.onEnemyDeath -= enemySubtractor;
     }
 
     private void Update()
