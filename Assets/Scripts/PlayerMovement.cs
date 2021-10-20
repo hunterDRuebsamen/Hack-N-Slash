@@ -40,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
     private float mulFactor = 1;
     private CapsuleCollider2D capsuleCollider;
     private Vector2 velocity;
-    public static event Action onPlayerTriggerHit;
+    public static event Action<float> onPlayerTriggerHit;
  
     private void Awake()
     {      
@@ -137,9 +137,6 @@ public class PlayerMovement : MonoBehaviour
             if (colliderDistance.isOverlapped)
             {
                 transform.Translate(colliderDistance.pointA - colliderDistance.pointB);
-                if(hit.tag == "Enemy"){ // 
-                    onPlayerTriggerHit?.Invoke();
-                }
             }
         }
     }
