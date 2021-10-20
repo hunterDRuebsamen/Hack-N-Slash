@@ -46,7 +46,7 @@ public class EnemySpawner : MonoBehaviour
             yield return new WaitForSeconds(spawnTime);
             if (numEnemies < maxEnemies) 
             {
-                float _xSpawnPos = spawnDist + Mathf.Round(Random.Range(-9f,9f) * 10) / 10;
+                float _xSpawnPos = spawnDist + Mathf.Round(Random.Range(-4f,4f) * 10) / 10;
                 float _ySpawnPos = Random.Range(0f,4f);
 
                 // spawn a new enemy
