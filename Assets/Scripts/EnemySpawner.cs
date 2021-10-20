@@ -14,13 +14,21 @@ public class EnemySpawner : MonoBehaviour
     public float spawnTime;
     [SerializeField, Tooltip("Store the time taken inbetween spawns and tells the system when to spawn an enemy")]
     private float btwSpawns;
+    private bool isPlayerAlive = true;
+
+    void Start() 
+    {
+
+    }
 
     void OnEnable() {
         EnemyBase.onEnemyDeath += enemySubtractor;
+        PlayerHealth.onPlayerDeath += playerDeath;
     }
 
     void OnDisable() {
         EnemyBase.onEnemyDeath -= enemySubtractor;
+        PlayerHealth.onPlayerDeath += playerDeath;
     }
 
     private void Update()
@@ -43,5 +51,10 @@ public class EnemySpawner : MonoBehaviour
 
     private void enemySubtractor(GameObject gO) {
         numEnemies--;
+    }
+
+    private void playerDeath() {
+        // record when player dies, so we no longer spawn enemies
+        isPlayerAlive = false;
     }
 }
