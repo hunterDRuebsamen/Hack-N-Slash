@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -8,17 +9,15 @@ public class EnemySpawner : MonoBehaviour
     public float spawnDist; //= transform.position.x
     [SerializeField, Tooltip("The maximum number of enemies that will appear")]
     public int maxEnemies;
-    [Tooltip("The current amount of enemies on screen")]
-    private int numEnemies = 0;
     [SerializeField, Tooltip("How much time should occur between spawns")]
     public float spawnTime;
-    [SerializeField, Tooltip("Store the time taken inbetween spawns and tells the system when to spawn an enemy")]
-    private float btwSpawns;
-    private bool isPlayerAlive = true;
+
+    private int numEnemies = 0;
+    private bool _stopSpawn = false;
 
     void Start() 
     {
-
+        StartCoroutine(SpawnRoutine());
     }
 
     void OnEnable() {
@@ -31,30 +30,29 @@ public class EnemySpawner : MonoBehaviour
         PlayerHealth.onPlayerDeath += playerDeath;
     }
 
-    private void Update()
-    {
-        if (btwSpawns <= 0 && numEnemies < maxEnemies)
-        {
-            for(int enemyCount = 0; enemyCount < maxEnemies; enemyCount++)
-            {
-                Instantiate(enemyPrefab, new Vector3(spawnDist + 10, Random.Range(0,4), 0), Quaternion.identity);
-
-            }
-            btwSpawns = spawnTime;
-            numEnemies += maxEnemies;
-        }
-        else
-        {
-            btwSpawns -= Time.deltaTime;
-        }
-    }
-
     private void enemySubtractor(GameObject gO) {
         numEnemies--;
     }
 
     private void playerDeath() {
         // record when player dies, so we no longer spawn enemies
-        isPlayerAlive = false;
+        _stopSpawn = true;
+    }
+
+    private IEnumerator SpawnRoutine()
+    {
+        while (_stopSpawn == false) 
+        {
+            yield return new WaitForSeconds(spawnTime);
+            if (numEnemies < maxEnemies) 
+            {
+                float _xSpawnPos = spawnDist + Mathf.Round(Random.Range(-9f,9f) * 10) / 10;
+                float _ySpawnPos = Random.Range(0f,4f);
+
+                // spawn a new enemy
+                Instantiate(enemyPrefab, new Vector3(_xSpawnPos, _ySpawnPos, 0), Quaternion.identity);
+                numEnemies++;
+            }
+        }
     }
 }
