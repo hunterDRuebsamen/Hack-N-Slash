@@ -8,7 +8,7 @@ public class EnemySpawner : MonoBehaviour
     public GameObject enemyPrefab1;
     [SerializeField, Tooltip("Takes the x position of the player or GameManager as a whole to determine where the enemy is spawned")]
     public float fromPlayer; //= transform.position.x
-   [SerializeField, Tooltip("The maximum number of enemies that will appear")]
+    [SerializeField, Tooltip("The maximum number of enemies that will appear")]
     public int enemyLimit ;
     [Tooltip("The current amount of enemies on screen")]
     private int enemyCounter = 0;
