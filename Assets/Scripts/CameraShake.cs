@@ -19,9 +19,11 @@ public class CameraShake : MonoBehaviour
             float x = Random.Range(-1f, 1f) * mag;
             float y = Random.Range(-1f, 1f) * mag;
 
+            Debug.Log("Camera should be shaking");
             transform.localPosition = new Vector3(x, y, Original_position.x);
             elapsed_Time += Time.deltaTime;
         }
+        Debug.Log("Camera should be reset to original position");
         transform.localPosition = Original_position;
     }
 
