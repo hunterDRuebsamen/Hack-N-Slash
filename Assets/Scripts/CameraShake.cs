@@ -1,33 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 
 public class CameraShake : MonoBehaviour
 {
     [SerializeField, Tooltip("Intensity of Camera Shake")]
-    float maganitude = 0.5f;
+    float shakeIntensity = 0.5f;
     [SerializeField, Tooltip("Duration of Camera Shake")]
-    float duration_Time = 0.25f;
+    float shakeDuration = 5.25f;
 
-    void Shake(float duration, float mag)
-    {
-        Vector3 Original_position = transform.localPosition;
-        float elapsed_Time = 0.0f;
+    const float shakeAmplitude = 2.0f;
+    CinemachineVirtualCamera vcam;
+    CinemachineBasicMultiChannelPerlin noise;
 
-        while (elapsed_Time < duration)
-        {
-            float x = Random.Range(-1f, 1f) * mag;
-            float y = Random.Range(-1f, 1f) * mag;
-
-            transform.localPosition = new Vector3(x, y, Original_position.x);
-            elapsed_Time += Time.deltaTime;
-        }
-        transform.localPosition = Original_position;
+    void Start() {
+        vcam = GameObject.Find("CM vcam1").GetComponent<CinemachineVirtualCamera>();
+        noise = vcam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin> ();
     }
 
-    void Shake_event(GameObject x)
+    private IEnumerator Shake()
     {
-        Shake(duration_Time, maganitude);
+        //Shake(shakeDuration, shakeIntensity);
+        Debug.Log("Camera SHake");
+        Noise(shakeAmplitude,shakeIntensity);
+        yield return new WaitForSeconds(shakeDuration);
+        Noise(0,0);
+    }
+
+    private void Noise(float amplitudeGain, float frequencyGain) {
+        noise.m_AmplitudeGain = amplitudeGain;
+        noise.m_FrequencyGain = frequencyGain;    
+    }
+    private void Shake_event(GameObject x)
+    {
+        StartCoroutine(Shake());
     }
 
     private void OnEnable()
