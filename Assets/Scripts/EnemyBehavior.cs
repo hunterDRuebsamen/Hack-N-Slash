@@ -130,10 +130,12 @@ public class EnemyBehavior : MonoBehaviour
         onPlayerDamaged?.Invoke(getWeaponDamage());
     }
 
-    public void attackParried() {
+    public void attackParried(GameObject enemyObject) {
         // send the onparried event.  This public function can be called from the EnemyBaseWeapon script
-        Debug.Log("Parried");
-        StartCoroutine(AttackCoolDown(cooldown));
-        StartCoroutine(enemyBase.FakeAddForceMotion(parryKnockback));
+        if (this.gameObject == enemyObject) {
+            Debug.Log("Parried");
+            StartCoroutine(AttackCoolDown(cooldown));
+            StartCoroutine(enemyBase.FakeAddForceMotion(parryKnockback));
+        }
     }
 }

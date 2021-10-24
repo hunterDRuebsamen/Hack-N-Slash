@@ -16,7 +16,7 @@ public class WeaponBase : MonoBehaviour
 
     //Event for weapon hit
     public static event Action<float, GameObject> onEnemyDamaged;
-    public static event Action parriedEvent;
+    public static event Action<GameObject> parriedEvent;
 
     void Start()
     {
@@ -37,7 +37,7 @@ public class WeaponBase : MonoBehaviour
             StartCoroutine(AttackCoolDown(coolDownTimer));
         } else if (col.tag == "EnemyWeapon") {
             if(rb.velocity.magnitude >= 5.5f) {
-                parriedEvent?.Invoke();
+                parriedEvent?.Invoke(col.gameObject);
                 Debug.Log("Parried attack");
             }
         }    

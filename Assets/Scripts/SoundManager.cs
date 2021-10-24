@@ -48,7 +48,7 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    private void onParry() 
+    private void onParry(GameObject enemyObject) 
     {
         audioSource.PlayOneShot(parrySound);
     }
