@@ -42,6 +42,15 @@ public class WeaponBase : MonoBehaviour
             }
         }    
     }
+
+    private void OnTriggerExit2D(Collider2D col) {
+        if (col.tag == "Enemy")
+        {
+            // We pulled our sword out of the enemy, we can attack again
+            canAttack = true;
+        }
+    }
+
     //Attack cool down timer for player
     IEnumerator AttackCoolDown(float time) { 
         yield return new WaitForSeconds(time);     // wait for time seconds until attacks register again
