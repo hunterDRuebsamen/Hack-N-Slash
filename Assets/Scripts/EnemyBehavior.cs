@@ -24,6 +24,7 @@ public class EnemyBehavior : MonoBehaviour
     private const float weaponXpos = 0.68f;
 
     private bool canAttack = true; 
+    private bool canDamage = true;
 
     public static event Action<float> onPlayerDamaged;
     public static event Action onAttack;
@@ -112,13 +113,14 @@ public class EnemyBehavior : MonoBehaviour
             canAttack = false;
             yield return new WaitForSeconds(time);     // wait for 3 seconds until enemy can attack again
             canAttack = true;
+            canDamage = true;
         }
     }
 
     // accessor function for the isAttacking bool
     public bool isEnemyAttacking() 
     {
-        return attackAnimation.isPlaying;
+        return (canDamage && attackAnimation.isPlaying);
     }
 
     public float getWeaponDamage() {
@@ -128,12 +130,16 @@ public class EnemyBehavior : MonoBehaviour
     public void damagePlayerEvent() {
         // send the onPlayerDamaged event.  This public function can be called from the EnemyBaseWeapon script
         onPlayerDamaged?.Invoke(getWeaponDamage());
+        // dont damage player immediately again.
+        canDamage = false;
+        StartCoroutine(AttackCoolDown(cooldown));
     }
 
     public void attackParried(GameObject enemyObject) {
         // send the onparried event.  This public function can be called from the EnemyBaseWeapon script
         if (this.gameObject == enemyObject) {
             Debug.Log("Parried");
+            canDamage = false;
             StartCoroutine(AttackCoolDown(cooldown));
             StartCoroutine(enemyBase.FakeAddForceMotion(parryKnockback));
         }
