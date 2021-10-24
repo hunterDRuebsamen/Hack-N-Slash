@@ -393,8 +393,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81bd941371862d99c8e1bc45580983b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectSource1: {fileID: 357204807}
-  hitImpactClip: {fileID: 8300000, guid: cad2ab9da8318827198f0f9e23100a1f, type: 3}
+  playerHitSound: {fileID: 8300000, guid: cefea3f68848a589397a3338964c9c24, type: 3}
+  parrySound: {fileID: 8300000, guid: 1366c8706ffa17ba88dc459175f7ac8a, type: 3}
+  enemyHitSound: {fileID: 8300000, guid: cad2ab9da8318827198f0f9e23100a1f, type: 3}
 --- !u!82 &357204807
 AudioSource:
   m_ObjectHideFlags: 0
