@@ -23,7 +23,7 @@ public class EnemyBehavior : MonoBehaviour
 
     private const float weaponXpos = 0.68f;
 
-    private bool isAttacking; 
+    private bool canAttack = true; 
 
     public static event Action<float> onPlayerDamaged;
     public static event Action onAttack;
@@ -95,7 +95,7 @@ public class EnemyBehavior : MonoBehaviour
         {
             //Debug.Log("attack");
             // attack the player
-            if (!isAttacking) {
+            if (canAttack) {
                 attackAnimation.Play();
                 onAttack?.Invoke();
             }
@@ -107,18 +107,18 @@ public class EnemyBehavior : MonoBehaviour
     }
 
     IEnumerator AttackCoolDown(float time) { 
-        if (!isAttacking) 
+        if (canAttack) 
         {
-            isAttacking = true;
-            yield return new WaitForSeconds(time);     // wait for 3 seconds until you can dodge
-            isAttacking = false;
+            canAttack = false;
+            yield return new WaitForSeconds(time);     // wait for 3 seconds until enemy can attack again
+            canAttack = true;
         }
     }
 
     // accessor function for the isAttacking bool
     public bool isEnemyAttacking() 
     {
-        return isAttacking;
+        return attackAnimation.isPlaying;
     }
 
     public float getWeaponDamage() {
@@ -133,7 +133,7 @@ public class EnemyBehavior : MonoBehaviour
     public void attackParried() {
         // send the onparried event.  This public function can be called from the EnemyBaseWeapon script
         Debug.Log("Parried");
-        isAttacking = false;
+        StartCoroutine(AttackCoolDown(cooldown));
         StartCoroutine(enemyBase.FakeAddForceMotion(parryKnockback));
     }
 }
