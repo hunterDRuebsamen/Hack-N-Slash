@@ -13,6 +13,8 @@ public class SoundManager : MonoBehaviour
     AudioClip parrySound;
     [SerializeField]
     AudioClip enemyHitSound;
+    [SerializeField]
+    AudioClip playerDeathSound;
 
     // Start is called before the first frame updat
     private void Start() 
@@ -25,11 +27,13 @@ public class SoundManager : MonoBehaviour
         EnemyBehavior.onPlayerDamaged += onPlayerHit;
         WeaponBase.parriedEvent += onParry;
         WeaponBase.onEnemyDamaged += onEnemyHit;
+        PlayerHealth.onPlayerDeath += onPlayerDeath;
     } 
     private void onDisable() {
         EnemyBehavior.onPlayerDamaged -= onPlayerHit;
         WeaponBase.parriedEvent -= onParry;
-        WeaponBase.onEnemyDamaged += onEnemyHit;
+        WeaponBase.onEnemyDamaged -= onEnemyHit;
+        PlayerHealth.onPlayerDeath -= onPlayerDeath;
     } 
 
     private void onPlayerHit(float dmg)
@@ -45,5 +49,9 @@ public class SoundManager : MonoBehaviour
     private void onEnemyHit(float dmg, GameObject enemyObject) 
     {
         audioSource.PlayOneShot(enemyHitSound);
+    }
+
+    private void onPlayerDeath() {
+        audioSource.PlayOneShot(playerDeathSound);
     }
 }
