@@ -28,27 +28,21 @@ public class WeaponBase : MonoBehaviour
         // check to see what we just got hit with
         if (col.tag == "Enemy")
         {
-            //Calculate the damage based on velocity
-            float vel = rb.velocity.magnitude;
-            float damage = vel * damageFactor;
-            Debug.Log("Wepaon hit damage: "+damage);
-            onEnemyDamaged?.Invoke(damage, col.gameObject);
-            canAttack = false;
-            StartCoroutine(AttackCoolDown(coolDownTimer));
+            if (canAttack) {
+                //Calculate the damage based on velocity
+                float vel = rb.velocity.magnitude;
+                float damage = vel * damageFactor;
+                Debug.Log("Wepaon hit damage: "+damage);
+                onEnemyDamaged?.Invoke(damage, col.gameObject);
+                canAttack = false;
+                StartCoroutine(AttackCoolDown(coolDownTimer));
+            }
         } else if (col.tag == "EnemyWeapon") {
             if(rb.velocity.magnitude >= 5.5f) {
                 parriedEvent?.Invoke(col.gameObject);
                 Debug.Log("Parried attack");
             }
         }    
-    }
-
-    private void OnTriggerExit2D(Collider2D col) {
-        if (col.tag == "Enemy")
-        {
-            // We pulled our sword out of the enemy, we can attack again
-            canAttack = true;
-        }
     }
 
     //Attack cool down timer for player

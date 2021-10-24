@@ -512,6 +512,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageFactor: 2
+  coolDownTimer: 0.3
   Name: Arm
 --- !u!61 &1935135788510222276
 BoxCollider2D:
