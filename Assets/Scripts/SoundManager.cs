@@ -4,25 +4,46 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    [SerializeField]
-    AudioSource effectSource1;
+
+    private AudioSource audioSource;
 
     [SerializeField]
-    AudioClip hitImpactClip;
+    AudioClip playerHitSound;
+    [SerializeField]
+    AudioClip parrySound;
+    [SerializeField]
+    AudioClip enemyHitSound;
 
     // Start is called before the first frame updat
+    private void Start() 
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     // Register events to listen for
     private void OnEnable() { // Watches for when the enemy gets hit
         EnemyBehavior.onPlayerDamaged += onPlayerHit;
+        WeaponBase.parriedEvent += onParry;
+        WeaponBase.onEnemyDamaged += onEnemyHit;
     } 
     private void onDisable() {
         EnemyBehavior.onPlayerDamaged -= onPlayerHit;
+        WeaponBase.parriedEvent -= onParry;
+        WeaponBase.onEnemyDamaged += onEnemyHit;
     } 
 
     private void onPlayerHit(float dmg)
     {
-        //Debug.Log("play auido");
-        effectSource1.PlayOneShot(hitImpactClip);
+        audioSource.PlayOneShot(playerHitSound);
+    }
+
+    private void onParry() 
+    {
+        audioSource.PlayOneShot(parrySound);
+    }
+
+    private void onEnemyHit(float dmg) 
+    {
+        audioSource.PlayOneShot(enemyHitSound);
     }
 }

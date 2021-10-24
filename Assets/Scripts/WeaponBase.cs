@@ -30,13 +30,15 @@ public class WeaponBase : MonoBehaviour
             //Calculate the damage based on velocity
             float vel = rb.velocity.magnitude;
             float damage = vel * damageFactor;
-            //Debug.Log("Wepaon hit damage: "+damage);
+            Debug.Log("Wepaon hit damage: "+damage);
             onEnemyDamaged?.Invoke(damage);
             canAttack = false;
             StartCoroutine(AttackCoolDown(coolDownTimer));
         } else if (col.tag == "EnemyWeapon") {
-            if(rb.velocity.magnitude >= 5.5f)
+            if(rb.velocity.magnitude >= 5.5f) {
                 parriedEvent?.Invoke();
+                Debug.Log("Parried attack");
+            }
         }    
     }
     //Attack cool down timer for player
