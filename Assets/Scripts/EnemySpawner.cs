@@ -18,7 +18,7 @@ public class EnemySpawner : MonoBehaviour
 
     void Start() 
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = FindObjectOfType<PlayerHealth>().gameObject;
         StartCoroutine(SpawnRoutine());
     }
 

@@ -1870,7 +1870,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5328140722330894976, guid: 8aa7b1e53e8cf4f47a54008408471bc6, type: 3}
       propertyPath: coolDownTimer
-      value: 5
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 6435031237716441508, guid: 8aa7b1e53e8cf4f47a54008408471bc6, type: 3}
       propertyPath: m_Enabled
