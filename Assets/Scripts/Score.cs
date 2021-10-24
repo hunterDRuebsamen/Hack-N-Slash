@@ -15,7 +15,7 @@ public class Score : MonoBehaviour
        WeaponBase.onEnemyDamaged -= changeScore;
    }
 
-   void changeScore(float damage) {
+   void changeScore(float damage, GameObject enemyObject) {
        scoreValue++;
        string result = "Score: " + scoreValue;
        score.text = result;

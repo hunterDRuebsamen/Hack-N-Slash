@@ -13,7 +13,7 @@ public class GameEvents : MonoBehaviour
         EnemyBehavior.onPlayerDamaged -= playerHit;
         WeaponBase.onEnemyDamaged -= enemyHit;
     } 
-    private void enemyHit(float damage) {
+    private void enemyHit(float damage, GameObject enemyObject) {
         Debug.Log("Enemy has been hit for: "+ damage);
     }
     private void playerHit(float damage) {

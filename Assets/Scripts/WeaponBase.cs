@@ -7,14 +7,15 @@ public class WeaponBase : MonoBehaviour
 {
     [SerializeField]
     private float damageFactor = 0.5f;
-    private float coolDownTimer = 0.5f;
     [SerializeField]
+    private float coolDownTimer = 0.3f;
+    [SerializeField, Tooltip("Player Attack cooldown in seconds")]
     private string Name;
     private bool canAttack = true;
     private Rigidbody2D rb; 
 
     //Event for weapon hit
-    public static event Action<float> onEnemyDamaged;
+    public static event Action<float, GameObject> onEnemyDamaged;
     public static event Action parriedEvent;
 
     void Start()
@@ -31,7 +32,7 @@ public class WeaponBase : MonoBehaviour
             float vel = rb.velocity.magnitude;
             float damage = vel * damageFactor;
             Debug.Log("Wepaon hit damage: "+damage);
-            onEnemyDamaged?.Invoke(damage);
+            onEnemyDamaged?.Invoke(damage, col.gameObject);
             canAttack = false;
             StartCoroutine(AttackCoolDown(coolDownTimer));
         } else if (col.tag == "EnemyWeapon") {
