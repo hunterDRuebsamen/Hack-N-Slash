@@ -28,7 +28,7 @@ public class EnemyHealth : MonoBehaviour
     void TakeDamage(float damage, GameObject enemyObject)
     {
         // check to see if this enemy is the one taking damage
-        if (this.gameObject == enemyObject) {
+        if (this != null && transform.parent.parent.gameObject == enemyObject) {
             currentHealth -= (int)Math.Round(damage);
 
             EnemyHealthbar.SetHealth(currentHealth);

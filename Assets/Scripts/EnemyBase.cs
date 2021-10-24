@@ -31,7 +31,7 @@ public class EnemyBase : MonoBehaviour
     private void onEnemyHit(float damage, GameObject enemyObject) 
     {
         // check to see if the enemy that was hit is this enemy.
-        if (this.gameObject == enemyObject) {
+        if (this != null && this.gameObject == enemyObject) {
             health -= (int)Math.Round(damage);
             if(health <= 0) {
                 onEnemyDeath?.Invoke(this.gameObject);
