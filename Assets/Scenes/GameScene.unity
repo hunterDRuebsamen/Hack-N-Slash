@@ -1822,18 +1822,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2306242846613288159, guid: 8aa7b1e53e8cf4f47a54008408471bc6, type: 3}
-      propertyPath: m_MaxForce
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 2306242846613288159, guid: 8aa7b1e53e8cf4f47a54008408471bc6, type: 3}
-      propertyPath: m_Frequency
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2306242846613288159, guid: 8aa7b1e53e8cf4f47a54008408471bc6, type: 3}
-      propertyPath: m_DampingRatio
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 4236872622929869991, guid: 8aa7b1e53e8cf4f47a54008408471bc6, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1900,7 +1888,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8664510857723180908, guid: 8aa7b1e53e8cf4f47a54008408471bc6, type: 3}
       propertyPath: m_AngleLimits.m_LowerAngle
-      value: 180
+      value: 269.9999
       objectReference: {fileID: 0}
     - target: {fileID: 8664510857723180908, guid: 8aa7b1e53e8cf4f47a54008408471bc6, type: 3}
       propertyPath: m_AngleLimits.m_UpperAngle
