@@ -15,11 +15,15 @@ public class SoundManager : MonoBehaviour
     AudioClip enemyHitSound;
     [SerializeField]
     AudioClip playerDeathSound;
+    AudioClip heartbeatSound;
+
+    private PlayerHealth phObject;
 
     // Start is called before the first frame updat
     private void Start() 
     {
         audioSource = GetComponent<AudioSource>();
+        phObject = FindObjectOfType<PlayerHealth>();
     }
 
     // Register events to listen for
@@ -39,6 +43,9 @@ public class SoundManager : MonoBehaviour
     private void onPlayerHit(float dmg)
     {
         audioSource.PlayOneShot(playerHitSound);
+        if (phObject.currentHealth > 0 && phObject.currentHealth <= 35) {
+            audioSource.Play(); // play heartbeat
+        }
     }
 
     private void onParry() 
@@ -52,6 +59,7 @@ public class SoundManager : MonoBehaviour
     }
 
     private void onPlayerDeath() {
+        audioSource.Stop(); // stop heartbeat
         audioSource.PlayOneShot(playerDeathSound);
     }
 }
