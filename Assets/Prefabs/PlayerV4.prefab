@@ -484,9 +484,9 @@ TargetJoint2D:
   m_Anchor: {x: 0.012171745, y: 1.9427538}
   m_Target: {x: 0, y: 0}
   m_AutoConfigureTarget: 0
-  m_MaxForce: 100
+  m_MaxForce: 250
   m_DampingRatio: 0.15
-  m_Frequency: 0.5
+  m_Frequency: 0.65
 --- !u!114 &6599629119253940367
 MonoBehaviour:
   m_ObjectHideFlags: 0
