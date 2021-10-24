@@ -396,6 +396,7 @@ MonoBehaviour:
   playerHitSound: {fileID: 8300000, guid: cefea3f68848a589397a3338964c9c24, type: 3}
   parrySound: {fileID: 8300000, guid: 1366c8706ffa17ba88dc459175f7ac8a, type: 3}
   enemyHitSound: {fileID: 8300000, guid: cad2ab9da8318827198f0f9e23100a1f, type: 3}
+  playerDeathSound: {fileID: 8300000, guid: f8566c1903b21263f95dbda0547ae24c, type: 3}
 --- !u!82 &357204807
 AudioSource:
   m_ObjectHideFlags: 0
