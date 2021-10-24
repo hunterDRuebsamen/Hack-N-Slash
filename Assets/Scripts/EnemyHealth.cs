@@ -18,11 +18,11 @@ public class EnemyHealth : MonoBehaviour
     }
 
     void OnEnable() {
-        WeaponBase.onWeaponTriggerHit += TakeDamage;
+        WeaponBase.onEnemyDamaged += TakeDamage;
     }
 
     void onDisable() {
-        WeaponBase.onWeaponTriggerHit -= TakeDamage;
+        WeaponBase.onEnemyDamaged -= TakeDamage;
     }
 
     void TakeDamage(float damage)

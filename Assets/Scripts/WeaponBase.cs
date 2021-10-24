@@ -14,7 +14,7 @@ public class WeaponBase : MonoBehaviour
     private Rigidbody2D rb; 
 
     //Event for weapon hit
-    public static event Action<float> onWeaponTriggerHit;
+    public static event Action<float> onEnemyDamaged;
     public static event Action parriedEvent;
 
     void Start()
@@ -31,7 +31,7 @@ public class WeaponBase : MonoBehaviour
             float vel = rb.velocity.magnitude;
             float damage = vel * damageFactor;
             //Debug.Log("Wepaon hit damage: "+damage);
-            onWeaponTriggerHit?.Invoke(damage);
+            onEnemyDamaged?.Invoke(damage);
             canAttack = false;
             StartCoroutine(AttackCoolDown(coolDownTimer));
         } else if (col.tag == "EnemyWeapon") {

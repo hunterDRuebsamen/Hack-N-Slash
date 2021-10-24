@@ -21,10 +21,10 @@ public class EnemyBase : MonoBehaviour
         rigidBody = GetComponent<Rigidbody2D>();
     }
     private void OnEnable() { // Watches for when the enemy gets hit
-        WeaponBase.onWeaponTriggerHit += onEnemyHit;
+        WeaponBase.onEnemyDamaged += onEnemyHit;
     } 
     private void onDisable() {
-        WeaponBase.onWeaponTriggerHit -= onEnemyHit;
+        WeaponBase.onEnemyDamaged -= onEnemyHit;
     } 
 
     // when we receive the onEnemyHit event, we do knockback + damage.
