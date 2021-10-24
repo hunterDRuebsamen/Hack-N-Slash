@@ -40,7 +40,6 @@ public class PlayerMovement : MonoBehaviour
     private float mulFactor = 1;
     private CapsuleCollider2D capsuleCollider;
     private Vector2 velocity;
-    public static event Action<float> onPlayerTriggerHit;
  
     private void Awake()
     {      

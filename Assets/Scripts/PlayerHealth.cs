@@ -24,12 +24,10 @@ public class PlayerHealth : MonoBehaviour
     private void OnEnable() 
     { 
         EnemyBehavior.onPlayerDamaged += playerHit;
-        //PlayerMovement.onPlayerTriggerHit += playerHit;
     } 
     private void onDisable() 
     {
         EnemyBehavior.onPlayerDamaged -= playerHit;
-        //PlayerMovement.onPlayerTriggerHit -= playerHit;
     } 
 
     // when we receive the playerHit event, we take damage
