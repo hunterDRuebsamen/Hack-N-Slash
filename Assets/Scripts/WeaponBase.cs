@@ -7,15 +7,16 @@ public class WeaponBase : MonoBehaviour
 {
     [SerializeField]
     private float damageFactor = 0.5f;
-    private float coolDownTimer = 0.5f;
     [SerializeField]
+    private float coolDownTimer = 0.3f;
+    [SerializeField, Tooltip("Player Attack cooldown in seconds")]
     private string Name;
     private bool canAttack = true;
     private Rigidbody2D rb; 
 
     //Event for weapon hit
-    public static event Action<float> onWeaponTriggerHit;
-    public static event Action parriedEvent;
+    public static event Action<float, GameObject> onEnemyDamaged;
+    public static event Action<GameObject> parriedEvent;
 
     void Start()
     {
@@ -27,19 +28,23 @@ public class WeaponBase : MonoBehaviour
         // check to see what we just got hit with
         if (col.tag == "Enemy")
         {
-            //Calculate the damage based on velocity
-            float vel = rb.velocity.magnitude;
-            float damage = vel * damageFactor;
-            //Debug.Log("Wepaon hit damage: "+damage);
-            onWeaponTriggerHit?.Invoke(damage);
-            canAttack = false;
-            StartCoroutine(AttackCoolDown(coolDownTimer));
+            if (canAttack) {
+                //Calculate the damage based on velocity
+                float vel = rb.velocity.magnitude;
+                float damage = vel * damageFactor;
+                Debug.Log("Wepaon hit damage: "+damage);
+                onEnemyDamaged?.Invoke(damage, col.gameObject);
+                canAttack = false;
+                StartCoroutine(AttackCoolDown(coolDownTimer));
+            }
         } else if (col.tag == "EnemyWeapon") {
-            if(rb.velocity.magnitude >= 5.5f)
-                parriedEvent?.Invoke();
-            Debug.Log(rb.velocity.magnitude);
+            if(rb.velocity.magnitude >= 5.5f) {
+                parriedEvent?.Invoke(col.gameObject);
+                Debug.Log("Parried attack");
+            }
         }    
     }
+
     //Attack cool down timer for player
     IEnumerator AttackCoolDown(float time) { 
         yield return new WaitForSeconds(time);     // wait for time seconds until attacks register again

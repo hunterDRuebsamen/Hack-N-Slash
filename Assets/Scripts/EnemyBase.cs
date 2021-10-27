@@ -21,23 +21,26 @@ public class EnemyBase : MonoBehaviour
         rigidBody = GetComponent<Rigidbody2D>();
     }
     private void OnEnable() { // Watches for when the enemy gets hit
-        WeaponBase.onWeaponTriggerHit += onEnemyHit;
+        WeaponBase.onEnemyDamaged += onEnemyHit;
     } 
     private void onDisable() {
-        WeaponBase.onWeaponTriggerHit -= onEnemyHit;
+        WeaponBase.onEnemyDamaged -= onEnemyHit;
     } 
 
     // when we receive the onEnemyHit event, we do knockback + damage.
-    private void onEnemyHit(float damage) 
+    private void onEnemyHit(float damage, GameObject enemyObject) 
     {
-        health -= (int)Math.Round(damage);
-        if(health <= 0) {
-            onEnemyDeath?.Invoke(this.gameObject);
-            Destroy(this.gameObject);
+        // check to see if the enemy that was hit is this enemy.
+        if (this != null && this.gameObject == enemyObject) {
+            health -= (int)Math.Round(damage);
+            if(health <= 0) {
+                onEnemyDeath?.Invoke(this.gameObject);
+                Destroy(this.gameObject);
+            }
+            Debug.Log("Enemy Health: "+health);
+            //Calculate knockback force
+            StartCoroutine(FakeAddForceMotion(damage*knockbackFactor));
         }
-        Debug.Log("Enemy Health: "+health);
-        //Calculate knockback force
-        StartCoroutine(FakeAddForceMotion(damage*knockbackFactor));     
     }
 
     // This function adds a fake force to a Kinematic body

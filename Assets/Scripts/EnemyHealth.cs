@@ -18,17 +18,20 @@ public class EnemyHealth : MonoBehaviour
     }
 
     void OnEnable() {
-        WeaponBase.onWeaponTriggerHit += TakeDamage;
+        WeaponBase.onEnemyDamaged += TakeDamage;
     }
 
     void onDisable() {
-        WeaponBase.onWeaponTriggerHit -= TakeDamage;
+        WeaponBase.onEnemyDamaged -= TakeDamage;
     }
 
-    void TakeDamage(float damage)
+    void TakeDamage(float damage, GameObject enemyObject)
     {
-        currentHealth -= (int)Math.Round(damage);
+        // check to see if this enemy is the one taking damage
+        if (this != null && transform.parent.parent.gameObject == enemyObject) {
+            currentHealth -= (int)Math.Round(damage);
 
-        EnemyHealthbar.SetHealth(currentHealth);
+            EnemyHealthbar.SetHealth(currentHealth);
+        }
     }
 }
