@@ -9,13 +9,13 @@ public class Score : MonoBehaviour
    public Text score;
 
    private void OnEnable() {
-       WeaponBase.onWeaponTriggerHit += changeScore;
+       WeaponBase.onEnemyDamaged += changeScore;
    }
     private void onDisable() {
-       WeaponBase.onWeaponTriggerHit -= changeScore;
+       WeaponBase.onEnemyDamaged -= changeScore;
    }
 
-   void changeScore(float damage) {
+   void changeScore(float damage, GameObject enemyObject) {
        scoreValue++;
        string result = "Score: " + scoreValue;
        score.text = result;

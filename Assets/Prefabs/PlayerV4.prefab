@@ -484,9 +484,9 @@ TargetJoint2D:
   m_Anchor: {x: 0.012171745, y: 1.9427538}
   m_Target: {x: 0, y: 0}
   m_AutoConfigureTarget: 0
-  m_MaxForce: 10
-  m_DampingRatio: 0.01
-  m_Frequency: 1
+  m_MaxForce: 250
+  m_DampingRatio: 0.15
+  m_Frequency: 0.65
 --- !u!114 &6599629119253940367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -511,7 +511,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74b29a9658ad07b45bd03cf024b9590b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageFactor: 0.25
+  damageFactor: 2
+  coolDownTimer: 0.3
   Name: Arm
 --- !u!61 &1935135788510222276
 BoxCollider2D:
