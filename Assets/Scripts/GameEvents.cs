@@ -8,12 +8,10 @@ public class GameEvents : MonoBehaviour
     private void OnEnable() {
         EnemyBehavior.onPlayerDamaged += playerHit;
         WeaponBase.onWeaponTriggerHit += weaponHit;
-        //PlayerMovement.onPlayerTriggerHit += playerHit;
     } 
     private void OnDisable() {
         EnemyBehavior.onPlayerDamaged -= playerHit;
         WeaponBase.onWeaponTriggerHit -= weaponHit;
-        //PlayerMovement.onPlayerTriggerHit -= playerHit;
     } 
     private void weaponHit(float damage) {
         Debug.Log("Enemy has been hit for: "+ damage);

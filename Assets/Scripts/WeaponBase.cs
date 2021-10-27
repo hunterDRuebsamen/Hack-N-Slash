@@ -37,7 +37,6 @@ public class WeaponBase : MonoBehaviour
         } else if (col.tag == "EnemyWeapon") {
             if(rb.velocity.magnitude >= 5.5f)
                 parriedEvent?.Invoke();
-            Debug.Log(rb.velocity.magnitude);
         }    
     }
     //Attack cool down timer for player
