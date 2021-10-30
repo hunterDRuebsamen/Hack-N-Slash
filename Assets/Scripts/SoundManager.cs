@@ -32,22 +32,28 @@ public class SoundManager : MonoBehaviour
         WeaponBase.parriedEvent += onParry;
         WeaponBase.onEnemyDamaged += onEnemyHit;
         PlayerHealth.onPlayerDeath += onPlayerDeath;
+        PlayerHealth.onPlayerHealthChanged += onPlayerHealth;
     } 
     private void onDisable() {
         EnemyBehavior.onPlayerDamaged -= onPlayerHit;
         WeaponBase.parriedEvent -= onParry;
         WeaponBase.onEnemyDamaged -= onEnemyHit;
         PlayerHealth.onPlayerDeath -= onPlayerDeath;
+        PlayerHealth.onPlayerHealthChanged -= onPlayerHealth;
     } 
 
     private void onPlayerHit(float dmg)
     {
-        audioSource.PlayOneShot(playerHitSound);
-        if (phObject.getHealth() > 0 && phObject.getHealth() <= phObject.criticalHealthLevel) {
+        audioSource.PlayOneShot(playerHitSound); // play hit sound
+    }
+
+    private void onPlayerHealth(int cur_health) 
+    {
+        if (cur_health > 0 && cur_health <= phObject.criticalHealthLevel) {
             audioSource.Play(); // play heartbeat
         }
     }
-
+    
     private void onParry(GameObject enemyObject) 
     {
         audioSource.PlayOneShot(parrySound);

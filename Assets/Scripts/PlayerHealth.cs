@@ -13,6 +13,7 @@ public class PlayerHealth : MonoBehaviour
     private HealthBar healthBar;
 
     public static event Action onPlayerDeath;
+    public static event Action<int> onPlayerHealthChanged;
 
     // Start is called before the first frame update
     void Start()
@@ -40,12 +41,17 @@ public class PlayerHealth : MonoBehaviour
         healthBar.SetHealth(currentHealth);
 
         Debug.Log("Player Health: " + currentHealth);
-
+        onPlayerHealthChanged?.Invoke(currentHealth);
         if(currentHealth <= 0) {
             onPlayerDeath?.Invoke();
             Debug.Log("Player has died");
         }
 
+    }
+
+    public void addHealth(int addhealth) {
+        currentHealth += addhealth;
+        onPlayerHealthChanged?.Invoke(currentHealth);
     }
 
     public int getHealth() {
