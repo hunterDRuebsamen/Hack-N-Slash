@@ -43,7 +43,7 @@ public class SoundManager : MonoBehaviour
     private void onPlayerHit(float dmg)
     {
         audioSource.PlayOneShot(playerHitSound);
-        if (phObject.currentHealth > 0 && phObject.currentHealth <= 35) {
+        if (phObject.getHealth() > 0 && phObject.getHealth() <= phObject.criticalHealthLevel) {
             audioSource.Play(); // play heartbeat
         }
     }
