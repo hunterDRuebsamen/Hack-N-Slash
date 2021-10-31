@@ -20,6 +20,7 @@ public class EnemyBehavior : MonoBehaviour
     private GameObject weaponGameObject;
     private SpriteRenderer enemyBodySprite;
     private Animation attackAnimation;
+    private Animation parryTint;
 
     private const float weaponXpos = 0.68f;
 
@@ -37,6 +38,7 @@ public class EnemyBehavior : MonoBehaviour
         capsuleCollider = GetComponent<CapsuleCollider2D>();
         enemyBodySprite = GetComponent<SpriteRenderer>();
         attackAnimation = transform.GetChild(0).GetComponent<Animation>();
+        parryTint = GetComponent<Animation>();
         weaponGameObject = transform.GetChild(0).gameObject;  // grab first child gameobject
 
         target = GameObject.FindWithTag("Player"); // find the player game object and target him
@@ -97,6 +99,7 @@ public class EnemyBehavior : MonoBehaviour
             //Debug.Log("attack");
             // attack the player
             if (canAttack) {
+                parryTint.Play();
                 attackAnimation.Play();
                 onAttack?.Invoke();
             }
