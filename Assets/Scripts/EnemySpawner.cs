@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -15,6 +16,9 @@ public class EnemySpawner : MonoBehaviour
     private int numEnemies = 0;
     private bool _stopSpawn = false;
     private GameObject player;
+
+    [SerializeField, Tooltip("List of Enemies we will spawn")]
+    List<GameObject> enemyList;
 
     void Start() 
     {
@@ -51,8 +55,9 @@ public class EnemySpawner : MonoBehaviour
                 float _xSpawnPos = player.transform.position.x + spawnDist + Mathf.Round(Random.Range(-4f,4f) * 10) / 10;
                 float _ySpawnPos = Random.Range(0f,4f);
 
+                int enemyIndex = Random.Range(0,enemyList.Capacity);
                 // spawn a new enemy
-                Instantiate(enemyPrefab, new Vector3(_xSpawnPos, _ySpawnPos, 0), Quaternion.identity);
+                Instantiate(enemyList[enemyIndex], new Vector3(_xSpawnPos, _ySpawnPos, 0), Quaternion.identity);
                 numEnemies++;
             }
         }

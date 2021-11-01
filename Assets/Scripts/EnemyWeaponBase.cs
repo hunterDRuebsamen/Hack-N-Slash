@@ -11,6 +11,18 @@ public class EnemyWeaponBase : MonoBehaviour
         enemyBehavior = transform.parent.GetComponent<EnemyBehavior>();
     }
 
+    private void OnTriggerStay2D(Collider2D col) 
+    {
+        if (enemyBehavior.isEnemyAttacking()) 
+        {
+            if (col.tag == "Player") 
+            {
+                // we hit the player.  Send onPlayerHit event
+                enemyBehavior.damagePlayerEvent();
+            }
+        }    
+    }
+
     private void OnTriggerEnter2D(Collider2D col) 
     {
         if (enemyBehavior.isEnemyAttacking()) 

@@ -12,6 +12,7 @@ public class EnemyBase : MonoBehaviour
     
     Rigidbody2D rigidBody; 
     BoxCollider2D enemyWeapon;
+    Animator animator;
     public static event Action<GameObject> onEnemyDeath;
 
     // Start is called before the first frame update
@@ -19,6 +20,7 @@ public class EnemyBase : MonoBehaviour
     {
         enemyWeapon = transform.GetChild(0).GetComponent<BoxCollider2D>();
         rigidBody = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
     private void OnEnable() { // Watches for when the enemy gets hit
         WeaponBase.onEnemyDamaged += onEnemyHit;
@@ -38,6 +40,10 @@ public class EnemyBase : MonoBehaviour
                 Destroy(this.gameObject);
             }
             Debug.Log("Enemy Health: "+health);
+            if (animator != null) {
+                if (!animator.GetCurrentAnimatorStateInfo(0).IsName("attack"))
+                    animator.SetTrigger("hit");
+            }
             //Calculate knockback force
             StartCoroutine(FakeAddForceMotion(damage*knockbackFactor));
         }
