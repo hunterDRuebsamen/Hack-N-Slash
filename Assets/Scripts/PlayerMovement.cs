@@ -38,8 +38,8 @@ public class PlayerMovement : MonoBehaviour
     private float coolDownTimer = 0f;
 
     [Tooltip("Keep track whether the first keypress for their respective direction is pressed before fliping")]
-    private bool first_A_Press = false;
-    private bool first_D_Press = false;
+    private bool aDoubleTap = false;
+    private bool dDoubleTap = false;
     [SerializeField, Tooltip("Keeps track which side the player is facing - True = right facing, False = left facing")]
     bool facingRight = true;
     [Tooltip("The max time inbetween keypresses needed to flip the character")]
@@ -92,7 +92,18 @@ public class PlayerMovement : MonoBehaviour
         if (horizontalInput != 0)
         {
             //Calculate x component of velocity with an acceleration rate when pressing "A" or "D"
-            velocity.x = Mathf.MoveTowards(velocity.x, horizontalSpeed * mulFactor * horizontalInput, acceleration * Time.deltaTime);
+            velocity.x = Mathf.MoveTowards(velocity.x, horizontalSpeed * mulFactor * horizontalInput, acceleration * Time.deltaTime); 
+            
+            // registers "A" or "D" presses to check if player is trying to flip their character
+            if (horizontalInput < 0)
+            {
+                aDouble();
+            }
+            if (horizontalInput > 0)
+            {
+                dDouble();
+            }
+            
         }
         else
         {
@@ -151,12 +162,54 @@ public class PlayerMovement : MonoBehaviour
     }
 
     /*
-     * This function should only run if the conditions (a directional key is pressed twice within a time frame + the directinal key is opposite of the player's facing)
+     * This function should run within the move function and records if a double keypress for "A" has been recorded and will rotate/flip the character to face right 
      */
-    void CharacterFlip()
+    void aDouble()
     {
-        facingRight = !facingRight;
-        transform.Rotate(new Vector3(0, 180, 0));
+        Debug.Log("aDouble has ran");
+        if (Input.GetKey("a") && aDoubleTap && facingRight)
+        {
+            if(Time.time - keypressTime < .05f)
+            {
+                Debug.Log("character should have flipped");
+                facingRight = !facingRight;
+                transform.Rotate(new Vector3(0, 180, 0));
+                keypressTime = 0f;
+            }
+            aDoubleTap = false;
+        }
+        if (Input.GetKey("a") && !aDoubleTap && facingRight)
+        {
+            Debug.Log("first keypress is recorded");
+            keypressTime = Time.time;
+            aDoubleTap = !aDoubleTap;
+        }
+    }
+
+    /*
+     * This function should run within the move function and records if a double keypress for "D" has been recorded and will rotate/flip the character to face left 
+     */
+    void dDouble()
+    {
+        Debug.Log("dDouble has ran");
+        if (Input.GetKey("d") && dDoubleTap && !facingRight)
+        {
+            
+            if (Time.time - keypressTime < .05f)
+            {
+                Debug.Log("character should have flipped");
+                facingRight = !facingRight;
+                transform.Rotate(new Vector3(0, 180, 0));
+                keypressTime = 0f;
+            }
+            dDoubleTap = false;
+        }
+        if (Input.GetKey("d") && !dDoubleTap && !facingRight)
+        {
+            Debug.Log("first keypress is recorded");
+            keypressTime = Time.time;
+            dDoubleTap = !dDoubleTap;
+        }
     }
  
     /*
