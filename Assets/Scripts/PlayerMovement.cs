@@ -92,18 +92,10 @@ public class PlayerMovement : MonoBehaviour
         if (horizontalInput != 0)
         {
             //Calculate x component of velocity with an acceleration rate when pressing "A" or "D"
-            velocity.x = Mathf.MoveTowards(velocity.x, horizontalSpeed * mulFactor * horizontalInput, acceleration * Time.deltaTime); 
-            
+            velocity.x = Mathf.MoveTowards(velocity.x, horizontalSpeed * mulFactor * horizontalInput, acceleration * Time.deltaTime);
+
             // registers "A" or "D" presses to check if player is trying to flip their character
-            if (horizontalInput < 0)
-            {
-                aDouble();
-            }
-            if (horizontalInput > 0)
-            {
-                dDouble();
-            }
-            
+            characterFlip();
         }
         else
         {
@@ -161,29 +153,59 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+
+    void characterFlip()
+    {
+        if (Input.GetKey("a"))
+        {
+            Debug.Log("aDouble has ran");
+            if (Input.GetKey("a") && aDoubleTap && facingRight)
+            {
+                if (Time.time - keypressTime < .05f)
+                {
+                    Debug.Log("character should have flipped");
+                    facingRight = !facingRight;
+                    transform.Rotate(new Vector3(0, 180, 0));
+                    keypressTime = 0f;
+                }
+                aDoubleTap = false;
+            }
+            if (Input.GetKey("a") && !aDoubleTap && facingRight)
+            {
+                Debug.Log("first keypress is recorded");
+                keypressTime = Time.time;
+                aDoubleTap = !aDoubleTap;
+            }
+        }
+        else
+        {
+            Debug.Log("dDouble has ran");
+            if (Input.GetKey("d") && dDoubleTap && !facingRight)
+            {
+
+                if (Time.time - keypressTime < .05f)
+                {
+                    Debug.Log("character should have flipped");
+                    facingRight = !facingRight;
+                    transform.Rotate(new Vector3(0, 180, 0));
+                    keypressTime = 0f;
+                }
+                dDoubleTap = false;
+            }
+            if (Input.GetKey("d") && !dDoubleTap && !facingRight)
+            {
+                Debug.Log("first keypress is recorded");
+                keypressTime = Time.time;
+                dDoubleTap = !dDoubleTap;
+            }
+        }
+    }
     /*
      * This function should run within the move function and records if a double keypress for "A" has been recorded and will rotate/flip the character to face right 
      */
     void aDouble()
     {
-        Debug.Log("aDouble has ran");
-        if (Input.GetKey("a") && aDoubleTap && facingRight)
-        {
-            if(Time.time - keypressTime < .05f)
-            {
-                Debug.Log("character should have flipped");
-                facingRight = !facingRight;
-                transform.Rotate(new Vector3(0, 180, 0));
-                keypressTime = 0f;
-            }
-            aDoubleTap = false;
-        }
-        if (Input.GetKey("a") && !aDoubleTap && facingRight)
-        {
-            Debug.Log("first keypress is recorded");
-            keypressTime = Time.time;
-            aDoubleTap = !aDoubleTap;
-        }
+
     }
 
     /*
@@ -191,25 +213,7 @@ public class PlayerMovement : MonoBehaviour
      */
     void dDouble()
     {
-        Debug.Log("dDouble has ran");
-        if (Input.GetKey("d") && dDoubleTap && !facingRight)
-        {
-            
-            if (Time.time - keypressTime < .05f)
-            {
-                Debug.Log("character should have flipped");
-                facingRight = !facingRight;
-                transform.Rotate(new Vector3(0, 180, 0));
-                keypressTime = 0f;
-            }
-            dDoubleTap = false;
-        }
-        if (Input.GetKey("d") && !dDoubleTap && !facingRight)
-        {
-            Debug.Log("first keypress is recorded");
-            keypressTime = Time.time;
-            dDoubleTap = !dDoubleTap;
-        }
+
     }
  
     /*
