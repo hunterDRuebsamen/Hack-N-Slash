@@ -161,10 +161,15 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("aDouble has ran");
             if (Input.GetKey("a") && aDoubleTap && facingRight)
             {
-                if (Time.time - keypressTime < .05f)
+                if (Time.time - keypressTime < .5f)
                 {
                     Debug.Log("character should have flipped");
                     facingRight = !facingRight;
+                    /*
+                    Vector3 charScale = transform.localScale;
+                    charScale.x *= -1;
+                    transform.localScale = charScale;
+                    */
                     transform.Rotate(new Vector3(0, 180, 0));
                     keypressTime = 0f;
                 }
@@ -183,11 +188,16 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKey("d") && dDoubleTap && !facingRight)
             {
 
-                if (Time.time - keypressTime < .05f)
+                if (Time.time - keypressTime < .5f)
                 {
                     Debug.Log("character should have flipped");
                     facingRight = !facingRight;
-                    transform.Rotate(new Vector3(0, 180, 0));
+                    /*
+                    Vector3 charScale = transform.localScale;
+                    charScale.x *= -1;
+                    transform.localScale = charScale;
+                    */
+                    transform.Rotate(new Vector3(0, 180, 0));//Rotation based flipping
                     keypressTime = 0f;
                 }
                 dDoubleTap = false;
