@@ -36,6 +36,15 @@ public class PlayerMovement : MonoBehaviour
     private bool isDodging = false;
     private float numDodgeLeft;  // how many dodge boosts are left  
     private float coolDownTimer = 0f;
+
+    [Tooltip("Keep track whether the first keypress for their respective direction is pressed before fliping")]
+    private bool first_A_Press = false;
+    private bool first_D_Press = false;
+    [SerializeField, Tooltip("Keeps track which side the player is facing - True = right facing, False = left facing")]
+    bool facingRight = true;
+    [Tooltip("The max time inbetween keypresses needed to flip the character")]
+    float first_keypressTime = .5f;
+   
  
     private float mulFactor = 1;
     private CapsuleCollider2D capsuleCollider;
@@ -140,7 +149,14 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
- 
+    /*
+     * This function should only run if the conditions (a directional key is pressed twice within a time frame + the directinal key is opposite of the player's facing)
+     */
+    void CharacterFlip()
+    {
+        facingRight = !facingRight;
+        transform.Rotate(new Vector3(0, 180, 0));
+    }
  
     /*
     This function freezes the character's ability to dodge after a given number of dodges. 
