@@ -200,21 +200,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
-    /*
-     * This function should run within the move function and records if a double keypress for "A" has been recorded and will rotate/flip the character to face right 
-     */
-    void aDouble()
-    {
 
-    }
-
-    /*
-     * This function should run within the move function and records if a double keypress for "D" has been recorded and will rotate/flip the character to face left 
-     */
-    void dDouble()
-    {
-
-    }
  
     /*
     This function freezes the character's ability to dodge after a given number of dodges. 
