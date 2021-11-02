@@ -43,7 +43,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField, Tooltip("Keeps track which side the player is facing - True = right facing, False = left facing")]
     bool facingRight = true;
     [Tooltip("The max time inbetween keypresses needed to flip the character")]
-    float first_keypressTime = .5f;
+    float keypressTime = .5f;
+
    
  
     private float mulFactor = 1;
