@@ -165,12 +165,12 @@ public class PlayerMovement : MonoBehaviour
                 {
                     Debug.Log("character should have flipped");
                     facingRight = !facingRight;
-                    /*
+                    
                     Vector3 charScale = transform.localScale;
                     charScale.x *= -1;
                     transform.localScale = charScale;
-                    */
-                    transform.Rotate(new Vector3(0, 180, 0));
+                    
+                    //transform.Rotate(new Vector3(0, 180, 0));//Rotation based flipping
                     keypressTime = 0f;
                 }
                 aDoubleTap = false;
@@ -192,12 +192,12 @@ public class PlayerMovement : MonoBehaviour
                 {
                     Debug.Log("character should have flipped");
                     facingRight = !facingRight;
-                    /*
+                    
                     Vector3 charScale = transform.localScale;
                     charScale.x *= -1;
                     transform.localScale = charScale;
-                    */
-                    transform.Rotate(new Vector3(0, 180, 0));//Rotation based flipping
+                    
+                    //transform.Rotate(new Vector3(0, 180, 0));//Rotation based flipping
                     keypressTime = 0f;
                 }
                 dDoubleTap = false;
