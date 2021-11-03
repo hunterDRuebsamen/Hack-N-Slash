@@ -27,7 +27,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField, Tooltip("Max Number of Dodge Boosts")]
     int maxDodgeBoosts = 3;
     [SerializeField, Tooltip("Length in Time a Dodge boost lasts")]
-    
 
     public float dodgeLength = 0.5f;
     float horizontalInput;
@@ -37,17 +36,10 @@ public class PlayerMovement : MonoBehaviour
     private bool isDodging = false;
     private float numDodgeLeft;  // how many dodge boosts are left  
     private float coolDownTimer = 0f;
+    private int lastMove = 0;
 
-    [Tooltip("Keep track whether the first keypress for their respective direction is pressed before fliping")]
-    private bool aDoubleTap = false;
-    private bool dDoubleTap = false;
-    [SerializeField, Tooltip("Keeps track which side the player is facing - True = right facing, False = left facing")]
-    bool facingRight = true;
-    [Tooltip("The max time inbetween keypresses needed to flip the character")]
-    float keypressTime = .5f;
-
-    HingeJoint2D Arm_02;
-    HingeJoint2D Arm_01;
+    private HingeJoint2D Arm_02;
+    private HingeJoint2D Arm_01;
 
    
  
@@ -94,6 +86,17 @@ public class PlayerMovement : MonoBehaviour
             coolDownTimer = 0; // reset cooldown timer on dodge
             StartCoroutine(DodgeRoutine(dodgeLength));
         }
+
+        //Handles flip case for "a" inputs
+        if(Input.GetKeyDown("a"))
+        {
+            StartCoroutine(flipRoutine(0.5f, -1));
+        }
+        //Handles flip case for "d" inputs
+        else if(Input.GetKeyDown("d"))
+        {
+            StartCoroutine(flipRoutine(0.5f, 1));
+        }
  
         if (horizontalInput != 0)
         {
@@ -101,7 +104,6 @@ public class PlayerMovement : MonoBehaviour
             velocity.x = Mathf.MoveTowards(velocity.x, horizontalSpeed * mulFactor * horizontalInput, acceleration * Time.deltaTime);
 
             // registers "A" or "D" presses to check if player is trying to flip their character
-            characterFlip();
         }
         else
         {
@@ -160,83 +162,44 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    void characterFlip()
+    void characterFlip(int direction)
     {
-    //Joint limit object populated with current Arm limit values
-    JointAngleLimits2D limit_01 = Arm_01.limits;
-    JointAngleLimits2D limit_02 = Arm_02.limits;
+        //Joint limit object populated with current Arm limit values
+        JointAngleLimits2D limit_01 = Arm_01.limits;
+        JointAngleLimits2D limit_02 = Arm_02.limits;
 
-        if (Input.GetKey("a"))
+        if (direction == -1) //Character Flip to left
         {
-            Debug.Log("aDouble has ran");
-            if (Input.GetKey("a") && aDoubleTap && facingRight)
-            {
-                if (Time.time - keypressTime < .5f)
-                {
-                    Debug.Log("character should have flipped");
-                    facingRight = !facingRight;
-                    
-                    Vector3 charScale = transform.localScale;
-                    charScale.x *= -1;
-                    transform.localScale = charScale;
+            Vector3 charScale = transform.localScale;
+            charScale.x = -1;
+            transform.localScale = charScale;
 
-                    //Changes the limits of the bicep arm
-                    limit_01.min = -70;
-                    limit_01.max = 70;
-                    Arm_01.limits = limit_01;
+            //Changes the limits of the bicep arm
+            limit_01.min = -70;
+            limit_01.max = 70;
+            Arm_01.limits = limit_01;
 
-                    //Changes the limits of the forearm arm
-                    limit_02.min = 0;
-                    limit_02.max = 90;
-                    Arm_02.limits = limit_02;
-
-
-                    keypressTime = 0f;
-                }
-                aDoubleTap = false;
-            }
-            if (Input.GetKey("a") && !aDoubleTap && facingRight)
-            {
-                Debug.Log("first keypress is recorded");
-                keypressTime = Time.time;
-                aDoubleTap = !aDoubleTap;
-            }
+            //Changes the limits of the forearm arm
+            limit_02.min = 0;
+            limit_02.max = 90;
+            Arm_02.limits = limit_02;
+            
         }
-        else
+        else if (direction == 1) //Character Flip to left
         {
-            Debug.Log("dDouble has ran");
-            if (Input.GetKey("d") && dDoubleTap && !facingRight)
-            {
+            Vector3 charScale = transform.localScale;
+            charScale.x = 1;
+            transform.localScale = charScale;
+            
+            //Changes the limits of the bicep arm
+            limit_01.min = -50;
+            limit_01.max = 75;
+            Arm_01.limits = limit_01;
 
-                if (Time.time - keypressTime < .5f)
-                {
-                    Debug.Log("character should have flipped");
-                    facingRight = !facingRight;
-                    
-                    Vector3 charScale = transform.localScale;
-                    charScale.x *= -1;
-                    transform.localScale = charScale;
-                    
-                    //Changes the limits of the bicep arm
-                    limit_01.min = -50;
-                    limit_01.max = 75;
-                    Arm_01.limits = limit_01;
-
-                    //Changes the limits of the forearm arm
-                    limit_02.min = 270;
-                    limit_02.max = 360;
-                    Arm_02.limits = limit_02;
-
-                    keypressTime = 0f;
-                }
-                dDoubleTap = false;
-            }
-            if (Input.GetKey("d") && !dDoubleTap && !facingRight)
-            {
-                Debug.Log("first keypress is recorded");
-                keypressTime = Time.time;
-                dDoubleTap = !dDoubleTap;
-            }
+            //Changes the limits of the forearm arm
+            limit_02.min = 270;
+            limit_02.max = 360;
+            Arm_02.limits = limit_02;
         }
     }
 
@@ -255,12 +218,16 @@ public class PlayerMovement : MonoBehaviour
             canDodge = true;                        // now you can dodge
     }
 
-    IEnumerator flipRoutine(float time) { 
-        aDoubleTap = false;
-        dDoubleTap = false;                       // Variables are immediantly set to false after execution
+    /*
+    This Coroutine stores the direction of the last move within a variable and keeps a timer of the time elasped between the last input.
+    When the last move equals the current input of the user, flipRoutine calls the characterFlip function 
+    */
+    IEnumerator flipRoutine(float time, int direction) { 
+        if (lastMove == direction) {
+            characterFlip(direction);
+        }
+        lastMove = direction;
         yield return new WaitForSeconds(time);     // wait designated time 
-        mulFactor = 1.0f;                       //Resets speed multiplier to base speed  
-        if (numDodgeLeft > 0)
-            canDodge = true;                        // now you can dodge
+        lastMove = 0;
     }    
 }
