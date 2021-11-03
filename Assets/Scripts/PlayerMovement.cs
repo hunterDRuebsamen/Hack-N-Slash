@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField, Tooltip("Max Number of Dodge Boosts")]
     int maxDodgeBoosts = 3;
     [SerializeField, Tooltip("Length in Time a Dodge boost lasts")]
+    
 
     public float dodgeLength = 0.5f;
     float horizontalInput;
@@ -45,6 +46,9 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("The max time inbetween keypresses needed to flip the character")]
     float keypressTime = .5f;
 
+    HingeJoint2D Arm_02;
+    HingeJoint2D Arm_01;
+
    
  
     private float mulFactor = 1;
@@ -52,7 +56,9 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 velocity;
  
     private void Awake()
-    {      
+    {
+        Arm_01 = transform.GetChild(0).GetComponent<HingeJoint2D>();
+        Arm_02 = transform.GetChild(1).GetComponent<HingeJoint2D>();       
         capsuleCollider = GetComponent<CapsuleCollider2D>();
         numDodgeLeft = maxDodgeBoosts;
     }
@@ -156,6 +162,10 @@ public class PlayerMovement : MonoBehaviour
 
     void characterFlip()
     {
+    //Joint limit object populated with current Arm limit values
+    JointAngleLimits2D limit_01 = Arm_01.limits;
+    JointAngleLimits2D limit_02 = Arm_02.limits;
+
         if (Input.GetKey("a"))
         {
             Debug.Log("aDouble has ran");
@@ -169,8 +179,18 @@ public class PlayerMovement : MonoBehaviour
                     Vector3 charScale = transform.localScale;
                     charScale.x *= -1;
                     transform.localScale = charScale;
-                    
-                    //transform.Rotate(new Vector3(0, 180, 0));//Rotation based flipping
+
+                    //Changes the limits of the bicep arm
+                    limit_01.min = -70;
+                    limit_01.max = 70;
+                    Arm_01.limits = limit_01;
+
+                    //Changes the limits of the forearm arm
+                    limit_02.min = 0;
+                    limit_02.max = 90;
+                    Arm_02.limits = limit_02;
+
+
                     keypressTime = 0f;
                 }
                 aDoubleTap = false;
@@ -197,7 +217,16 @@ public class PlayerMovement : MonoBehaviour
                     charScale.x *= -1;
                     transform.localScale = charScale;
                     
-                    //transform.Rotate(new Vector3(0, 180, 0));//Rotation based flipping
+                    //Changes the limits of the bicep arm
+                    limit_01.min = -50;
+                    limit_01.max = 75;
+                    Arm_01.limits = limit_01;
+
+                    //Changes the limits of the forearm arm
+                    limit_02.min = 270;
+                    limit_02.max = 360;
+                    Arm_02.limits = limit_02;
+
                     keypressTime = 0f;
                 }
                 dDoubleTap = false;
@@ -224,5 +253,14 @@ public class PlayerMovement : MonoBehaviour
         mulFactor = 1.0f;                       //Resets speed multiplier to base speed  
         if (numDodgeLeft > 0)
             canDodge = true;                        // now you can dodge
-    }   
+    }
+
+    IEnumerator flipRoutine(float time) { 
+        aDoubleTap = false;
+        dDoubleTap = false;                       // Variables are immediantly set to false after execution
+        yield return new WaitForSeconds(time);     // wait designated time 
+        mulFactor = 1.0f;                       //Resets speed multiplier to base speed  
+        if (numDodgeLeft > 0)
+            canDodge = true;                        // now you can dodge
+    }    
 }
