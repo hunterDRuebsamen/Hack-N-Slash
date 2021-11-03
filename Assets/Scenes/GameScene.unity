@@ -1072,7 +1072,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.022163, y: -0.7460815, z: -10.01}
+  m_LocalPosition: {x: -9.022387, y: -0.7460815, z: -10.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2888,7 +2888,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1672596104
 Transform:
   m_ObjectHideFlags: 0
@@ -2915,7 +2915,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 242b937a9b182b51aa73b4c1c2b31f9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 7400595517385289058, guid: 9fef7c11c2a5f7b49b61a1537404ba1b, type: 3}
   spawnDist: 15
   maxEnemies: 3
   spawnTime: 8
@@ -3203,7 +3202,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1840438654}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.022163, y: -0.7460815, z: -10.01}
+  m_LocalPosition: {x: -9.022387, y: -0.7460815, z: -10.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1922294290}
