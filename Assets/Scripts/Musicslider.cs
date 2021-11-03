@@ -5,8 +5,7 @@ using UnityEngine.UI;
 
 public class Musicslider : MonoBehaviour
 {
-//musicSource = GameObject.Find("MusicManager").GetComponent<AudioSource>();   
-//GlobalVariables.Set("musicVolume", __floatVolumeLevelHere);
+
 [SerializeField] Slider volumeSlider;
 
    void Start()
@@ -14,6 +13,7 @@ public class Musicslider : MonoBehaviour
         if(!PlayerPrefs.HasKey("musicVolume"))
         {
             PlayerPrefs.SetFloat("musicVolume", 0.5f);
+            GlobalVariables.Set("musicVolume", 0.5f);
             Load();
         }
 
@@ -25,6 +25,7 @@ public class Musicslider : MonoBehaviour
     public void ChangeVolume()
     {
         AudioListener.volume = volumeSlider.value; 
+        GlobalVariables.Set("musicVolume", volumeSlider.value);
         Save();
     }
     private void Load()
