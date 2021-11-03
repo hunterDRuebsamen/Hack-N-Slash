@@ -33,7 +33,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7400595517385289049}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -34.853405}
 --- !u!212 &3985077100231692301
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -668,6 +668,7 @@ GameObject:
   - component: {fileID: 7400595517385289060}
   - component: {fileID: 7400595517385289061}
   - component: {fileID: 363308924562537962}
+  - component: {fileID: 4699277227587444964}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -792,8 +793,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1.5
-  damage: 20
-  attackDist: 3.5
+  damage: 15
+  attackDist: 3
   cooldown: 2
   parryKnockback: 0.5
 --- !u!114 &363308924562537962
@@ -810,3 +811,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 25
   knockbackFactor: 0.15
+--- !u!111 &4699277227587444964
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7400595517385289058}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 6554933c9030b7f4788e28f123a86f70, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 6554933c9030b7f4788e28f123a86f70, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0

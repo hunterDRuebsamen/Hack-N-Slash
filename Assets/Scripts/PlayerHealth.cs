@@ -5,17 +5,20 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    
-    public int maxHealth = 100;
-    public int currentHealth;
+    [SerializeField, Tooltip("Maximum amount of Health the player has")]
+    private int maxHealth = 100;
+    private int currentHealth;
 
-    public HealthBar healthBar;
+    public int criticalHealthLevel = 35;
+    private HealthBar healthBar;
 
     public static event Action onPlayerDeath;
+    public static event Action<int> onPlayerHealthChanged;
 
     // Start is called before the first frame update
     void Start()
     {
+        healthBar = GameObject.Find("PlayerHealthBar").GetComponent<HealthBar>();
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
     }
@@ -23,22 +26,22 @@ public class PlayerHealth : MonoBehaviour
     // Watches for when the enemy gets hit
     private void OnEnable() 
     { 
-        EnemyBehavior.onPlayerDamaged += playerHit;
+        EnemyBehavior.onPlayerDamaged += onPlayerHit;
     } 
     private void onDisable() 
     {
-        EnemyBehavior.onPlayerDamaged -= playerHit;
+        EnemyBehavior.onPlayerDamaged -= onPlayerHit;
     } 
 
     // when we receive the playerHit event, we take damage
-    void playerHit(float damage)
+    void onPlayerHit(float damage)
     {
         currentHealth -= (int)Math.Round(damage);
 
         healthBar.SetHealth(currentHealth);
 
         Debug.Log("Player Health: " + currentHealth);
-
+        onPlayerHealthChanged?.Invoke(currentHealth);
         if(currentHealth <= 0) {
             onPlayerDeath?.Invoke();
             Debug.Log("Player has died");
@@ -46,5 +49,12 @@ public class PlayerHealth : MonoBehaviour
 
     }
 
+    public void addHealth(int addhealth) {
+        currentHealth += addhealth;
+        onPlayerHealthChanged?.Invoke(currentHealth);
+    }
 
+    public int getHealth() {
+        return currentHealth;
+    }
 }
