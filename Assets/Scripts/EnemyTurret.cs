@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyTurret : MonoBehaviour
 {
     public float range;
-    public Transform target;
+    private Transform target;
     bool detected = false;
     Vector2 direction;
     public GameObject fireProjectile;
@@ -18,6 +18,7 @@ public class EnemyTurret : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        target = GameObject.FindGameObjectWithTag("Player").transform;
         Vector2 targetPosition = target.position;
         direction = targetPosition - (Vector2)transform.position;
         RaycastHit2D rayInfo = Physics2D.Raycast(transform.position, direction, range);

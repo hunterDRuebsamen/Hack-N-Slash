@@ -4,11 +4,22 @@ using System.Collections;
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField, Tooltip("The enemies that will be spawned")]
+<<<<<<< Updated upstream
     public GameObject enemyPrefab;
     [SerializeField, Tooltip("Takes the x position of the player or GameManager as a whole to determine where the enemy is spawned")]
     public float spawnDist; //= transform.position.x
     [SerializeField, Tooltip("The maximum number of enemies that will appear")]
     public int maxEnemies;
+=======
+    public GameObject enemyPrefab1;
+    public GameObject enemyTurret;
+    [SerializeField, Tooltip("Takes the x position of the player or GameManager as a whole to determine where the enemy is spawned")]
+    public float fromPlayer; //= transform.position.x
+   [SerializeField, Tooltip("The maximum number of enemies that will appear")]
+    public int enemyLimit;
+    [Tooltip("The current amount of enemies on screen")]
+    private int enemyCounter = 0;
+>>>>>>> Stashed changes
     [SerializeField, Tooltip("How much time should occur between spawns")]
     public float spawnTime;
 
@@ -48,6 +59,7 @@ public class EnemySpawner : MonoBehaviour
             yield return new WaitForSeconds(spawnTime);
             if (numEnemies < maxEnemies) 
             {
+<<<<<<< Updated upstream
                 float _xSpawnPos = player.transform.position.x + spawnDist + Mathf.Round(Random.Range(-4f,4f) * 10) / 10;
                 float _ySpawnPos = Random.Range(0f,4f);
 
@@ -56,5 +68,24 @@ public class EnemySpawner : MonoBehaviour
                 numEnemies++;
             }
         }
+=======
+                Instantiate(enemyPrefab1, new Vector3(fromPlayer + 10, Random.Range(0,4), 0), Quaternion.identity);
+                Instantiate(enemyTurret, new Vector3(fromPlayer + 5, Random.Range(0, 1), 0), Quaternion.identity);
+            }
+
+            btwSpawns = spawnTime;
+            enemyCounter += enemyLimit;
+        }
+        else
+        {
+            btwSpawns -= Time.deltaTime;
+        }
+    }
+
+    void Start()
+    {
+        // Spawn one enemy when the game starts at position -5,0,0
+        //Instantiate(enemyPrefab1, new Vector3(-5,0,0), Quaternion.identity);
+>>>>>>> Stashed changes
     }
 }

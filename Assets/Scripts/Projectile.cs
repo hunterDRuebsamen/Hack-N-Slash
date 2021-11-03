@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    IEnumerator OnCollisionEnter2D(Collision2D disappear)
+    void OnCollisionEnter2D(Collision2D disappear)
     {
-        yield return new WaitForSeconds(4);
         Destroy(this.gameObject);
-    } 
+    }
 }
