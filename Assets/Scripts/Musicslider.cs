@@ -5,36 +5,32 @@ using UnityEngine.UI;
 
 public class Musicslider : MonoBehaviour
 {
-
-[SerializeField] Slider volumeSlider;
-
-   void Start()
+    [SerializeField]
+    private float defaultMusicVolume = 0.5f;
+    private Slider volumeSlider;
+ 
+    void Start()
     {
-        if(!PlayerPrefs.HasKey("musicVolume"))
-        {
-            PlayerPrefs.SetFloat("musicVolume", 0.5f);
-            GlobalVariables.Set("musicVolume", 0.5f);
-            Load();
-        }
+        // Get the slider component
+        volumeSlider = GetComponent<Slider>();
 
+        // if the key doesn't exist, create it
+        if(!GlobalVariables.HasKey("musicVolume"))
+        {
+            GlobalVariables.Set("musicVolume", defaultMusicVolume);
+            volumeSlider.value = defaultMusicVolume;
+        }
         else
         {
-            Load();
+            // Grab the music Volume from the GlobalConfiguration
+            volumeSlider.value = GlobalVariables.Get<float>("musicVolume");
         }
+
+        // Add a listener to this slider.onValueChanged to invoke ChangeVolume() when the value changes
+        volumeSlider.onValueChanged.AddListener(delegate {ChangeVolume(); });
     }
     public void ChangeVolume()
     {
-        AudioListener.volume = volumeSlider.value; 
         GlobalVariables.Set("musicVolume", volumeSlider.value);
-        Save();
-    }
-    private void Load()
-    {
-        volumeSlider.value = PlayerPrefs.GetFloat("musicVolume");
-    }
-
-    private void Save()
-    {
-        PlayerPrefs.SetFloat("musicVolume", volumeSlider.value);
     }
 }
