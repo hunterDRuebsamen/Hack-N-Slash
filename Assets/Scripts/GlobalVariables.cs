@@ -45,6 +45,17 @@ public static class GlobalVariables
     }
 
     /// <summary>
+    /// Returns true if the given key exists in the GlobalVariables, false otherwise
+    /// </summary>
+    /// <param name="key">The variable key</param>
+    /// <returns>a boolean representing whether the key exists</returns>
+    public static bool HasKey(string key)
+    {
+        return variablesDictionary.ContainsKey(key);
+    }
+
+
+    /// <summary>
     /// Sets the variable, the existing value gets overridden.
     /// </summary>
     /// <remarks>It uses a lock under the hood to ensure consistensy between threads</remarks>

@@ -8,8 +8,9 @@ public class GameEvents : MonoBehaviour
     private PlayerHealth phObject;
     private SpriteRenderer bloodOverlayRenderer;
     private Animation bloodAnim;
-
+    private AudioSource musicSource;
     private void Start() {
+        musicSource = GameObject.Find("MusicManager").GetComponent<AudioSource>();  
         phObject = FindObjectOfType<PlayerHealth>();
         bloodOverlayRenderer = GameObject.Find("BloodOverlay").GetComponent<SpriteRenderer>();
         bloodAnim = GameObject.Find("BloodOverlay").GetComponent<Animation>();
