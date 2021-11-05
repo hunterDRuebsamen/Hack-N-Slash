@@ -40,6 +40,7 @@ public class PlayerMovement : MonoBehaviour
 
     private HingeJoint2D Arm_02;
     private HingeJoint2D Arm_01;
+    private Animator playerAnim;
 
    
  
@@ -53,6 +54,8 @@ public class PlayerMovement : MonoBehaviour
         Arm_02 = transform.GetChild(1).GetComponent<HingeJoint2D>();       
         capsuleCollider = GetComponent<CapsuleCollider2D>();
         numDodgeLeft = maxDodgeBoosts;
+
+        playerAnim = GameObject.Find("Body").GetComponent<Animator>();
     }
  
     private void Update()
@@ -100,6 +103,7 @@ public class PlayerMovement : MonoBehaviour
  
         if (horizontalInput != 0)
         {
+            playerAnim.SetBool("isWalking", true);
             //Calculate x component of velocity with an acceleration rate when pressing "A" or "D"
             velocity.x = Mathf.MoveTowards(velocity.x, horizontalSpeed * mulFactor * horizontalInput, acceleration * Time.deltaTime);
 
@@ -112,6 +116,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (verticalInput != 0) 
         {
+            playerAnim.SetBool("isWalking", true);
             // This will keep the player's movement within specified y bounds (courdicy of @courtesy)
             if (verticalInput > 0)
             {
@@ -136,6 +141,9 @@ public class PlayerMovement : MonoBehaviour
         {
             //Deccelerates x component of velocity when no longer pressing "A" or "D"
             velocity.y = Mathf.MoveTowards(velocity.y, 0, deceleration * Time.deltaTime);
+        }
+        if (horizontalInput == 0 && verticalInput == 0) {
+            playerAnim.SetBool("isWalking", false);
         }
         //Moves our player by the velocity vector we have calculated multiplied by the amount of time that has elasped
         //to get the total units that should be moved
