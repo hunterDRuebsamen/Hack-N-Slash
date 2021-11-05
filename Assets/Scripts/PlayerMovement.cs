@@ -36,13 +36,21 @@ public class PlayerMovement : MonoBehaviour
     private bool isDodging = false;
     private float numDodgeLeft;  // how many dodge boosts are left  
     private float coolDownTimer = 0f;
+    private int lastMove = 0;
+
+    private HingeJoint2D Arm_02;
+    private HingeJoint2D Arm_01;
+
+   
  
     private float mulFactor = 1;
     private CapsuleCollider2D capsuleCollider;
     private Vector2 velocity;
  
     private void Awake()
-    {      
+    {
+        Arm_01 = transform.GetChild(0).GetComponent<HingeJoint2D>();
+        Arm_02 = transform.GetChild(1).GetComponent<HingeJoint2D>();       
         capsuleCollider = GetComponent<CapsuleCollider2D>();
         numDodgeLeft = maxDodgeBoosts;
     }
@@ -78,11 +86,24 @@ public class PlayerMovement : MonoBehaviour
             coolDownTimer = 0; // reset cooldown timer on dodge
             StartCoroutine(DodgeRoutine(dodgeLength));
         }
+
+        //Handles flip case for "a" inputs
+        if(Input.GetKeyDown("a"))
+        {
+            StartCoroutine(flipRoutine(0.5f, -1));
+        }
+        //Handles flip case for "d" inputs
+        else if(Input.GetKeyDown("d"))
+        {
+            StartCoroutine(flipRoutine(0.5f, 1));
+        }
  
         if (horizontalInput != 0)
         {
             //Calculate x component of velocity with an acceleration rate when pressing "A" or "D"
             velocity.x = Mathf.MoveTowards(velocity.x, horizontalSpeed * mulFactor * horizontalInput, acceleration * Time.deltaTime);
+
+            // registers "A" or "D" presses to check if player is trying to flip their character
         }
         else
         {
@@ -140,7 +161,48 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
- 
+
+    void characterFlip(int direction)
+    {
+        //Joint limit object populated with current Arm limit values
+        JointAngleLimits2D limit_01 = Arm_01.limits;
+        JointAngleLimits2D limit_02 = Arm_02.limits;
+
+        if (direction == -1) //Character Flip to left
+        {
+            Vector3 charScale = transform.localScale;
+            charScale.x = -1;
+            transform.localScale = charScale;
+
+            //Changes the limits of the bicep arm
+            limit_01.min = -70;
+            limit_01.max = 70;
+            Arm_01.limits = limit_01;
+
+            //Changes the limits of the forearm arm
+            limit_02.min = 0;
+            limit_02.max = 90;
+            Arm_02.limits = limit_02;
+            
+        }
+        else if (direction == 1) //Character Flip to left
+        {
+            Vector3 charScale = transform.localScale;
+            charScale.x = 1;
+            transform.localScale = charScale;
+            
+            //Changes the limits of the bicep arm
+            limit_01.min = -50;
+            limit_01.max = 75;
+            Arm_01.limits = limit_01;
+
+            //Changes the limits of the forearm arm
+            limit_02.min = 270;
+            limit_02.max = 360;
+            Arm_02.limits = limit_02;
+        }
+    }
+
  
     /*
     This function freezes the character's ability to dodge after a given number of dodges. 
@@ -154,5 +216,18 @@ public class PlayerMovement : MonoBehaviour
         mulFactor = 1.0f;                       //Resets speed multiplier to base speed  
         if (numDodgeLeft > 0)
             canDodge = true;                        // now you can dodge
-    }   
+    }
+
+    /*
+    This Coroutine stores the direction of the last move within a variable and keeps a timer of the time elasped between the last input.
+    When the last move equals the current input of the user, flipRoutine calls the characterFlip function 
+    */
+    IEnumerator flipRoutine(float time, int direction) { 
+        if (lastMove == direction) {
+            characterFlip(direction);
+        }
+        lastMove = direction;
+        yield return new WaitForSeconds(time);     // wait designated time 
+        lastMove = 0;
+    }    
 }
