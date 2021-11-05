@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyBehavior : MonoBehaviour
 {
     [SerializeField, Tooltip("Max speed, in units per second, that the character moves.")]
-    float speed = 9;
+    public float speed = 9;
     [SerializeField, Tooltip("Attack damage")]
     public float damage = 1f;
     [SerializeField, Tooltip("Attack distance")]
@@ -14,52 +14,41 @@ public class EnemyBehavior : MonoBehaviour
     float cooldown = 5f;
     [SerializeField, Tooltip("Parry knockback")]
     float parryKnockback = 0.5f;
+
+    [SerializeField, Tooltip("How high the y-velocity of player sword must be to parry")]
+    float parryVelocity = 1.5f;
     private Animator animator;
-    private Animation attackAnimation;
-    private Animation parryTint;
     private GameObject target;
     private CapsuleCollider2D capsuleCollider;
     private BoxCollider2D hitBoxCollider;
-    private GameObject weaponGameObject;
+    private BoxCollider2D playerWeaponCollider;
     private Rigidbody2D rb;
-    private SpriteRenderer enemyBodySprite;
-
-    private float weaponXpos = -0.4f;
-    private float weaponYpos = 0f;
-    private float weaponObjectXpos = 0.68f;
+    //private SpriteRenderer enemyBodySprite;
 
     private bool canAttack = true; 
     private bool canDamage = true;
 
     public static event Action<float> onPlayerDamaged;
     public static event Action onAttack;
+    public static event Action<GameObject> parriedEvent;
 
     private EnemyBase enemyBase;
+    private float scaleX;
+
+    private bool inRange = false;
 
     void Awake()
     {
         enemyBase = GetComponent<EnemyBase>();
         capsuleCollider = GetComponent<CapsuleCollider2D>();
-        enemyBodySprite = GetComponent<SpriteRenderer>();
+        //enemyBodySprite = GetComponent<SpriteRenderer>();
 
         rb = GetComponent<Rigidbody2D>();
-        weaponGameObject = transform.GetChild(0).gameObject;  // grab first child gameobject
-        hitBoxCollider = weaponGameObject.GetComponent<BoxCollider2D>();
+        hitBoxCollider = transform.GetChild(0).GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
-        attackAnimation = transform.GetChild(0).GetComponent<Animation>();
-        parryTint = GetComponent<Animation>();
-        target = GameObject.FindWithTag("Player"); // find the player game object and target him
-
-        // get weapon offset so we can later flip enemy
-        weaponXpos = weaponGameObject.GetComponent<BoxCollider2D>().offset.x;
-        weaponYpos = weaponGameObject.GetComponent<BoxCollider2D>().offset.y;
-    }
-
-    void OnEnable() {
-        WeaponBase.parriedEvent += attackParried;
-    }
-    void OnDisable() {
-        WeaponBase.parriedEvent -= attackParried;
+        target = GameObject.Find("PlayerV4"); // find the player game object and target him
+        playerWeaponCollider = GameObject.FindGameObjectWithTag("Weapon").GetComponent<BoxCollider2D>();
+        scaleX = transform.localScale.x;
     }
 
     // Update is called once per frame
@@ -93,101 +82,72 @@ public class EnemyBehavior : MonoBehaviour
         if (target.transform.position.x > transform.position.x)
         {
             // player is to the right;
-
-            if (animator != null) { // sprite-sheet based enemies
-                enemyBodySprite.flipX = false;
-                weaponGameObject.GetComponent<BoxCollider2D>().offset = new Vector2(-weaponXpos,weaponYpos);
-            } else { // other enemy types
-                enemyBodySprite.flipX = true; 
-                weaponGameObject.transform.localPosition = new Vector3(weaponObjectXpos,weaponGameObject.transform.localPosition.y,0);
-                attackAnimation.clip = attackAnimation.GetClip("EnemySwordRight");
-            }
+            transform.localScale = new Vector3(-scaleX,transform.localScale.y, transform.localScale.z);
         }
         else
         {
             // player is to the left
-            if (animator != null) {
-                enemyBodySprite.flipX = true;
-                weaponGameObject.GetComponent<BoxCollider2D>().offset = new Vector2(weaponXpos,weaponYpos);
-            } else {
-                enemyBodySprite.flipX = false;
-                weaponGameObject.transform.localPosition = new Vector3(-weaponObjectXpos,weaponGameObject.transform.localPosition.y,0);
-                attackAnimation.clip = attackAnimation.GetClip("EnemySwordLeft");
-            }
+            transform.localScale = new Vector3(scaleX,transform.localScale.y, transform.localScale.z);
         }
 
         float distToPlayer = Math.Abs(target.transform.position.x - transform.position.x);
+        if (animator.GetBool("inRange")) {
+            // give a little buffer when player goes outside of attack range
+            distToPlayer -= 0.35f;
+        }
         if (distToPlayer <= attackDist)
         {
-            if (animator != null)
-                animator.SetFloat("xvel_magnitude", 0);
-            //Debug.Log("attack");
-            // attack the player
+            animator.SetBool("inRange", true);
             if (canAttack) {
-                StartCoroutine(AttackRoutine(0.5f));
+                //StartCoroutine(AttackRoutine(0.5f));
+                animator.SetTrigger("attack");
             } 
         } else {
-            // move toward player
-            transform.position = Vector2.MoveTowards(transform.position, target.transform.position, speed*Time.deltaTime);
-            
-            if (animator != null)
-                animator.SetFloat("xvel_magnitude", 1);
+            animator.SetBool("inRange", false);
         }
     }
 
-    IEnumerator AttackRoutine(float delay) {
-        if (canAttack) {
-            canAttack = false;
-            if (animator != null)
-                animator.SetTrigger("attack");
-            else {
-                parryTint.Play();
-                attackAnimation.Play();
+    public void CheckParry() {
+        // check if player's weapon touches our hitbox at the right moment
+        if (canDamage) {
+            if (hitBoxCollider.IsTouching(playerWeaponCollider)) {
+                Rigidbody2D playerWeaponRB = GameObject.FindGameObjectWithTag("Weapon").GetComponent<Rigidbody2D>();
+                // check if the player sword is moving upward
+                if (playerWeaponRB.velocity.y > parryVelocity) {
+                    parriedEvent?.Invoke(gameObject);
+                    canDamage = false;
+                    StartCoroutine(enemyBase.FakeAddForceMotion(parryKnockback));
+                }
             }
-            onAttack?.Invoke();
-            yield return new WaitForSeconds(delay);
-            hitBoxCollider.enabled = true;
-            yield return new WaitForSeconds(delay);
-            hitBoxCollider.enabled = false;
-            if (animator != null)
-                animator.ResetTrigger("attack");
-            StartCoroutine(AttackCoolDown(cooldown));
         }
     }
 
-    IEnumerator AttackCoolDown(float time) { 
+    // this function is called from the animation player on attack
+    public void Attack() {
+        canAttack = false;
+        
+        // enable the hitbox on the weapon
+        //hitBoxCollider.enabled = true;
+        if (canDamage) {
+            // we have not parried, so check for damage
+            if (hitBoxCollider.IsTouching(target.GetComponent<CapsuleCollider2D>())) {
+                // the hitbox is touching the player capsule collider, deal damage!
+                onPlayerDamaged?.Invoke(getWeaponDamage());
+            }
+        }
+        //hitBoxCollider.enabled = false;
+        
+        animator.ResetTrigger("attack");
+        StartCoroutine(AttackCoolDown(cooldown));
+    }
+
+    public IEnumerator AttackCoolDown(float time) { 
         yield return new WaitForSeconds(time);     // wait for 3 seconds until enemy can attack again
         canAttack = true;
         canDamage = true;
     }
 
-    // accessor function for the isAttacking bool
-    public bool isEnemyAttacking() 
-    {
-        return hitBoxCollider.enabled;
-    }
-
     public float getWeaponDamage() {
         return damage;
-    }
-
-    public void damagePlayerEvent() {
-        if (canDamage) {
-            // send the onPlayerDamaged event.  This public function can be called from the EnemyBaseWeapon script
-            onPlayerDamaged?.Invoke(getWeaponDamage());
-            // dont damage player immediately again.
-            canDamage = false;
-            //StartCoroutine(AttackCoolDown(cooldown));
-        }
-    }
-
-    public void attackParried(GameObject enemyObject) {
-        // send the onparried event.  This public function can be called from the EnemyBaseWeapon script
-        if (this.gameObject == enemyObject) {
-            Debug.Log("Parried");
-            canDamage = false;
-            StartCoroutine(AttackCoolDown(cooldown));
-            StartCoroutine(enemyBase.FakeAddForceMotion(parryKnockback));
-        }
     }
 }

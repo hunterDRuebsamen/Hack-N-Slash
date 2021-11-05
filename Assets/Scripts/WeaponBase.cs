@@ -8,15 +8,17 @@ public class WeaponBase : MonoBehaviour
     [SerializeField]
     private float damageFactor = 0.5f;
     [SerializeField]
-    private float coolDownTimer = 0.3f;
+    private float coolDownTimer = 0.6f;
     [SerializeField, Tooltip("Player Attack cooldown in seconds")]
     private string Name;
     private bool canAttack = true;
     private Rigidbody2D rb; 
 
+    // sword must be moving at this velocity before its considered an attack
+    const float minMagnitude = 1f;
+
     //Event for weapon hit
     public static event Action<float, GameObject> onEnemyDamaged;
-    public static event Action<GameObject> parriedEvent;
 
     void Start()
     {
@@ -28,7 +30,7 @@ public class WeaponBase : MonoBehaviour
         // check to see what we just got hit with
         if (col.tag == "Enemy")
         {
-            if (canAttack) {
+            if (canAttack && (rb.velocity.magnitude > minMagnitude)) {
                 //Calculate the damage based on velocity
                 float vel = rb.velocity.magnitude;
                 float damage = vel * damageFactor;
@@ -37,12 +39,7 @@ public class WeaponBase : MonoBehaviour
                 canAttack = false;
                 StartCoroutine(AttackCoolDown(coolDownTimer));
             }
-        } else if (col.tag == "EnemyWeapon") {
-            if(rb.velocity.magnitude >= 5.5f) {
-                parriedEvent?.Invoke(col.gameObject);
-                Debug.Log("Parried attack");
-            }
-        }    
+        }
     }
 
     //Attack cool down timer for player
