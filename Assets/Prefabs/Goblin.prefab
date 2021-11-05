@@ -232,8 +232,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aea4c0f1db8754c3892cc0e1129a50ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 15
-  knockbackFactor: 0.2
+  health: 10
+  knockbackFactor: 0.25
 --- !u!114 &5362011423250178800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,10 +247,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
-  damage: 5
+  damage: 2
   attackDist: 1.5
   cooldown: 2
   parryKnockback: 0.5
+  parryVelocity: 0.75
 --- !u!1 &3653957203799385042
 GameObject:
   m_ObjectHideFlags: 0
@@ -411,7 +412,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5647001993876725634}
   - component: {fileID: 4600184045359476939}
-  - component: {fileID: 7626945819028935066}
   m_Layer: 3
   m_Name: Weapon
   m_TagString: EnemyWeapon
@@ -440,7 +440,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4731404183634185301}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -459,18 +459,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5571903, y: 0.29434606}
   m_EdgeRadius: 0
---- !u!114 &7626945819028935066
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4731404183634185301}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b523910df3745d6ccaa3e9bc2680363d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8057602070786952784
 GameObject:
   m_ObjectHideFlags: 0

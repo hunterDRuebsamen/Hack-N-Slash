@@ -8,7 +8,7 @@ public class EnemyBase : MonoBehaviour
     [SerializeField, Tooltip("Enemy Health (hitpoints)")]
     public int health = 15;
     [SerializeField, Tooltip("Knockback Multiplier")]
-    float knockbackFactor = 0.6f;
+    float knockbackFactor = 0.2f;
     
     Rigidbody2D rigidBody; 
     BoxCollider2D enemyWeapon;
@@ -37,15 +37,14 @@ public class EnemyBase : MonoBehaviour
             health -= (int)Math.Round(damage);
             if(health <= 0) {
                 onEnemyDeath?.Invoke(this.gameObject);
-                Destroy(this.gameObject);
+                animator.SetTrigger("death");
+                StartCoroutine(Death());
+            } else {
+                Debug.Log("Enemy Health: "+health);
+                animator.SetTrigger("hit");
+                //Calculate knockback force
+                StartCoroutine(FakeAddForceMotion(damage*knockbackFactor));
             }
-            Debug.Log("Enemy Health: "+health);
-            if (animator != null) {
-                if (!animator.GetCurrentAnimatorStateInfo(0).IsName("attack"))
-                    animator.SetTrigger("hit");
-            }
-            //Calculate knockback force
-            StartCoroutine(FakeAddForceMotion(damage*knockbackFactor));
         }
     }
 
@@ -61,5 +60,11 @@ public class EnemyBase : MonoBehaviour
         }
         rigidBody.velocity = Vector2.zero;
         yield return null;
+    }
+
+    private IEnumerator Death() {
+        //animator.ResetTrigger("death");
+        yield return new WaitForSeconds(0.6f);
+        Destroy(this.gameObject);
     }
 }
