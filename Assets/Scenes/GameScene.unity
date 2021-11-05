@@ -1072,7 +1072,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.022387, y: -0.7460815, z: -10.01}
+  m_LocalPosition: {x: -9.022324, y: -0.7460815, z: -10.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1922,26 +1922,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 338915751193083157, guid: 8aa7b1e53e8cf4f47a54008408471bc6, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 338915751193083157, guid: 8aa7b1e53e8cf4f47a54008408471bc6, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 338915751193083157, guid: 8aa7b1e53e8cf4f47a54008408471bc6, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 338915751193083157, guid: 8aa7b1e53e8cf4f47a54008408471bc6, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 338915751193083157, guid: 8aa7b1e53e8cf4f47a54008408471bc6, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 598725931394312989, guid: 8aa7b1e53e8cf4f47a54008408471bc6, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1950,16 +1930,8 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2591785396657204515, guid: 8aa7b1e53e8cf4f47a54008408471bc6, type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
     - target: {fileID: 4236872622929869991, guid: 8aa7b1e53e8cf4f47a54008408471bc6, type: 3}
       propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4236872622929869991, guid: 8aa7b1e53e8cf4f47a54008408471bc6, type: 3}
-      propertyPath: m_LocalScale.x
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4236872622929869991, guid: 8aa7b1e53e8cf4f47a54008408471bc6, type: 3}
@@ -2002,45 +1974,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5328140722330894976, guid: 8aa7b1e53e8cf4f47a54008408471bc6, type: 3}
-      propertyPath: Name
-      value: Sword
-      objectReference: {fileID: 0}
-    - target: {fileID: 5328140722330894976, guid: 8aa7b1e53e8cf4f47a54008408471bc6, type: 3}
-      propertyPath: damageFactor
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5328140722330894976, guid: 8aa7b1e53e8cf4f47a54008408471bc6, type: 3}
-      propertyPath: coolDownTimer
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6435031237716441508, guid: 8aa7b1e53e8cf4f47a54008408471bc6, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7656498296597040370, guid: 8aa7b1e53e8cf4f47a54008408471bc6, type: 3}
       propertyPath: m_Name
       value: PlayerV4
-      objectReference: {fileID: 0}
-    - target: {fileID: 7656498296597040370, guid: 8aa7b1e53e8cf4f47a54008408471bc6, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7833475100808334977, guid: 8aa7b1e53e8cf4f47a54008408471bc6, type: 3}
-      propertyPath: dodgeCoolDownTime
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8664510857723180908, guid: 8aa7b1e53e8cf4f47a54008408471bc6, type: 3}
-      propertyPath: m_UseLimits
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8664510857723180908, guid: 8aa7b1e53e8cf4f47a54008408471bc6, type: 3}
-      propertyPath: m_AngleLimits.m_LowerAngle
-      value: 269.9999
-      objectReference: {fileID: 0}
-    - target: {fileID: 8664510857723180908, guid: 8aa7b1e53e8cf4f47a54008408471bc6, type: 3}
-      propertyPath: m_AngleLimits.m_UpperAngle
-      value: 360
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8aa7b1e53e8cf4f47a54008408471bc6, type: 3}
@@ -3202,7 +3138,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1840438654}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.022387, y: -0.7460815, z: -10.01}
+  m_LocalPosition: {x: -9.022324, y: -0.7460815, z: -10.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1922294290}
