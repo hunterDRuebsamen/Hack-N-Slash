@@ -29,14 +29,14 @@ public class SoundManager : MonoBehaviour
     // Register events to listen for
     private void OnEnable() { // Watches for when the enemy gets hit
         EnemyBehavior.onPlayerDamaged += onPlayerHit;
-        WeaponBase.parriedEvent += onParry;
+        EnemyBehavior.parriedEvent += onParry;
         WeaponBase.onEnemyDamaged += onEnemyHit;
         PlayerHealth.onPlayerDeath += onPlayerDeath;
         PlayerHealth.onPlayerHealthChanged += onPlayerHealth;
     } 
     private void onDisable() {
         EnemyBehavior.onPlayerDamaged -= onPlayerHit;
-        WeaponBase.parriedEvent -= onParry;
+        EnemyBehavior.parriedEvent -= onParry;
         WeaponBase.onEnemyDamaged -= onEnemyHit;
         PlayerHealth.onPlayerDeath -= onPlayerDeath;
         PlayerHealth.onPlayerHealthChanged -= onPlayerHealth;
