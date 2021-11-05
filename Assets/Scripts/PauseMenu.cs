@@ -5,6 +5,9 @@ using UnityEngine;
 public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenuUI;
+    public delegate void leavePause();
+    public static event leavePause onUnpause;
+
 
     void Resume()
     {
@@ -27,6 +30,7 @@ public class PauseMenu : MonoBehaviour
         }
         else if(Input.GetKeyDown(KeyCode.Space))
         {
+            onUnpause();
             Resume();           
         }
     }
