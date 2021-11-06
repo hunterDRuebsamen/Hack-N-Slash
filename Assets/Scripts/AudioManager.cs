@@ -18,9 +18,10 @@ public class AudioManager : MonoBehaviour
             GlobalVariables.Set("musicVolume", defaultMusicVolume);
         }
     }
-
+    /*
     void onEnable (){
         PauseMenu.onUnpause+=changeMusicvol;
+
     }
 
     void onDisable (){
@@ -30,7 +31,7 @@ public class AudioManager : MonoBehaviour
     void changeMusicvol(){
         audioManager.volume = GlobalVariables.Get<float>("musicVolume");
     }
-
+    */
 
 
 }

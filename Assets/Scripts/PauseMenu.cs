@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class PauseMenu : MonoBehaviour
 {
+    //attempt at making a event for unpausing
+    //public delegate void leavePause();
+    //public static event leavePause onUnpause;
+    
     public GameObject pauseMenuUI;
-    public delegate void leavePause();
-    public static event Action onUnpause;
-
 
     void Resume()
     {
@@ -30,8 +31,10 @@ public class PauseMenu : MonoBehaviour
         }
         else if(Input.GetKeyDown(KeyCode.Space))
         {
-            onUnpause.Invoke();
-            Resume();           
+           
+            Resume(); 
+            //onUnpause.Invoke();     
+                 
         }
     }
 }
