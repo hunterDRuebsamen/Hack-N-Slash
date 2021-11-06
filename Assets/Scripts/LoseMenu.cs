@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LoseMenu : MonoBehaviour
 {
@@ -17,12 +18,19 @@ public class LoseMenu : MonoBehaviour
     } 
     private void onDisable() {
         PlayerHealth.onPlayerDeath -= Lose;
-    } 
+    }
 
     void Lose()
     {
         loseMenuUI.SetActive(true);
         Time.timeScale = 0;
+        StartCoroutine(LostTheGame());
     }
 
+    IEnumerator LostTheGame()
+    {
+        yield return new WaitForSecondsRealtime(5);
+        SceneManager.LoadScene("GameOverScene");
+        Time.timeScale = 1;
+    }
 }
