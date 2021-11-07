@@ -45,13 +45,16 @@ public class EnemySpawner : MonoBehaviour
 
     private IEnumerator SpawnRoutine()
     {
+        // grab a reference to player movement so we can get Y-bounds
+        PlayerMovement pm = player.GetComponent<PlayerMovement>();
+
         while (_stopSpawn == false) 
         {
             yield return new WaitForSeconds(spawnTime);
             if (numEnemies < maxEnemies) 
             {
                 float _xSpawnPos = player.transform.position.x + spawnDist + Mathf.Round(Random.Range(-4f,4f) * 10) / 10;
-                float _ySpawnPos = Random.Range(0f,4f);
+                float _ySpawnPos = Random.Range(pm.minY+0.5f,pm.maxY-0.5f);
 
                 int enemyIndex = Random.Range(0,enemyList.Capacity);
                 // spawn a new enemy

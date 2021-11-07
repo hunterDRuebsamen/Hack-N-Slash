@@ -1421,8 +1421,8 @@ MonoBehaviour:
   dodgeFactor: 3.5
   acceleration: 75
   deceleration: 70
-  maxY: 4
-  minY: -2.5
+  maxY: -0.2
+  minY: -3.25
   dodgeCoolDownTime: 1
   maxDodgeBoosts: 3
   dodgeLength: 0.25

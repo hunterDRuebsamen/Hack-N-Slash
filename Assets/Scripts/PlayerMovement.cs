@@ -18,9 +18,9 @@ public class PlayerMovement : MonoBehaviour
     float deceleration = 70;
 
     [SerializeField, Tooltip("Limits the postiive vertical distance that the character can travel.")]
-    float maxY = 4f;
+    public float maxY = 4f;
     [SerializeField, Tooltip("Limits the negative vertical distance that the character can travel.")]
-    float minY = 2.5f;
+    public float minY = 2.5f;
 
     [SerializeField, Tooltip("Cooldown Timer before you get your dodge boosts back")]
     float dodgeCoolDownTime = 10f;
