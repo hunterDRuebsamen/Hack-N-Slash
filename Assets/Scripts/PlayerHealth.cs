@@ -28,7 +28,7 @@ public class PlayerHealth : MonoBehaviour
     { 
         EnemyBehavior.onPlayerDamaged += onPlayerHit;
     } 
-    private void onDisable() 
+    private void OnDisable() 
     {
         EnemyBehavior.onPlayerDamaged -= onPlayerHit;
     } 
