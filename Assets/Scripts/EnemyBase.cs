@@ -9,11 +9,17 @@ public class EnemyBase : MonoBehaviour
     public int health = 15;
     [SerializeField, Tooltip("Knockback Multiplier")]
     float knockbackFactor = 0.2f;
-    
+
+    [SerializeField]
+    int hitQueueSize = 5;
+    private int currentHits = 0;
+    private Queue<int> hitQueue = new Queue<int>();
     Rigidbody2D rigidBody; 
     BoxCollider2D enemyWeapon;
     Animator animator;
     public static event Action<GameObject> onEnemyDeath;
+
+    const int numBlockHits = 2;
 
     // Start is called before the first frame update
     void Start()
@@ -21,11 +27,12 @@ public class EnemyBase : MonoBehaviour
         enemyWeapon = transform.GetChild(0).GetComponent<BoxCollider2D>();
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        StartCoroutine(blockTimer());
     }
     private void OnEnable() { // Watches for when the enemy gets hit
         WeaponBase.onEnemyDamaged += onEnemyHit;
     } 
-    private void onDisable() {
+    private void OnDisable() {
         WeaponBase.onEnemyDamaged -= onEnemyHit;
     } 
 
@@ -42,6 +49,7 @@ public class EnemyBase : MonoBehaviour
             } else {
                 Debug.Log("Enemy Health: "+health);
                 animator.SetTrigger("hit");
+                currentHits += 1;
                 //Calculate knockback force
                 StartCoroutine(FakeAddForceMotion(damage*knockbackFactor));
             }
@@ -67,4 +75,23 @@ public class EnemyBase : MonoBehaviour
         yield return new WaitForSeconds(0.6f);
         Destroy(this.gameObject);
     }
+
+    private IEnumerator blockTimer() { 
+        while(health > 0) {
+            yield return new WaitForSeconds(1f);     // wait designated time 
+            hitQueue.Enqueue(currentHits);
+            if(hitQueue.Count > hitQueueSize)
+                hitQueue.Dequeue();
+            int[] hitArray = hitQueue.ToArray();
+            int sumHit = 0;
+            foreach(int hit in hitArray){
+                sumHit += hit;
+            }  
+            currentHits = 0;
+            if (sumHit >= numBlockHits){
+                animator.SetTrigger("block");
+                Debug.Log("Enemy block");
+            }
+        }
+    }    
 }
