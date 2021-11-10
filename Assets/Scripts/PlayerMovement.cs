@@ -55,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
         capsuleCollider = GetComponent<CapsuleCollider2D>();
         numDodgeLeft = maxDodgeBoosts;
 
-        healthBar = transform.Find("PlayerHealthBar");
+        healthBar = transform.GetChild(3).GetChild(0);
 
         playerAnim = GameObject.Find("Body").GetComponent<Animator>();
     }
