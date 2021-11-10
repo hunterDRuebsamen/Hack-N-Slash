@@ -134,7 +134,7 @@ public class EnemyBehavior : MonoBehaviour
             // we have not parried, so check for damage
             if (hitBoxCollider.IsTouching(target.GetComponent<CapsuleCollider2D>())) {
                 // the hitbox is touching the player capsule collider, deal damage!
-                onPlayerDamaged?.Invoke(getWeaponDamage());
+                damagePlayer();
             }
         }
         //hitBoxCollider.enabled = false;
@@ -149,6 +149,7 @@ public class EnemyBehavior : MonoBehaviour
         Transform firePoint = transform.GetChild(1);
         if(projectile != null){
            Rigidbody2D rbBullet = Instantiate(projectile, firePoint.position, Quaternion.identity).GetComponent<Rigidbody2D>();
+           rbBullet.GetComponent<projectile>().enemyBehavior = this;
            Vector2 playerPos = new Vector2(target.transform.position.x, target.transform.position.y).normalized;
            rbBullet.AddForce(playerPos * 2f, ForceMode2D.Impulse); 
         }
@@ -164,5 +165,9 @@ public class EnemyBehavior : MonoBehaviour
 
     public float getWeaponDamage() {
         return damage;
+    }
+
+    public void damagePlayer() {
+        onPlayerDamaged?.Invoke(getWeaponDamage());
     }
 }
