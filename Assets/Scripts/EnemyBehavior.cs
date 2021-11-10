@@ -141,6 +141,10 @@ public class EnemyBehavior : MonoBehaviour
         StartCoroutine(AttackCoolDown(cooldown));
     }
 
+    public void Shoot(){
+        Debug.Log("Fire projectile");
+    }
+
     public IEnumerator AttackCoolDown(float time) { 
         yield return new WaitForSeconds(time);     // wait for 3 seconds until enemy can attack again
         canAttack = true;
