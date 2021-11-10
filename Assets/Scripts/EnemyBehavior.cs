@@ -14,6 +14,8 @@ public class EnemyBehavior : MonoBehaviour
     float cooldown = 5f;
     [SerializeField, Tooltip("Parry knockback")]
     float parryKnockback = 0.5f;
+    [SerializeField, Tooltip("Projectile for ranged enemies")]
+    GameObject projectile = null;
 
     [SerializeField, Tooltip("How high the y-velocity of player sword must be to parry")]
     float parryVelocity = 1.5f;
@@ -141,8 +143,17 @@ public class EnemyBehavior : MonoBehaviour
         StartCoroutine(AttackCoolDown(cooldown));
     }
 
-    public void Shoot(){
-        Debug.Log("Fire projectile");
+    public void Shoot(){ 
+        animator.ResetTrigger("attack"); 
+        canAttack = false;
+        Transform firePoint = transform.GetChild(1);
+        if(projectile != null){
+           Rigidbody2D rbBullet = Instantiate(projectile, firePoint.position, Quaternion.identity).GetComponent<Rigidbody2D>();
+           Vector2 playerPos = new Vector2(target.transform.position.x, target.transform.position.y).normalized;
+           rbBullet.AddForce(playerPos * 2f, ForceMode2D.Impulse); 
+        }
+        
+        StartCoroutine(AttackCoolDown(cooldown));
     }
 
     public IEnumerator AttackCoolDown(float time) { 
