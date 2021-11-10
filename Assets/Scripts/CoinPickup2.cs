@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
- 
-public class CoinPickup : MonoBehaviour
+
+public class CoinPickup2 : MonoBehaviour
 {
     public enum PickupObject{COIN};
     public PickupObject currentObject;
@@ -13,7 +13,7 @@ public class CoinPickup : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     { //coin is counted in counter and is then destroyed
         print("Collided with: " + other);
-        if(other.name == "PlayerV2" || other.name == "Arm_02")
+        if(other.tag == "Player" || other.name == "Weapon")
         { 
             if(currentObject == PickupObject.COIN)
             {
@@ -21,7 +21,7 @@ public class CoinPickup : MonoBehaviour
                 CoinCounter.coinAmount += 1;
                 Debug.Log("Coins: " + coins);
             }
-            Destroy(gameObject);
+            Destroy(transform.parent.gameObject);
         }
     }
 }

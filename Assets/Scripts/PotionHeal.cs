@@ -11,19 +11,17 @@ public class PotionHeal : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         print(other);
-        if(other.name == "PlayerV2" || other.name == "Arm_02")
+        if(other.tag == "Player" || other.tag == "Weapon")
         { 
-            if(currentObject == PickupObject.POTION)
-            {
-                PlayerHealth.currentHealth += 20;
- 
-                //PlayerHealth.healthBar.SetHealth(PlayerHealth.currentHealth);
- 
-                Debug.Log("Player is healed");
- 
-                Debug.Log("Player Health: " + PlayerHealth.currentHealth);
-            }
-            Destroy(gameObject);
+            Debug.Log("Player is healed");
+
+            playerHealthObject.currentHealth += 20;
+            
+            playerHealthObject.healthBar.SetHealth(playerHealthObject.currentHealth);
+
+            Debug.Log("Player Health: " + playerHealthObject.currentHealth);
+            
+            Destroy(transform.parent.gameObject);
         }
     }
 }

@@ -10,7 +10,7 @@ public class PlayerHealth : MonoBehaviour
     public int currentHealth;
 
     public int criticalHealthLevel = 35;
-    private HealthBar healthBar;
+    public HealthBar healthBar;
 
     public static event Action onPlayerDeath;
     public static event Action<int> onPlayerHealthChanged;

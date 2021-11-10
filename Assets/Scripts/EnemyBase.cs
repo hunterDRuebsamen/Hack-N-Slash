@@ -15,6 +15,9 @@ public class EnemyBase : MonoBehaviour
     Animator animator;
     public static event Action<GameObject> onEnemyDeath;
 
+    //public GameObject coinDrop;
+    //public GameObject potionDrop;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +42,8 @@ public class EnemyBase : MonoBehaviour
                 onEnemyDeath?.Invoke(this.gameObject);
                 animator.SetTrigger("death");
                 StartCoroutine(Death());
+                //Instantiate(coinDrop, transform.position, Quaternion.identity);
+                //Instantiate(potionDrop, transform.position, Quaternion.identity);
             } else {
                 Debug.Log("Enemy Health: "+health);
                 animator.SetTrigger("hit");

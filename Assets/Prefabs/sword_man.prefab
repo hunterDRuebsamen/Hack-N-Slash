@@ -275,6 +275,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 15
   knockbackFactor: 0.2
+  coinDrop: {fileID: 6503255539685475012, guid: fc369adceb89a414d91dfc79c40e8877, type: 3}
+  potionDrop: {fileID: 232150868389931111, guid: 24884a940071304488f68d377be4d1e2, type: 3}
 --- !u!114 &2634263972391122924
 MonoBehaviour:
   m_ObjectHideFlags: 0
