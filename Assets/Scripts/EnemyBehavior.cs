@@ -29,15 +29,18 @@ public class EnemyBehavior : MonoBehaviour
 
     private bool canAttack = true; 
     private bool canDamage = true;
+    public enum AttackType
+    {
+        Melee,
+        Projectile
+    };
 
-    public static event Action<float> onPlayerDamaged;
-    public static event Action onAttack;
+    public static event Action<AttackType, float> onPlayerDamaged;
+    public static event Action<AttackType> onAttack;
     public static event Action<GameObject> parriedEvent;
 
     private EnemyBase enemyBase;
     private float scaleX;
-
-    private bool inRange = false;
 
     void Awake()
     {
@@ -116,7 +119,7 @@ public class EnemyBehavior : MonoBehaviour
                 Rigidbody2D playerWeaponRB = GameObject.FindGameObjectWithTag("Weapon").GetComponent<Rigidbody2D>();
                 // check if the player sword is moving upward
                 if (playerWeaponRB.velocity.y > parryVelocity) {
-                    parriedEvent?.Invoke(gameObject);
+                    parryEvent();
                     canDamage = false;
                     StartCoroutine(enemyBase.FakeAddForceMotion(parryKnockback));
                 }
@@ -127,14 +130,14 @@ public class EnemyBehavior : MonoBehaviour
     // this function is called from the animation player on attack
     public void Attack() {
         canAttack = false;
-        
+        onAttack?.Invoke(AttackType.Melee);
         // enable the hitbox on the weapon
         //hitBoxCollider.enabled = true;
         if (canDamage) {
             // we have not parried, so check for damage
             if (hitBoxCollider.IsTouching(target.GetComponent<CapsuleCollider2D>())) {
                 // the hitbox is touching the player capsule collider, deal damage!
-                damagePlayer();
+                damagePlayerEvent(AttackType.Melee);
             }
         }
         //hitBoxCollider.enabled = false;
@@ -144,7 +147,8 @@ public class EnemyBehavior : MonoBehaviour
     }
 
     public void Shoot(){ 
-        animator.ResetTrigger("attack"); 
+        animator.ResetTrigger("attack");
+        onAttack?.Invoke(AttackType.Projectile); 
         canAttack = false;
         Transform firePoint = transform.GetChild(1);
         if(projectile != null){
@@ -167,7 +171,11 @@ public class EnemyBehavior : MonoBehaviour
         return damage;
     }
 
-    public void damagePlayer() {
-        onPlayerDamaged?.Invoke(getWeaponDamage());
+    public void parryEvent() {
+        parriedEvent?.Invoke(gameObject);
+    }
+
+    public void damagePlayerEvent(AttackType attackType) {
+        onPlayerDamaged?.Invoke(attackType, getWeaponDamage());
     }
 }

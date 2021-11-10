@@ -28,7 +28,7 @@ public class GameEvents : MonoBehaviour
     private void onEnemyHit(float damage, GameObject enemyObject) {
         Debug.Log("Enemy has been hit for: "+ damage);
     }
-    private void onPlayerHit(float damage) {
+    private void onPlayerHit(EnemyBehavior.AttackType attackType, float damage) {
         Debug.Log("Player has been hit." + damage);
 
     }

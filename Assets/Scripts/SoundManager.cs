@@ -15,7 +15,12 @@ public class SoundManager : MonoBehaviour
     AudioClip enemyHitSound;
     [SerializeField]
     AudioClip playerDeathSound;
+    [SerializeField]
+    AudioClip cannonFireSound;
+    [SerializeField]
+    AudioClip bulletHitSound;
     AudioClip heartbeatSound;
+    
 
     private PlayerHealth phObject;
 
@@ -33,6 +38,7 @@ public class SoundManager : MonoBehaviour
         WeaponBase.onEnemyDamaged += onEnemyHit;
         PlayerHealth.onPlayerDeath += onPlayerDeath;
         PlayerHealth.onPlayerHealthChanged += onPlayerHealth;
+        EnemyBehavior.onAttack += onEnemyAttack;
     } 
     private void onDisable() {
         EnemyBehavior.onPlayerDamaged -= onPlayerHit;
@@ -40,11 +46,15 @@ public class SoundManager : MonoBehaviour
         WeaponBase.onEnemyDamaged -= onEnemyHit;
         PlayerHealth.onPlayerDeath -= onPlayerDeath;
         PlayerHealth.onPlayerHealthChanged -= onPlayerHealth;
+        EnemyBehavior.onAttack -= onEnemyAttack;
     } 
 
-    private void onPlayerHit(float dmg)
+    private void onPlayerHit(EnemyBehavior.AttackType attackType, float dmg)
     {
-        audioSource.PlayOneShot(playerHitSound); // play hit sound
+        if (attackType == EnemyBehavior.AttackType.Projectile)
+            audioSource.PlayOneShot(bulletHitSound);
+        else
+            audioSource.PlayOneShot(playerHitSound); // play hit sound
     }
 
     private void onPlayerHealth(int cur_health) 
@@ -67,5 +77,10 @@ public class SoundManager : MonoBehaviour
     private void onPlayerDeath() {
         audioSource.Stop(); // stop heartbeat
         audioSource.PlayOneShot(playerDeathSound);
+    }
+
+    private void onEnemyAttack(EnemyBehavior.AttackType attackType) {
+        if (attackType == EnemyBehavior.AttackType.Projectile)
+            audioSource.PlayOneShot(cannonFireSound);
     }
 }
