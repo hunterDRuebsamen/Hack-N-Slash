@@ -7,7 +7,7 @@ public class PlayerHealth : MonoBehaviour
 {
     [SerializeField, Tooltip("Maximum amount of Health the player has")]
     private int maxHealth = 100;
-    private int currentHealth;
+    public int currentHealth;
 
     public int criticalHealthLevel = 35;
     private HealthBar healthBar;
