@@ -154,8 +154,10 @@ public class EnemyBehavior : MonoBehaviour
         if(projectile != null){
            Rigidbody2D rbBullet = Instantiate(projectile, firePoint.position, Quaternion.identity).GetComponent<Rigidbody2D>();
            rbBullet.GetComponent<projectile>().enemyBehavior = this;
-           Vector2 playerPos = new Vector2(target.transform.position.x, target.transform.position.y).normalized;
-           rbBullet.AddForce(playerPos * 2f, ForceMode2D.Impulse); 
+
+           Vector3 differenceVect = (target.transform.position - transform.position).normalized;
+           Vector2 shootVect = new Vector2(differenceVect.x, differenceVect.y);
+           rbBullet.AddForce(shootVect * 2f, ForceMode2D.Impulse); 
         }
         
         StartCoroutine(AttackCoolDown(cooldown));

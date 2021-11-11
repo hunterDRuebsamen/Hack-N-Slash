@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class projectile : MonoBehaviour
@@ -10,6 +11,7 @@ public class projectile : MonoBehaviour
     void Start()
     {
         col = GetComponent<CapsuleCollider2D>();
+        destroyBullet(3500);
     }
 
     void OnTriggerEnter2D(Collider2D collision){
@@ -27,5 +29,8 @@ public class projectile : MonoBehaviour
         }
     }
 
-
+    private async void destroyBullet(int duration) {
+        await Task.Delay(duration); //Duration is in miliseconds
+        Destroy(this.gameObject);
+    }
 }
