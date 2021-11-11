@@ -20,6 +20,7 @@ public class EnemyBase : MonoBehaviour
     public static event Action<GameObject> onEnemyDeath;
 
     const int numBlockHits = 2;
+    private Transform playerTrans;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +28,7 @@ public class EnemyBase : MonoBehaviour
         enemyWeapon = transform.GetChild(0).GetComponent<BoxCollider2D>();
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        playerTrans = GameObject.Find("PlayerV4").GetComponent<Transform>();
         StartCoroutine(blockTimer());
     }
     private void OnEnable() { // Watches for when the enemy gets hit
@@ -62,7 +64,15 @@ public class EnemyBase : MonoBehaviour
         float i = 0.01f;
         while (forceAmount > i)
         {
-            rigidBody.velocity = new Vector2(forceAmount / i, rigidBody.velocity.y); // !! For X axis positive force
+            if (playerTrans.localScale.x > 0)
+            {
+                rigidBody.velocity = new Vector2(forceAmount / i, rigidBody.velocity.y); // !! For X axis positive force
+            }
+            else
+            {
+                rigidBody.velocity = new Vector2(-forceAmount / i, rigidBody.velocity.y); // !! For X axis positive force
+            }
+            
             i = i + Time.deltaTime;
             yield return new WaitForEndOfFrame();      
         }

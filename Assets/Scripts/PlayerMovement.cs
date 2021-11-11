@@ -27,8 +27,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField, Tooltip("Max Number of Dodge Boosts")]
     int maxDodgeBoosts = 3;
     [SerializeField, Tooltip("Length in Time a Dodge boost lasts")]
-
     public float dodgeLength = 0.5f;
+
     float horizontalInput;
     float verticalInput;
  
@@ -41,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
     private HingeJoint2D Arm_02;
     private HingeJoint2D Arm_01;
     private Animator playerAnim;
-
+    private Transform healthBar;
    
  
     private float mulFactor = 1;
@@ -55,7 +55,8 @@ public class PlayerMovement : MonoBehaviour
         capsuleCollider = GetComponent<CapsuleCollider2D>();
         numDodgeLeft = maxDodgeBoosts;
 
-        playerAnim = GameObject.Find("Body").GetComponent<Animator>();
+        healthBar = transform.GetChild(3).GetChild(0);
+        playerAnim = transform.GetChild(4).GetComponent<Animator>();
     }
  
     private void Update()
@@ -191,9 +192,11 @@ public class PlayerMovement : MonoBehaviour
             limit_02.min = 0;
             limit_02.max = 90;
             Arm_02.limits = limit_02;
-            
+
+            //Keeps the health bar in the correct direction
+            healthBar.localScale = new Vector3(-1,1,1);
         }
-        else if (direction == 1) //Character Flip to left
+        else if (direction == 1) //Character Flip to right
         {
             Vector3 charScale = transform.localScale;
             charScale.x = 1;
@@ -208,7 +211,11 @@ public class PlayerMovement : MonoBehaviour
             limit_02.min = 270;
             limit_02.max = 360;
             Arm_02.limits = limit_02;
+
+            //Keeps the health bar in the correct direction
+            healthBar.localScale = new Vector3(1,1,1);
         }
+
     }
 
  
