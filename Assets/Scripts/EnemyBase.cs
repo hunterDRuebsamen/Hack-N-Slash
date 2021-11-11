@@ -10,6 +10,8 @@ public class EnemyBase : MonoBehaviour
     [SerializeField, Tooltip("Knockback Multiplier")]
     float knockbackFactor = 0.2f;
 
+    public bool isBlocking = false;
+
     [SerializeField]
     int hitQueueSize = 5;
     private int currentHits = 0;
@@ -18,6 +20,7 @@ public class EnemyBase : MonoBehaviour
     BoxCollider2D enemyWeapon;
     Animator animator;
     public static event Action<GameObject> onEnemyDeath;
+    public static event Action onEnemyBlocked;
 
     const int numBlockHits = 2;
     private Transform playerTrans;
@@ -43,17 +46,21 @@ public class EnemyBase : MonoBehaviour
     {
         // check to see if the enemy that was hit is this enemy.
         if (this != null && this.gameObject == enemyObject) {
-            health -= (int)Math.Round(damage);
-            if(health <= 0) {
-                onEnemyDeath?.Invoke(this.gameObject);
-                animator.SetTrigger("death");
-                StartCoroutine(Death());
-            } else {
-                Debug.Log("Enemy Health: "+health);
-                animator.SetTrigger("hit");
-                currentHits += 1;
-                //Calculate knockback force
-                StartCoroutine(FakeAddForceMotion(damage*knockbackFactor));
+            if(isBlocking)
+                onEnemyBlocked?.Invoke();
+            else{
+                health -= (int)Math.Round(damage);
+                if(health <= 0) {
+                    onEnemyDeath?.Invoke(this.gameObject);
+                    animator.SetTrigger("death");
+                    StartCoroutine(Death());
+                } else {
+                    Debug.Log("Enemy Health: "+health);
+                    animator.SetTrigger("hit");
+                    currentHits += 1;
+                    //Calculate knockback force
+                    StartCoroutine(FakeAddForceMotion(damage*knockbackFactor));
+                }
             }
         }
     }
@@ -86,6 +93,7 @@ public class EnemyBase : MonoBehaviour
         Destroy(this.gameObject);
     }
 
+    //This functions performs a block if the number of times the player has hit the enemy exceeds 2
     private IEnumerator blockTimer() { 
         while(health > 0) {
             yield return new WaitForSeconds(1f);     // wait designated time 
@@ -97,10 +105,12 @@ public class EnemyBase : MonoBehaviour
             foreach(int hit in hitArray){
                 sumHit += hit;
             }  
+
             currentHits = 0;
             if (sumHit >= numBlockHits){
                 animator.SetTrigger("block");
                 Debug.Log("Enemy block");
+                hitQueue.Clear();
             }
         }
     }    

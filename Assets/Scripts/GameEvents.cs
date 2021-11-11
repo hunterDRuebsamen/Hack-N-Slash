@@ -11,7 +11,7 @@ public class GameEvents : MonoBehaviour
     private AudioSource musicSource;
     private void Start() {
         musicSource = GameObject.Find("MusicManager").GetComponent<AudioSource>();  
-        phObject = FindObjectOfType<PlayerHealth>();
+        phObject = GameObject.Find("PlayerV4").GetComponent<PlayerHealth>();
         bloodOverlayRenderer = GameObject.Find("BloodOverlay").GetComponent<SpriteRenderer>();
         bloodAnim = GameObject.Find("BloodOverlay").GetComponent<Animation>();
     }
@@ -24,6 +24,7 @@ public class GameEvents : MonoBehaviour
     private void OnDisable() {
         EnemyBehavior.onPlayerDamaged -= onPlayerHit;
         WeaponBase.onEnemyDamaged -= onEnemyHit;
+        PlayerHealth.onPlayerHealthChanged -= onPlayerHealth;
     } 
     private void onEnemyHit(float damage, GameObject enemyObject) {
         Debug.Log("Enemy has been hit for: "+ damage);

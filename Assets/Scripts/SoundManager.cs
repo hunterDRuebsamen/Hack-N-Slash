@@ -39,6 +39,7 @@ public class SoundManager : MonoBehaviour
         PlayerHealth.onPlayerDeath += onPlayerDeath;
         PlayerHealth.onPlayerHealthChanged += onPlayerHealth;
         EnemyBehavior.onAttack += onEnemyAttack;
+        EnemyBase.onEnemyBlocked += onEnemyBlocked;
     } 
     private void onDisable() {
         EnemyBehavior.onPlayerDamaged -= onPlayerHit;
@@ -47,6 +48,7 @@ public class SoundManager : MonoBehaviour
         PlayerHealth.onPlayerDeath -= onPlayerDeath;
         PlayerHealth.onPlayerHealthChanged -= onPlayerHealth;
         EnemyBehavior.onAttack -= onEnemyAttack;
+        EnemyBase.onEnemyBlocked -= onEnemyBlocked;
     } 
 
     private void onPlayerHit(EnemyBehavior.AttackType attackType, float dmg)
@@ -65,6 +67,10 @@ public class SoundManager : MonoBehaviour
     }
     
     private void onParry(GameObject enemyObject) 
+    {
+        audioSource.PlayOneShot(parrySound);
+    }
+     private void onEnemyBlocked() 
     {
         audioSource.PlayOneShot(parrySound);
     }
