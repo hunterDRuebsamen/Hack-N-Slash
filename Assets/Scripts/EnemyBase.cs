@@ -15,12 +15,16 @@ public class EnemyBase : MonoBehaviour
     Animator animator;
     public static event Action<GameObject> onEnemyDeath;
 
+    [Tooltip("Used to reference the player's transform/current facing direction")]
+    private Transform playerTrans;
+
     // Start is called before the first frame update
     void Start()
     {
         enemyWeapon = transform.GetChild(0).GetComponent<BoxCollider2D>();
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        playerTrans = GameObject.Find("PlayerV4").GetComponent<Transform>();
     }
     private void OnEnable() { // Watches for when the enemy gets hit
         WeaponBase.onEnemyDamaged += onEnemyHit;
@@ -54,7 +58,15 @@ public class EnemyBase : MonoBehaviour
         float i = 0.01f;
         while (forceAmount > i)
         {
-            rigidBody.velocity = new Vector2(forceAmount / i, rigidBody.velocity.y); // !! For X axis positive force
+            if (playerTrans.localScale.x > 0)
+            {
+                rigidBody.velocity = new Vector2(forceAmount / i, rigidBody.velocity.y); // !! For X axis positive force
+            }
+            else
+            {
+                rigidBody.velocity = new Vector2(-forceAmount / i, rigidBody.velocity.y); // !! For X axis positive force
+            }
+            
             i = i + Time.deltaTime;
             yield return new WaitForEndOfFrame();      
         }
