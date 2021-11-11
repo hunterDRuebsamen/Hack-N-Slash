@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PauseMenu : MonoBehaviour
 {
+    public static event Action onUnpause;
+    
     public GameObject pauseMenuUI;
 
     void Resume()
@@ -27,7 +30,13 @@ public class PauseMenu : MonoBehaviour
         }
         else if(Input.GetKeyDown(KeyCode.Space))
         {
-            Resume();           
+           
+            Resume(); 
+            if (Input.GetKeyDown(KeyCode.Space)){
+                onUnpause?.Invoke();      
+            }     
+
+                 
         }
     }
 }
