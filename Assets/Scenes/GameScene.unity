@@ -502,6 +502,8 @@ MonoBehaviour:
   parrySound: {fileID: 8300000, guid: 1366c8706ffa17ba88dc459175f7ac8a, type: 3}
   enemyHitSound: {fileID: 8300000, guid: cad2ab9da8318827198f0f9e23100a1f, type: 3}
   playerDeathSound: {fileID: 8300000, guid: f8566c1903b21263f95dbda0547ae24c, type: 3}
+  cannonFireSound: {fileID: 8300000, guid: 29046e7d8c0e26fb185f73181e3ae63d, type: 3}
+  bulletHitSound: {fileID: 8300000, guid: 31e5d811a7c86478191c7a7d7626c1bb, type: 3}
 --- !u!82 &357204807
 AudioSource:
   m_ObjectHideFlags: 0
@@ -990,7 +992,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.3124094, y: 1.3341198, z: -10.01}
+  m_LocalPosition: {x: -7.311238, y: 1.3341198, z: -10.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2363,6 +2365,7 @@ MonoBehaviour:
   enemyList:
   - {fileID: 1290715225530138, guid: 6877fb649746c674d8fbbcf60d41892b, type: 3}
   - {fileID: 3449083166177406710, guid: 0f3ed9d25893f90a69a21525c442832c, type: 3}
+  - {fileID: 4112081754694081996, guid: a53da6f8500fe41499bfb4eb4dcaf650, type: 3}
 --- !u!1 &1736234246
 GameObject:
   m_ObjectHideFlags: 0
@@ -2643,7 +2646,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1840438654}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.3124094, y: 1.3341198, z: -10.01}
+  m_LocalPosition: {x: -7.311238, y: 1.3341198, z: -10.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1922294290}

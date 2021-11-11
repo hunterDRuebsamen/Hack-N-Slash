@@ -34,7 +34,7 @@ public class PlayerHealth : MonoBehaviour
     } 
 
     // when we receive the playerHit event, we take damage
-    void onPlayerHit(float damage)
+    void onPlayerHit(EnemyBehavior.AttackType attackType, float damage)
     {
         currentHealth -= (int)Math.Round(damage);
 
