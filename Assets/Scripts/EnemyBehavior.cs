@@ -19,6 +19,11 @@ public class EnemyBehavior : MonoBehaviour
 
     [SerializeField, Tooltip("How high the y-velocity of player sword must be to parry")]
     float parryVelocity = 1.5f;
+    [SerializeField, Tooltip("Limits the postiive vertical distance that the character can travel.")]
+    public float maxY = 4f;
+    [SerializeField, Tooltip("Limits the negative vertical distance that the character can travel.")]
+    public float minY = 2.5f;
+    private Transform enemylocal; 
     private Animator animator;
     private GameObject target;
     private CapsuleCollider2D capsuleCollider;
@@ -78,6 +83,15 @@ public class EnemyBehavior : MonoBehaviour
             {
                 transform.Translate(colliderDistance.pointA - colliderDistance.pointB);
             }
+        }
+
+        if (transform.position.y > maxY)
+        {
+            transform.Translate(transform.position - new Vector3 (transform.position.x, transform.position.y-0.5f, transform.position.z));
+        }
+        else if(transform.position.y < minY)
+        {
+            transform.Translate(transform.position + new Vector3 (transform.position.x, transform.position.y+0.5f, transform.position.z));
         }
     }
 
