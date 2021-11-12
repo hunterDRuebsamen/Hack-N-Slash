@@ -7,27 +7,36 @@ public class PotionHeal : MonoBehaviour
     public enum PickupObject{POTION};
     public PickupObject currentObject;
     public PlayerHealth playerHealthObject;
- 
+    public HealthBar healthBar;
+
+    private int fullHealth = 100;
+    private int health;
+
     void OnTriggerEnter2D(Collider2D other)
     {
-        print(other);
-        if(other.tag == "Player" || other.tag == "Weapon")
-        { 
-            Debug.Log("Player is healed");
+        health = GameObject.Find("PlayerV4").GetComponent<PlayerHealth>().getHealth();
 
-            if(playerHealthObject.currentHealth == playerHealthObject.maxHealth)
+        healthBar = GameObject.Find("PlayerHealthBar").GetComponent<HealthBar>();
+
+        if(other.tag == "Player" || other.tag == "Weapon")
+        {            
+            if(health != fullHealth && health < 100)
             {
-                playerHealthObject.currentHealth = 100;
+                health += 20;
+                healthBar.SetMaxHealth(health);
+                Debug.Log("Player is healed");
+                Debug.Log("Player Health: " + health);
             }
             else
             {
-                Debug.Log("Player is healed");
+                health = 100;
+                Debug.Log("Player health full");
+            }
 
-                playerHealthObject.currentHealth += 20;
-            
-                //playerHealthObject.healthBar.SetHealth(playerHealthObject.currentHealth);
-
-                Debug.Log("Player Health: " + playerHealthObject.currentHealth);
+            if(health > 100)
+            {
+                health = 100;
+                Debug.Log("Player Health: " + health);
             }
             Destroy(transform.parent.gameObject);
         }
