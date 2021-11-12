@@ -275,6 +275,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 15
   knockbackFactor: 0.2
+  isBlocking: 0
+  hitQueueSize: 5
 --- !u!114 &2634263972391122924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -292,6 +294,7 @@ MonoBehaviour:
   attackDist: 2.25
   cooldown: 5
   parryKnockback: 0.5
+  projectile: {fileID: 0}
   parryVelocity: 1
 --- !u!1 &1315759352830414
 GameObject:

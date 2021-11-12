@@ -126,6 +126,12 @@ public class EnemyBehavior : MonoBehaviour
             }
         }
     }
+    public void checkRiposte() {
+        if(enemyBase.isBlocking && hitBoxCollider.IsTouching(playerWeaponCollider)) {
+            animator.SetBool("riposted", true);
+            riposteReset(2.0f);
+        }
+    }
 
     // this function is called from the animation player on attack
     public void Attack() {
@@ -167,6 +173,11 @@ public class EnemyBehavior : MonoBehaviour
         yield return new WaitForSeconds(time);     // wait for 3 seconds until enemy can attack again
         canAttack = true;
         canDamage = true;
+    }
+
+    public IEnumerator riposteReset(float time) {
+        yield return new WaitForSeconds(time);
+        animator.SetBool("riposted", false);
     }
 
     public float getWeaponDamage() {

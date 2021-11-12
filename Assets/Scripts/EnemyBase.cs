@@ -47,8 +47,12 @@ public class EnemyBase : MonoBehaviour
         // check to see if the enemy that was hit is this enemy.
         if (this != null && this.gameObject == enemyObject) {
             if(isBlocking)
+            {
                 onEnemyBlocked?.Invoke();
-            else{
+                animator.SetTrigger("riposted");
+            }
+            else
+            {
                 health -= (int)Math.Round(damage);
                 if(health <= 0) {
                     onEnemyDeath?.Invoke(this.gameObject);
