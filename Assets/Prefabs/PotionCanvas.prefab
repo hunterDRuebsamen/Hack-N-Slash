@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentObject: 0
-  playerHealthObject: {fileID: 0}
+  playerHealthObject: {fileID: 8379217881721483309, guid: 8aa7b1e53e8cf4f47a54008408471bc6, type: 3}
 --- !u!61 &232150868233905183
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -199,7 +199,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &232150868389931108
 MonoBehaviour:
   m_ObjectHideFlags: 0

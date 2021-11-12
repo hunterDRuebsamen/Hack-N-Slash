@@ -90,7 +90,6 @@ GameObject:
   - component: {fileID: 5732268478267269186}
   - component: {fileID: 3417999232782974818}
   - component: {fileID: 5362011423250178800}
-  - component: {fileID: 5763706122709795729}
   m_Layer: 3
   m_Name: Goblin
   m_TagString: Enemy
@@ -235,6 +234,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 10
   knockbackFactor: 0.25
+  coinDrop: {fileID: 6503255539685475012, guid: fc369adceb89a414d91dfc79c40e8877, type: 3}
+  potionDrop: {fileID: 232150868389931111, guid: 24884a940071304488f68d377be4d1e2, type: 3}
 --- !u!114 &5362011423250178800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,24 +254,6 @@ MonoBehaviour:
   cooldown: 2
   parryKnockback: 0.5
   parryVelocity: 0.75
---- !u!114 &5763706122709795729
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3449083166177406710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a804ec74d276b7c4fa2c130baa776316, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lights:
-  - {fileID: 6503255539685475012, guid: fc369adceb89a414d91dfc79c40e8877, type: 3}
-  - {fileID: 232150868389931111, guid: 24884a940071304488f68d377be4d1e2, type: 3}
-  table: 5a0000000a000000
-  total: 100
-  randomNumber: 31
 --- !u!1 &3653957203799385042
 GameObject:
   m_ObjectHideFlags: 0

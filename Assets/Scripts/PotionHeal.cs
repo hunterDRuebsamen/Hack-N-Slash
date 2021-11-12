@@ -15,12 +15,20 @@ public class PotionHeal : MonoBehaviour
         { 
             Debug.Log("Player is healed");
 
-            playerHealthObject.currentHealth += 20;
-            
-            playerHealthObject.healthBar.SetHealth(playerHealthObject.currentHealth);
+            if(playerHealthObject.currentHealth == playerHealthObject.maxHealth)
+            {
+                playerHealthObject.currentHealth = 100;
+            }
+            else
+            {
+                Debug.Log("Player is healed");
 
-            Debug.Log("Player Health: " + playerHealthObject.currentHealth);
+                playerHealthObject.currentHealth += 20;
             
+                //playerHealthObject.healthBar.SetHealth(playerHealthObject.currentHealth);
+
+                Debug.Log("Player Health: " + playerHealthObject.currentHealth);
+            }
             Destroy(transform.parent.gameObject);
         }
     }
