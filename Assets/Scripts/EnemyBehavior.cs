@@ -126,12 +126,6 @@ public class EnemyBehavior : MonoBehaviour
             }
         }
     }
-    public void checkRiposte() {
-        if(enemyBase.isBlocking && hitBoxCollider.IsTouching(playerWeaponCollider)) {
-            animator.SetBool("riposted", true);
-            riposteReset(2.0f);
-        }
-    }
 
     // this function is called from the animation player on attack
     public void Attack() {
