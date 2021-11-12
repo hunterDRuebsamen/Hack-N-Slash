@@ -16,13 +16,11 @@ public class EnemyBehavior : MonoBehaviour
     float parryKnockback = 0.5f;
     [SerializeField, Tooltip("Projectile for ranged enemies")]
     GameObject projectile = null;
-
     [SerializeField, Tooltip("How high the y-velocity of player sword must be to parry")]
     float parryVelocity = 1.5f;
-    [SerializeField, Tooltip("Limits the postiive vertical distance that the character can travel.")]
-    public float maxY = 4f;
-    [SerializeField, Tooltip("Limits the negative vertical distance that the character can travel.")]
-    public float minY = 2.5f;
+    [Tooltip("Limits the postiive vertical distance that the character can travel.")]
+    private GameObject player;
+    
     private Transform enemylocal; 
     private Animator animator;
     private GameObject target;
@@ -52,6 +50,7 @@ public class EnemyBehavior : MonoBehaviour
         enemyBase = GetComponent<EnemyBase>();
         capsuleCollider = GetComponent<CapsuleCollider2D>();
         //enemyBodySprite = GetComponent<SpriteRenderer>();
+        player = FindObjectOfType<PlayerHealth>().gameObject;
 
         rb = GetComponent<Rigidbody2D>();
         hitBoxCollider = transform.GetChild(0).GetComponent<BoxCollider2D>();
@@ -67,7 +66,8 @@ public class EnemyBehavior : MonoBehaviour
         Move();
         // Retrieve all colliders we have intersected after velocity has been applied.
         Collider2D[] hits = Physics2D.OverlapBoxAll(transform.position, capsuleCollider.size, 0);
- 
+        PlayerMovement pm = player.GetComponent<PlayerMovement>();
+
         foreach (Collider2D hit in hits)
         {
             // Ignore our own collider.
@@ -85,13 +85,16 @@ public class EnemyBehavior : MonoBehaviour
             }
         }
 
-        if (transform.position.y > maxY)
+        if (transform.position.y > pm.maxY)
         {
-            transform.Translate(transform.position - new Vector3 (transform.position.x, transform.position.y-0.5f, transform.position.z));
+
+            Vector3 adjust = new Vector3(0, -0.02f, 0);
+            transform.Translate(Vector3.down * .5f );
         }
-        else if(transform.position.y < minY)
+        else if(transform.position.y < pm.minY)
         {
-            transform.Translate(transform.position + new Vector3 (transform.position.x, transform.position.y+0.5f, transform.position.z));
+            Vector3 adjust = new Vector3(0, 0.05f, 0);
+            transform.Translate(Vector3.up * .5f);
         }
     }
 
