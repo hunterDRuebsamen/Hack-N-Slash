@@ -169,6 +169,11 @@ public class EnemyBehavior : MonoBehaviour
         canDamage = true;
     }
 
+    public IEnumerator riposteReset(float time) {
+        yield return new WaitForSeconds(time);
+        animator.SetBool("riposted", false);
+    }
+
     public float getWeaponDamage() {
         return damage;
     }
