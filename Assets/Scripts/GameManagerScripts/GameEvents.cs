@@ -6,14 +6,24 @@ using UnityEngine;
 public class GameEvents : MonoBehaviour
 {
     private PlayerHealth phObject;
+    private Transform playerTrans;
     private SpriteRenderer bloodOverlayRenderer;
     private Animation bloodAnim;
     private AudioSource musicSource;
+
+    [SerializeField] GameObject lampPrefab;
+
+    private GameObject[] lamps = new GameObject[2];
+
     private void Start() {
         musicSource = GameObject.Find("MusicManager").GetComponent<AudioSource>();  
         phObject = GameObject.Find("PlayerV4").GetComponent<PlayerHealth>();
         bloodOverlayRenderer = GameObject.Find("BloodOverlay").GetComponent<SpriteRenderer>();
         bloodAnim = GameObject.Find("BloodOverlay").GetComponent<Animation>();
+        playerTrans = phObject.GetComponent<Transform>();
+        // add 2 lamps (lights)
+        lamps[0] = Instantiate(lampPrefab, new Vector3(-20, -1.4f, 0), Quaternion.identity);
+        lamps[1] = Instantiate(lampPrefab, new Vector3(0, -1.4f, 0), Quaternion.identity);
     }
 
     private void OnEnable() {
@@ -43,5 +53,16 @@ public class GameEvents : MonoBehaviour
             bloodOverlayRenderer.enabled = false;
             bloodAnim.Stop();
         }
+    }
+
+    private void FixedUpdate() {
+
+        if ((playerTrans.position.x > lamps[1].transform.position.x) || 
+            (playerTrans.position.x < lamps[0].transform.position.x)) {
+            // lamp is beyond player range, move it to correct position
+            lamps[0].transform.position = new Vector2(playerTrans.position.x - (playerTrans.position.x % 20),-1.4f);
+            lamps[1].transform.position = new Vector2(playerTrans.position.x - (playerTrans.position.x % 20) + 20,-1.4f);
+        }
+
     }
 }
