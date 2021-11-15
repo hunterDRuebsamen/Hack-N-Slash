@@ -26,8 +26,6 @@ public class EnemyBase : MonoBehaviour
     const int numBlockHits = 2;
     private Transform playerTrans;
 
-    public GameObject coinDrop;
-    public GameObject potionDrop;
     private int randomNumber;
 
     // Start is called before the first frame update
@@ -98,7 +96,7 @@ public class EnemyBase : MonoBehaviour
 
     private IEnumerator Death() {
         //animator.ResetTrigger("death");
-        randomNumber = Random.Range(0, 100);
+/*        randomNumber = Random.Range(0, 100);
 
         Debug.Log(randomNumber);
         
@@ -109,7 +107,7 @@ public class EnemyBase : MonoBehaviour
         else 
         {
             Instantiate(potionDrop, transform.position, Quaternion.identity);
-        }
+        } */
         yield return new WaitForSeconds(0.6f);
         Destroy(this.gameObject);
     }

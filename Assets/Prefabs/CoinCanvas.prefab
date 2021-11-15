@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 6503255539510035437}
   - component: {fileID: 3930997242104538238}
   - component: {fileID: 4655990658500758863}
-  - component: {fileID: 234400794697548944}
   m_Layer: 5
   m_Name: Coin
   m_TagString: Untagged
@@ -115,21 +114,6 @@ CircleCollider2D:
   m_Offset: {x: -0.0009640028, y: 0}
   serializedVersion: 2
   m_Radius: 2170.0664
---- !u!114 &234400794697548944
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6503255539510035442}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92a2f77dd2cac4544bc54739d826e7cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentObject: 0
-  pickupQuantity: 1
-  coins: 1
 --- !u!1 &6503255539685475012
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,7 +150,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.89001465, y: 7.669998}
+  m_AnchoredPosition: {x: -0.89001465, y: 7.669983}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &6503255539685475009
