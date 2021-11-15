@@ -132,7 +132,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -234,8 +234,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 10
   knockbackFactor: 0.25
-  coinDrop: {fileID: 6503255539685475012, guid: fc369adceb89a414d91dfc79c40e8877, type: 3}
-  potionDrop: {fileID: 232150868389931111, guid: 24884a940071304488f68d377be4d1e2, type: 3}
+  isBlocking: 0
+  hitQueueSize: 5
 --- !u!114 &5362011423250178800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,6 +253,7 @@ MonoBehaviour:
   attackDist: 1.5
   cooldown: 2
   parryKnockback: 0.5
+  projectile: {fileID: 0}
   parryVelocity: 0.75
 --- !u!1 &3653957203799385042
 GameObject:

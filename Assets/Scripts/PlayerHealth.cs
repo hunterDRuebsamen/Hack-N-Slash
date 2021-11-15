@@ -6,11 +6,11 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField, Tooltip("Maximum amount of Health the player has")]
-    public int maxHealth = 100;
-    public int currentHealth;
+    private int maxHealth = 100;
+    private int currentHealth;
 
     public int criticalHealthLevel = 35;
-    public HealthBar healthBar;
+    private HealthBar healthBar;
 
     public static event Action onPlayerDeath;
     public static event Action<int> onPlayerHealthChanged;
