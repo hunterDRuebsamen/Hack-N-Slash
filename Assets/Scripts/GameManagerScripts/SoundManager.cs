@@ -7,18 +7,13 @@ public class SoundManager : MonoBehaviour
 
     private AudioSource audioSource;
 
-    [SerializeField]
-    AudioClip playerHitSound;
-    [SerializeField]
-    AudioClip parrySound;
-    [SerializeField]
-    AudioClip enemyHitSound;
-    [SerializeField]
-    AudioClip playerDeathSound;
-    [SerializeField]
-    AudioClip cannonFireSound;
-    [SerializeField]
-    AudioClip bulletHitSound;
+    [SerializeField] AudioClip playerHitSound;
+    [SerializeField] AudioClip parrySound;
+    [SerializeField] AudioClip enemyHitSound;
+    [SerializeField] AudioClip playerDeathSound;
+    [SerializeField] AudioClip cannonFireSound;
+    [SerializeField] AudioClip bulletHitSound;
+    [SerializeField] AudioClip lootPickupSound;
     AudioClip heartbeatSound;
     
 
@@ -40,6 +35,7 @@ public class SoundManager : MonoBehaviour
         PlayerHealth.onPlayerHealthChanged += onPlayerHealth;
         EnemyBehavior.onAttack += onEnemyAttack;
         EnemyBase.onEnemyBlocked += onEnemyBlocked;
+        LootBase.onLootPickup += onLootPickup;
     } 
     private void onDisable() {
         EnemyBehavior.onPlayerDamaged -= onPlayerHit;
@@ -49,6 +45,7 @@ public class SoundManager : MonoBehaviour
         PlayerHealth.onPlayerHealthChanged -= onPlayerHealth;
         EnemyBehavior.onAttack -= onEnemyAttack;
         EnemyBase.onEnemyBlocked -= onEnemyBlocked;
+        LootBase.onLootPickup -= onLootPickup;
     } 
 
     private void onPlayerHit(EnemyBehavior.AttackType attackType, float dmg)
@@ -88,5 +85,9 @@ public class SoundManager : MonoBehaviour
     private void onEnemyAttack(EnemyBehavior.AttackType attackType) {
         if (attackType == EnemyBehavior.AttackType.Projectile)
             audioSource.PlayOneShot(cannonFireSound);
+    }
+
+    private void onLootPickup(LootBase.LootType type, int val) {
+        audioSource.PlayOneShot(lootPickupSound);
     }
 }

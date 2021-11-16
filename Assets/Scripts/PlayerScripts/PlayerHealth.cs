@@ -49,7 +49,7 @@ public class PlayerHealth : MonoBehaviour
 
     }
 
-    public void addHealth(int addhealth) {
+    public void editHealth(int addhealth) {
         currentHealth += addhealth;
         onPlayerHealthChanged?.Invoke(currentHealth);
     }
@@ -57,4 +57,5 @@ public class PlayerHealth : MonoBehaviour
     public int getHealth() {
         return currentHealth;
     }
+
 }

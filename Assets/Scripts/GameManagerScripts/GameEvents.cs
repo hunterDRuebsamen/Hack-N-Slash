@@ -41,7 +41,6 @@ public class GameEvents : MonoBehaviour
     }
     private void onPlayerHit(EnemyBehavior.AttackType attackType, float damage) {
         Debug.Log("Player has been hit." + damage);
-
     }
 
     // called when the player's health changes
@@ -56,13 +55,11 @@ public class GameEvents : MonoBehaviour
     }
 
     private void FixedUpdate() {
-
         if ((playerTrans.position.x > lamps[1].transform.position.x) || 
             (playerTrans.position.x < lamps[0].transform.position.x)) {
             // lamp is beyond player range, move it to correct position
             lamps[0].transform.position = new Vector2(playerTrans.position.x - (playerTrans.position.x % 20),-1.4f);
             lamps[1].transform.position = new Vector2(playerTrans.position.x - (playerTrans.position.x % 20) + 20,-1.4f);
         }
-
     }
 }

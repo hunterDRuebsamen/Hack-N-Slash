@@ -66,7 +66,7 @@ public class EnemyBehavior : MonoBehaviour
         foreach (Collider2D hit in hits)
         {
             // Ignore our own collider.
-            if (hit.tag == "Enemy" || hit.tag == "EnemyWeapon" || hit.tag == "Weapon")
+            if (hit.tag == "Enemy" || hit.tag == "EnemyWeapon" || hit.tag == "Weapon" || hit.tag == "Loot")
                 continue;
  
             ColliderDistance2D colliderDistance = hit.Distance(capsuleCollider);

@@ -494,7 +494,7 @@ MonoBehaviour:
   speed: 1
   damage: 6
   attackDist: 12
-  cooldown: 3.5
+  cooldown: 4.5
   parryKnockback: 0.5
   projectile: {fileID: 3356283867471977943, guid: a5ebb0c5980fdae469bdfccdfb7b7d40, type: 3}
   parryVelocity: 1.5

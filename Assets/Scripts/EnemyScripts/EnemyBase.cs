@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random=UnityEngine.Random;
 
 public class EnemyBase : MonoBehaviour
 {
@@ -24,6 +25,8 @@ public class EnemyBase : MonoBehaviour
 
     const int numBlockHits = 2;
     private Transform playerTrans;
+
+    private int randomNumber;
 
     // Start is called before the first frame update
     void Start()
@@ -93,6 +96,18 @@ public class EnemyBase : MonoBehaviour
 
     private IEnumerator Death() {
         //animator.ResetTrigger("death");
+/*        randomNumber = Random.Range(0, 100);
+
+        Debug.Log(randomNumber);
+        
+        if (randomNumber > 10)
+        {
+            Instantiate(coinDrop, transform.position, Quaternion.identity);
+        }
+        else 
+        {
+            Instantiate(potionDrop, transform.position, Quaternion.identity);
+        } */
         yield return new WaitForSeconds(0.6f);
         Destroy(this.gameObject);
     }
