@@ -27,7 +27,7 @@ public class LootBase : MonoBehaviour
         if(other.tag == "Player")
         { 
             onLootPickup?.Invoke(type, value);
-            Destroy(transform.parent.gameObject);
+            Destroy(gameObject);
         }
     }
 }
