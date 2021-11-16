@@ -1,4 +1,5 @@
-# Hack-N-Slash
+# Armageddon
+A hack and slash style game developed for CSULB 2021 GameDev Club Jam by CECS students!
 
 ### Software
 ---
