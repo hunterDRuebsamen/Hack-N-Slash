@@ -10,11 +10,9 @@ public class Score : MonoBehaviour
 
    private void OnEnable() {
        WeaponBase.onEnemyDamaged += changeScore;
-       LootBase.onLootPickup += lootPickup;
    }
     private void onDisable() {
        WeaponBase.onEnemyDamaged -= changeScore;
-       LootBase.onLootPickup -= lootPickup;
    }
 
    void changeScore(float damage, GameObject enemyObject) {
@@ -29,9 +27,4 @@ public class Score : MonoBehaviour
        score.text = result;
    }
 
-   private void lootPickup(LootBase.LootType type, int value) {
-       if (type == LootBase.LootType.Coin) {
-           updateScore(value);
-       }
-   }
 }
