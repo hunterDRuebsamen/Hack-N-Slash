@@ -30,7 +30,6 @@ public class GameEvents : MonoBehaviour
         EnemyBehavior.onPlayerDamaged += onPlayerHit;
         WeaponBase.onEnemyDamaged += onEnemyHit;
         PlayerHealth.onPlayerHealthChanged += onPlayerHealth;
-        LootBase.onLootPickup += onLootPickup;
     } 
     private void OnDisable() {
         EnemyBehavior.onPlayerDamaged -= onPlayerHit;
@@ -42,7 +41,6 @@ public class GameEvents : MonoBehaviour
     }
     private void onPlayerHit(EnemyBehavior.AttackType attackType, float damage) {
         Debug.Log("Player has been hit." + damage);
-
     }
 
     // called when the player's health changes
