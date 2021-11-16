@@ -1,5 +1,6 @@
 using System; // Added "using System" for System.Action to function
 using System.Collections;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,9 +15,15 @@ public class GameEvents : MonoBehaviour
     [SerializeField] GameObject lampPrefab;
 
     [SerializeField, Tooltip("List of Bushes")]
-    List<GameObject> bushList;
+    List<GameObject> bushSpawnList;
+
+    private List<GameObject> bushList = new List<GameObject>();
 
     private GameObject[] lamps = new GameObject[2];
+
+    private bool cleanup = true;
+
+    const int bushRange = 25;
 
     private void Start() {
         musicSource = GameObject.Find("MusicManager").GetComponent<AudioSource>();  
@@ -27,6 +34,13 @@ public class GameEvents : MonoBehaviour
         // add 2 lamps (lights)
         lamps[0] = Instantiate(lampPrefab, new Vector3(-20, -1.4f, 0), Quaternion.identity);
         lamps[1] = Instantiate(lampPrefab, new Vector3(0, -1.4f, 0), Quaternion.identity);
+        cleanup = true;
+        SpawnFoilage();
+        ClearFoilage(20f);
+    }
+
+    private void OnDestroy() {
+        cleanup = false;
     }
 
     private void OnEnable() {
@@ -63,6 +77,52 @@ public class GameEvents : MonoBehaviour
             // lamp is beyond player range, move it to correct position
             lamps[0].transform.position = new Vector2(playerTrans.position.x - (playerTrans.position.x % 20),-1.4f);
             lamps[1].transform.position = new Vector2(playerTrans.position.x - (playerTrans.position.x % 20) + 20,-1.4f);
+        }
+    }
+
+    private async void SpawnFoilage() {
+        while(cleanup) {
+            await Task.Delay(2500);
+            int index = UnityEngine.Random.Range(0,bushSpawnList.Count);
+            if (bushList.Count > 0) {
+                if (bushList.Count <= 5) {
+                    float _xSpawnPos;
+                    if (bushList[bushList.Count-1].transform.position.x > playerTrans.position.x) {
+                        _xSpawnPos = bushList[bushList.Count-1].transform.position.x + UnityEngine.Random.Range(bushRange-10,bushRange+10);
+                    } else {
+                        _xSpawnPos = playerTrans.position.x + UnityEngine.Random.Range(25,45);
+                    }
+                    
+                    float _ySpawnPos = UnityEngine.Random.Range(-3.5f,-1.3f);
+                
+                    bushList.Add(Instantiate(bushSpawnList[index], new Vector3(_xSpawnPos, _ySpawnPos, 0), Quaternion.identity));
+                }
+            } else {
+                // no bushes. Spawn one
+                float _xSpawnPos = playerTrans.position.x + bushRange + UnityEngine.Random.Range(-5,10);
+                float _ySpawnPos = UnityEngine.Random.Range(-3.5f,-1.3f);
+                
+                bushList.Add(Instantiate(bushSpawnList[index], new Vector3(_xSpawnPos, _ySpawnPos, 0), Quaternion.identity));
+            }
+        }
+    }
+    
+    // this function will periodically destroy the foilage that are TOO far away from the player
+    private async void ClearFoilage(float maxDist)
+    {
+        while(cleanup)
+        {
+            await Task.Delay(2500);
+            if (bushList.Count > 0) {
+                foreach (GameObject bush in bushList) {
+                    if ((playerTrans.position.x - bush.transform.position.x) > maxDist) {
+                        Debug.Log("remove bush");
+                        bushList.Remove(bush);
+                        Destroy(bush);
+                        break;
+                    }
+                }
+            }
         }
     }
 }
