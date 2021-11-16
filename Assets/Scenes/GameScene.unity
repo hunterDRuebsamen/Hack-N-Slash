@@ -2909,8 +2909,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnDist: 15
-  maxEnemies: 2
+  maxEnemies: 3
   spawnTime: 10
+  maxDist: 40
   enemyList:
   - {fileID: 1290715225530138, guid: 6877fb649746c674d8fbbcf60d41892b, type: 3}
   - {fileID: 3449083166177406710, guid: 0f3ed9d25893f90a69a21525c442832c, type: 3}
