@@ -51,10 +51,10 @@ public class LootManager : MonoBehaviour
             if (val <= loot.GetComponent<LootBase>().spawnRate) {
                 if (player.localScale.x > 0) {
                     // player is facing right, spawn loot +x
-                    Instantiate(loot, new Vector3(enemy.transform.position.x+0.5f, enemy.transform.position.y, 0), Quaternion.identity);
+                    Instantiate(loot, new Vector3(enemy.transform.position.x+0.6f, enemy.transform.position.y, 0), Quaternion.identity);
                 } else {
                     // player is facing right, spawn loot -x
-                    Instantiate(loot, new Vector3(enemy.transform.position.x-0.5f, enemy.transform.position.y, 0), Quaternion.identity);
+                    Instantiate(loot, new Vector3(enemy.transform.position.x-0.6f, enemy.transform.position.y, 0), Quaternion.identity);
                 }
                     break;
             }
