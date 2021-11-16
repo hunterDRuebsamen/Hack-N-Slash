@@ -47,6 +47,8 @@ public class PlayerMovement : MonoBehaviour
     private float mulFactor = 1;
     private CapsuleCollider2D capsuleCollider;
     private Vector2 velocity;
+
+    private float minX;
  
     private void Awake()
     {
@@ -57,6 +59,7 @@ public class PlayerMovement : MonoBehaviour
 
         healthBar = transform.GetChild(3).GetChild(0);
         playerAnim = transform.GetChild(4).GetComponent<Animator>();
+        minX = gameObject.transform.position.x - 10f; // player cannot move past this
     }
  
     private void Update()
@@ -115,6 +118,7 @@ public class PlayerMovement : MonoBehaviour
             //Deccelerates x component of velocity when no longer pressing "A" or "D"
             velocity.x = Mathf.MoveTowards(velocity.x, 0, deceleration * Time.deltaTime);
         }
+
         if (verticalInput != 0) 
         {
             playerAnim.SetBool("isWalking", true);
@@ -143,8 +147,20 @@ public class PlayerMovement : MonoBehaviour
             //Deccelerates x component of velocity when no longer pressing "A" or "D"
             velocity.y = Mathf.MoveTowards(velocity.y, 0, deceleration * Time.deltaTime);
         }
+
         if (horizontalInput == 0 && verticalInput == 0) {
             playerAnim.SetBool("isWalking", false);
+        }
+
+        // Do not let player move LEFT beyond the minX
+        if (horizontalInput < 0) {
+            // check to see if we are moving LEFT past the minX point
+            if (gameObject.transform.position.x < minX) {
+                velocity.x = 0;
+            }
+            if (minX < gameObject.transform.position.x - 10f) {
+                minX = gameObject.transform.position.x - 10f;
+            }
         }
         //Moves our player by the velocity vector we have calculated multiplied by the amount of time that has elasped
         //to get the total units that should be moved

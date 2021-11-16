@@ -1148,7 +1148,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.3113794, y: 1.3341198, z: -10.01}
+  m_LocalPosition: {x: -6.3110313, y: 1.3341198, z: -10.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3200,7 +3200,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1840438654}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.3113794, y: 1.3341198, z: -10.01}
+  m_LocalPosition: {x: -6.3110313, y: 1.3341198, z: -10.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1922294290}
@@ -3519,7 +3519,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 2407199858738014152, guid: 32176bd8d5ef8c43aa4ff99203ab5c96, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 90eae78e8ce85a849b5b0ca11b2de641, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 5a3b895132e594937994cfb77519a48c, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0
   m_Pitch: 1
@@ -3662,7 +3662,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ad980451443d70438faac0bc6c235a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TrackedObjectOffset: {x: 0, y: 0, z: 0}
+  m_TrackedObjectOffset: {x: 1, y: 0, z: 0}
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 0
   m_LookaheadIgnoreY: 0
@@ -3673,11 +3673,11 @@ MonoBehaviour:
   m_ScreenX: 0.41
   m_ScreenY: 0.66
   m_CameraDistance: 10
-  m_DeadZoneWidth: 0.1
+  m_DeadZoneWidth: 0.12
   m_DeadZoneHeight: 2
   m_DeadZoneDepth: 0
-  m_UnlimitedSoftZone: 0
-  m_SoftZoneWidth: 0.8
+  m_UnlimitedSoftZone: 1
+  m_SoftZoneWidth: 1.13
   m_SoftZoneHeight: 2
   m_BiasX: 0
   m_BiasY: 0
