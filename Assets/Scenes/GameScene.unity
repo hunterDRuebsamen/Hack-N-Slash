@@ -2066,6 +2066,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1054751702}
+  - component: {fileID: 1054751703}
   m_Layer: 0
   m_Name: LootSystem
   m_TagString: Untagged
@@ -2087,6 +2088,21 @@ Transform:
   m_Father: {fileID: 956495882}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1054751703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1054751701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df7cfbc04995e5b45afff91259979b12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lootList:
+  - {fileID: 7592034050834662916, guid: 87c47f8793cff0d45b9c3794858ebf6e, type: 3}
+  - {fileID: 3651549455099052380, guid: 88565d3b7d8becc41bab37fb42e50f5f, type: 3}
 --- !u!1 &1126412687
 GameObject:
   m_ObjectHideFlags: 0
@@ -2893,8 +2909,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnDist: 15
-  maxEnemies: 3
-  spawnTime: 8
+  maxEnemies: 2
+  spawnTime: 10
   enemyList:
   - {fileID: 1290715225530138, guid: 6877fb649746c674d8fbbcf60d41892b, type: 3}
   - {fileID: 3449083166177406710, guid: 0f3ed9d25893f90a69a21525c442832c, type: 3}

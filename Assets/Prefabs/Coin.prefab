@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4223193258800835667}
   m_Layer: 0
   m_Name: Coin
-  m_TagString: Untagged
+  m_TagString: Loot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -132,5 +132,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62553dcd536d50745a7a7390e321df36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  value: 5
+  value: 1
+  spawnRate: 0.05
+  type: 0

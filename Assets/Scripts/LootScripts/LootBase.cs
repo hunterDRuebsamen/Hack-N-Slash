@@ -5,7 +5,7 @@ public class LootBase : MonoBehaviour
 {
     [SerializeField, Tooltip("how much health or points to apply")] int value;
 
-    [SerializeField] float spawnRate = 0.10f;
+    [SerializeField] public float spawnRate = 0.10f;
 
     private GameObject playerGO;
     private Score score;
