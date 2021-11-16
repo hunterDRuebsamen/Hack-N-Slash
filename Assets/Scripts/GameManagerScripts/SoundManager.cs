@@ -60,6 +60,8 @@ public class SoundManager : MonoBehaviour
     {
         if (cur_health > 0 && cur_health <= phObject.criticalHealthLevel) {
             audioSource.Play(); // play heartbeat
+        } else {
+            audioSource.Stop();
         }
     }
     
