@@ -30,6 +30,7 @@ public class GameEvents : MonoBehaviour
         EnemyBehavior.onPlayerDamaged += onPlayerHit;
         WeaponBase.onEnemyDamaged += onEnemyHit;
         PlayerHealth.onPlayerHealthChanged += onPlayerHealth;
+        LootBase.onLootPickup += onLootPickup;
     } 
     private void OnDisable() {
         EnemyBehavior.onPlayerDamaged -= onPlayerHit;
@@ -56,13 +57,11 @@ public class GameEvents : MonoBehaviour
     }
 
     private void FixedUpdate() {
-
         if ((playerTrans.position.x > lamps[1].transform.position.x) || 
             (playerTrans.position.x < lamps[0].transform.position.x)) {
             // lamp is beyond player range, move it to correct position
             lamps[0].transform.position = new Vector2(playerTrans.position.x - (playerTrans.position.x % 20),-1.4f);
             lamps[1].transform.position = new Vector2(playerTrans.position.x - (playerTrans.position.x % 20) + 20,-1.4f);
         }
-
     }
 }

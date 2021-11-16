@@ -20,4 +20,10 @@ public class Score : MonoBehaviour
        string result = "Score: " + scoreValue;
        score.text = result;
    }
+
+   public void updateScore(int val) {
+       scoreValue += val;
+       string result = "Score: " + scoreValue;
+       score.text = result;
+   }
 }
