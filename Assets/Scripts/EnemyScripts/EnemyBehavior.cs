@@ -18,7 +18,7 @@ public class EnemyBehavior : MonoBehaviour
     GameObject projectile = null;
     [SerializeField, Tooltip("How high the y-velocity of player sword must be to parry")]
     float parryVelocity = 1.5f;
-    [Tooltip("Limits the postiive vertical distance that the character can travel.")]
+    private PlayerMovement playerMovement;
     private GameObject player;
     
     private Transform enemylocal; 
@@ -58,6 +58,7 @@ public class EnemyBehavior : MonoBehaviour
         target = GameObject.Find("PlayerV4"); // find the player game object and target him
         playerWeaponCollider = GameObject.FindGameObjectWithTag("Weapon").GetComponent<BoxCollider2D>();
         scaleX = transform.localScale.x;
+        playerMovement = player.GetComponent<PlayerMovement>();
     }
 
     // Update is called once per frame
@@ -66,7 +67,7 @@ public class EnemyBehavior : MonoBehaviour
         Move();
         // Retrieve all colliders we have intersected after velocity has been applied.
         Collider2D[] hits = Physics2D.OverlapBoxAll(transform.position, capsuleCollider.size, 0);
-        PlayerMovement pm = player.GetComponent<PlayerMovement>();
+        
 
         foreach (Collider2D hit in hits)
         {
@@ -85,16 +86,14 @@ public class EnemyBehavior : MonoBehaviour
             }
         }
 
-        if (transform.position.y > pm.maxY)
+        if (transform.position.y > playerMovement.maxY)
         {
 
-            Vector3 adjust = new Vector3(0, -0.02f, 0);
-            transform.Translate(Vector3.down * .5f );
+            transform.Translate(Vector3.down * (transform.position.y - playerMovement.maxY));
         }
-        else if(transform.position.y < pm.minY)
+        else if(transform.position.y < playerMovement.minY)
         {
-            Vector3 adjust = new Vector3(0, 0.05f, 0);
-            transform.Translate(Vector3.up * .5f);
+            transform.Translate(Vector3.up *  (playerMovement.maxY - transform.position.y));
         }
     }
 
