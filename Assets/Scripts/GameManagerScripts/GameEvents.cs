@@ -13,6 +13,9 @@ public class GameEvents : MonoBehaviour
 
     [SerializeField] GameObject lampPrefab;
 
+    [SerializeField, Tooltip("List of Bushes")]
+    List<GameObject> bushList;
+
     private GameObject[] lamps = new GameObject[2];
 
     private void Start() {
