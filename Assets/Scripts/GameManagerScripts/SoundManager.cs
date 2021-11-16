@@ -14,6 +14,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] AudioClip cannonFireSound;
     [SerializeField] AudioClip bulletHitSound;
     [SerializeField] AudioClip lootPickupSound;
+    [SerializeField] AudioClip potionPickupSound;
     AudioClip heartbeatSound;
     
 
@@ -86,10 +87,14 @@ public class SoundManager : MonoBehaviour
 
     private void onEnemyAttack(EnemyBehavior.AttackType attackType) {
         if (attackType == EnemyBehavior.AttackType.Projectile)
-            audioSource.PlayOneShot(cannonFireSound);
+            audioSource.PlayOneShot(cannonFireSound,0.5f);
     }
 
     private void onLootPickup(LootBase.LootType type, int val) {
-        audioSource.PlayOneShot(lootPickupSound);
+        if (type == LootBase.LootType.Potion) {
+            audioSource.PlayOneShot(potionPickupSound,1.0f);
+        } else {
+            audioSource.PlayOneShot(lootPickupSound);
+        }
     }
 }
