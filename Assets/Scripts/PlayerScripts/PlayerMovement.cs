@@ -168,20 +168,21 @@ public class PlayerMovement : MonoBehaviour
     }
  
     private void collision (Collider2D[] hits) {
-         foreach (Collider2D hit in hits)
+        foreach (Collider2D hit in hits)
         {
             // Ignore our own collider.
             if (hit.tag == "Player" || hit.tag == "Weapon" || hit.tag == "EnemyWeapon" || hit.tag == "Loot")
                 continue;
  
             ColliderDistance2D colliderDistance = hit.Distance(capsuleCollider);
- 
+
             // Ensure that we are still overlapping this collider.
             // The overlap may no longer exist due to another intersected collider
             // pushing us out of this one.
             if (colliderDistance.isOverlapped)
             {
-                transform.Translate(colliderDistance.pointA - colliderDistance.pointB);
+                transform.Translate((colliderDistance.pointA - colliderDistance.pointB)*1.1f);
+                velocity.x = 0;
             }
         }
     }

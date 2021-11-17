@@ -23,7 +23,7 @@ public class EnemyBase : MonoBehaviour
     public static event Action<GameObject> onEnemyDeath;
     public static event Action onEnemyBlocked;
 
-    const int numBlockHits = 2;
+    [SerializeField, Tooltip("Block after this many hits in a row, if enemy can block")] int numBlockHits = 2;
     private Transform playerTrans;
 
     private int randomNumber;
@@ -52,6 +52,7 @@ public class EnemyBase : MonoBehaviour
             if(isBlocking)
             {
                 onEnemyBlocked?.Invoke();
+                Debug.Log("Enemy blocked hit");
                 animator.SetTrigger("riposted");
             }
             else
