@@ -59,9 +59,8 @@ public class EnemyBase : MonoBehaviour
             {
                 health -= (int)Math.Round(damage);
                 if(health <= 0) {
-                    onEnemyDeath?.Invoke(this.gameObject);
                     animator.SetTrigger("death");
-                    StartCoroutine(Death());
+                    // the death animation should call the public death function
                 } else {
                     Debug.Log("Enemy Health: "+health);
                     animator.SetTrigger("hit");
@@ -95,6 +94,11 @@ public class EnemyBase : MonoBehaviour
         yield return null;
     }
 
+    public void callDeath() {
+        onEnemyDeath?.Invoke(this.gameObject);
+        Destroy(this.gameObject);
+    }
+
     private IEnumerator Death() {
         //animator.ResetTrigger("death");
 /*        randomNumber = Random.Range(0, 100);
@@ -109,7 +113,7 @@ public class EnemyBase : MonoBehaviour
         {
             Instantiate(potionDrop, transform.position, Quaternion.identity);
         } */
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(0.25f);
         Destroy(this.gameObject);
     }
 
