@@ -27,6 +27,7 @@ public class EnemyBehavior : MonoBehaviour
     private Rigidbody2D rb;
     //private SpriteRenderer enemyBodySprite;
 
+    private int rand;
     private bool canAttack = true; 
     private bool canDamage = true;
     public enum AttackType
@@ -103,10 +104,17 @@ public class EnemyBehavior : MonoBehaviour
         if (distToPlayer <= attackDist)
         {
             animator.SetBool("inRange", true);
-            if (canAttack) {
-                //StartCoroutine(AttackRoutine(0.5f));
+            rand = UnityEngine.Random.Range(0, 3);
+
+            if (rand == 0) {
+            animator.SetTrigger("stab");
+            }
+            else if (rand == 1) {
+                animator.SetTrigger("uppercut");
+            }
+            else if (rand == 2) {
                 animator.SetTrigger("attack");
-            } 
+            }
         } else {
             animator.SetBool("inRange", false);
         }
