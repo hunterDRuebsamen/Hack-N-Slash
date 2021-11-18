@@ -16,9 +16,12 @@ public class EnemyBehavior : MonoBehaviour
     float parryKnockback = 0.5f;
     [SerializeField, Tooltip("Projectile for ranged enemies")]
     GameObject projectile = null;
-
     [SerializeField, Tooltip("How high the y-velocity of player sword must be to parry")]
     float parryVelocity = 1.5f;
+    private PlayerMovement playerMovement;
+    private GameObject player;
+    
+    private Transform enemylocal; 
     private Animator animator;
     private GameObject target;
     private CapsuleCollider2D capsuleCollider;
@@ -47,6 +50,7 @@ public class EnemyBehavior : MonoBehaviour
         enemyBase = GetComponent<EnemyBase>();
         capsuleCollider = GetComponent<CapsuleCollider2D>();
         //enemyBodySprite = GetComponent<SpriteRenderer>();
+        player = FindObjectOfType<PlayerHealth>().gameObject;
 
         rb = GetComponent<Rigidbody2D>();
         hitBoxCollider = transform.GetChild(0).GetComponent<BoxCollider2D>();
@@ -54,6 +58,7 @@ public class EnemyBehavior : MonoBehaviour
         target = GameObject.Find("PlayerV4"); // find the player game object and target him
         playerWeaponCollider = GameObject.FindGameObjectWithTag("Weapon").GetComponent<BoxCollider2D>();
         scaleX = transform.localScale.x;
+        playerMovement = player.GetComponent<PlayerMovement>();
     }
 
     // Update is called once per frame
@@ -62,11 +67,12 @@ public class EnemyBehavior : MonoBehaviour
         Move();
         // Retrieve all colliders we have intersected after velocity has been applied.
         Collider2D[] hits = Physics2D.OverlapBoxAll(transform.position, capsuleCollider.size, 0);
- 
+        
+
         foreach (Collider2D hit in hits)
         {
             // Ignore our own collider.
-            if (hit.tag == "Enemy" || hit.tag == "EnemyWeapon" || hit.tag == "Weapon")
+            if (hit.tag=="Player" || hit.tag == "Enemy" || hit.tag == "EnemyWeapon" || hit.tag == "Weapon" || hit.tag == "Loot")
                 continue;
  
             ColliderDistance2D colliderDistance = hit.Distance(capsuleCollider);
@@ -78,6 +84,16 @@ public class EnemyBehavior : MonoBehaviour
             {
                 transform.Translate(colliderDistance.pointA - colliderDistance.pointB);
             }
+        }
+
+        if (transform.position.y > playerMovement.maxY)
+        {
+
+            transform.Translate(Vector3.down * (transform.position.y - playerMovement.maxY));
+        }
+        else if(transform.position.y < playerMovement.minY)
+        {
+            transform.Translate(Vector3.up *  (playerMovement.maxY - transform.position.y));
         }
     }
 

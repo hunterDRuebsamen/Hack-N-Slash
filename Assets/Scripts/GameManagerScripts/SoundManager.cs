@@ -7,18 +7,14 @@ public class SoundManager : MonoBehaviour
 
     private AudioSource audioSource;
 
-    [SerializeField]
-    AudioClip playerHitSound;
-    [SerializeField]
-    AudioClip parrySound;
-    [SerializeField]
-    AudioClip enemyHitSound;
-    [SerializeField]
-    AudioClip playerDeathSound;
-    [SerializeField]
-    AudioClip cannonFireSound;
-    [SerializeField]
-    AudioClip bulletHitSound;
+    [SerializeField] AudioClip playerHitSound;
+    [SerializeField] AudioClip parrySound;
+    [SerializeField] AudioClip enemyHitSound;
+    [SerializeField] AudioClip playerDeathSound;
+    [SerializeField] AudioClip cannonFireSound;
+    [SerializeField] AudioClip bulletHitSound;
+    [SerializeField] AudioClip lootPickupSound;
+    [SerializeField] AudioClip potionPickupSound;
     AudioClip heartbeatSound;
     
 
@@ -40,6 +36,7 @@ public class SoundManager : MonoBehaviour
         PlayerHealth.onPlayerHealthChanged += onPlayerHealth;
         EnemyBehavior.onAttack += onEnemyAttack;
         EnemyBase.onEnemyBlocked += onEnemyBlocked;
+        LootBase.onLootPickup += onLootPickup;
     } 
     private void onDisable() {
         EnemyBehavior.onPlayerDamaged -= onPlayerHit;
@@ -49,6 +46,7 @@ public class SoundManager : MonoBehaviour
         PlayerHealth.onPlayerHealthChanged -= onPlayerHealth;
         EnemyBehavior.onAttack -= onEnemyAttack;
         EnemyBase.onEnemyBlocked -= onEnemyBlocked;
+        LootBase.onLootPickup -= onLootPickup;
     } 
 
     private void onPlayerHit(EnemyBehavior.AttackType attackType, float dmg)
@@ -63,6 +61,8 @@ public class SoundManager : MonoBehaviour
     {
         if (cur_health > 0 && cur_health <= phObject.criticalHealthLevel) {
             audioSource.Play(); // play heartbeat
+        } else {
+            audioSource.Stop();
         }
     }
     
@@ -87,6 +87,14 @@ public class SoundManager : MonoBehaviour
 
     private void onEnemyAttack(EnemyBehavior.AttackType attackType) {
         if (attackType == EnemyBehavior.AttackType.Projectile)
-            audioSource.PlayOneShot(cannonFireSound);
+            audioSource.PlayOneShot(cannonFireSound,0.5f);
+    }
+
+    private void onLootPickup(LootBase.LootType type, int val) {
+        if (type == LootBase.LootType.Potion) {
+            audioSource.PlayOneShot(potionPickupSound,1.0f);
+        } else {
+            audioSource.PlayOneShot(lootPickupSound);
+        }
     }
 }
