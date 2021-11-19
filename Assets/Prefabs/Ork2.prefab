@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aea4c0f1db8754c3892cc0e1129a50ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 25
+  health: 45
   knockbackFactor: 0.1
   isBlocking: 0
   hitQueueSize: 5
@@ -124,9 +124,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  damage: 5
-  attackDist: 3
-  cooldown: 6
+  damage: 10
+  attackDist: 3.2
+  cooldown: 8
   parryKnockback: 0.15
   projectile: {fileID: 0}
   parryVelocity: 1.5

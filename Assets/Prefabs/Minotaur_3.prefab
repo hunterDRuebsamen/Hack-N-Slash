@@ -144,9 +144,9 @@ GameObject:
   - component: {fileID: 5394588853225019288}
   - component: {fileID: 3666814560985042150}
   - component: {fileID: 5268854249941103989}
+  - component: {fileID: 7073037987383572962}
   - component: {fileID: 54889230723249326}
   - component: {fileID: 1004232934314417956}
-  - component: {fileID: 7073037987383572962}
   m_Layer: 0
   m_Name: Minotaur_3
   m_TagString: Enemy
@@ -163,7 +163,7 @@ Transform:
   m_GameObject: {fileID: 2305636908136274011}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_Children:
   - {fileID: 70066544986987755}
   - {fileID: 1068906573488502250}
@@ -254,46 +254,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aea4c0f1db8754c3892cc0e1129a50ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 30
+  health: 25
   knockbackFactor: 0.1
   isBlocking: 0
   hitQueueSize: 5
   numBlockHits: 3
---- !u!114 &54889230723249326
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2305636908136274011}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6cda7c3b1184ed49a19272058cfedaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 0.75
-  damage: 5
-  attackDist: 4.25
-  cooldown: 7
-  parryKnockback: 0.2
-  projectile: {fileID: 0}
-  parryVelocity: 1.5
---- !u!70 &1004232934314417956
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2305636908136274011}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.01689446, y: -0.07602477}
-  m_Size: {x: 2.1654646, y: 3.973167}
-  m_Direction: 0
 --- !u!95 &7073037987383572962
 Animator:
   serializedVersion: 3
@@ -313,6 +278,41 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &54889230723249326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2305636908136274011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6cda7c3b1184ed49a19272058cfedaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 2
+  damage: 5
+  attackDist: 4.25
+  cooldown: 5
+  parryKnockback: 0.2
+  projectile: {fileID: 0}
+  parryVelocity: 1.5
+--- !u!70 &1004232934314417956
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2305636908136274011}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.01689446, y: -0.07602477}
+  m_Size: {x: 2.1654646, y: 3.973167}
+  m_Direction: 0
 --- !u!1 &2699035845834994470
 GameObject:
   m_ObjectHideFlags: 0
@@ -416,7 +416,7 @@ RectTransform:
   m_GameObject: {fileID: 3492866168685368422}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.00688}
+  m_LocalScale: {x: 0.0075, y: 0.0075, z: 0.00688}
   m_Children:
   - {fileID: 4368295494702964935}
   m_Father: {fileID: 8801841441451146433}
@@ -424,7 +424,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 1}
+  m_AnchoredPosition: {x: -0.04, y: 1.14}
   m_SizeDelta: {x: 800, y: 372}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &8892060462946550094
