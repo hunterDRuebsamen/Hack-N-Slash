@@ -25,6 +25,7 @@ public class EnemyBase : MonoBehaviour
     const int numBlockHits = 2;
     private Transform playerTrans;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -54,6 +55,12 @@ public class EnemyBase : MonoBehaviour
             else
             {
                 health -= (int)Math.Round(damage);
+
+                if(health <= 7.5)
+                {
+                    animator.SetBool("isEnraged", true);
+                }
+
                 if(health <= 0) {
                     onEnemyDeath?.Invoke(this.gameObject);
                     animator.SetTrigger("death");
