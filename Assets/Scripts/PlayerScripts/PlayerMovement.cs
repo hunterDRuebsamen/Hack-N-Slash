@@ -158,8 +158,8 @@ public class PlayerMovement : MonoBehaviour
             if (gameObject.transform.position.x < minX) {
                 velocity.x = 0;
             }
-            if (minX < gameObject.transform.position.x - 10f) {
-                minX = gameObject.transform.position.x - 10f;
+            if (minX < gameObject.transform.position.x - 20f) {
+                minX = gameObject.transform.position.x - 20f;
             }
         }
         //Moves our player by the velocity vector we have calculated multiplied by the amount of time that has elasped
@@ -244,7 +244,11 @@ public class PlayerMovement : MonoBehaviour
         canDodge = false;                       // canDodge is false so you can't dodge
         Debug.Log("canDodge = false");
         mulFactor = dodgeFactor;                //Changes speed multiplier when dodging
+        GetComponent<CapsuleCollider2D>().enabled = false;  // disable the player's collider while dodging
+        GetComponentInChildren<BoxCollider2D>().enabled = false;
         yield return new WaitForSeconds(time);     // wait for 3 seconds until you can dodge
+        GetComponent<CapsuleCollider2D>().enabled = true;  // disable the player's collider while dodging
+        GetComponentInChildren<BoxCollider2D>().enabled = true;
         mulFactor = 1.0f;                       //Resets speed multiplier to base speed  
         if (numDodgeLeft > 0)
             canDodge = true;                        // now you can dodge
