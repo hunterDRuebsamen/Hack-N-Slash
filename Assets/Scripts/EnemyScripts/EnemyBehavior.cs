@@ -82,7 +82,7 @@ public class EnemyBehavior : MonoBehaviour
         }
     }
 
-    void Move() 
+    public void Move() 
     {
         // check if player is to the right or left of enemy, flip enemy gameobjects based on player position
         if (target.transform.position.x > transform.position.x)
@@ -107,7 +107,7 @@ public class EnemyBehavior : MonoBehaviour
             rand = UnityEngine.Random.Range(0, 3);
 
             if (rand == 0) {
-            animator.SetTrigger("stab");
+                animator.SetTrigger("stab");
             }
             else if (rand == 1) {
                 animator.SetTrigger("uppercut");
@@ -117,6 +117,7 @@ public class EnemyBehavior : MonoBehaviour
             }
         } else {
             animator.SetBool("inRange", false);
+
         }
     }
 
