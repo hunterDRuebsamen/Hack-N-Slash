@@ -1901,6 +1901,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6700300176983163841, guid: 8aa7b1e53e8cf4f47a54008408471bc6, type: 3}
+      propertyPath: m_Mass
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7656498296597040370, guid: 8aa7b1e53e8cf4f47a54008408471bc6, type: 3}
       propertyPath: m_Name
       value: PlayerV4
@@ -2924,6 +2928,9 @@ MonoBehaviour:
   - {fileID: 2305636908136274011, guid: d3883051f9a0a222cb0935a20c10f73a, type: 3}
   - {fileID: 5490694653255708281, guid: 1ee269c8bd68d2e41a98746f714fc88d, type: 3}
   - {fileID: 2249967652692527908, guid: 53b76a94d9787504a96ac28b23f19f2e, type: 3}
+  - {fileID: 5077174038295370615, guid: f817a9d06a3cecb4bbb9d6404774dff2, type: 3}
+  - {fileID: 3178925736489621605, guid: 5bc61b089c8003d4ca56fa9ee89b6401, type: 3}
+  - {fileID: 3491954252223253273, guid: 608198781ebea9e4081741f7b9d10664, type: 3}
 --- !u!1 &1736234246
 GameObject:
   m_ObjectHideFlags: 0
@@ -3118,10 +3125,10 @@ TargetJoint2D:
   m_BreakTorque: Infinity
   m_Anchor: {x: 0, y: 0}
   m_Target: {x: 0, y: 0}
-  m_AutoConfigureTarget: 1
+  m_AutoConfigureTarget: 0
   m_MaxForce: 10000
   m_DampingRatio: 1
-  m_Frequency: 5
+  m_Frequency: 0.05
 --- !u!50 &1831086480
 Rigidbody2D:
   serializedVersion: 4
@@ -3137,7 +3144,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
