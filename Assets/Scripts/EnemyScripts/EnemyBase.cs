@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random=UnityEngine.Random;
 
 public class EnemyBase : MonoBehaviour
 {
@@ -22,9 +23,10 @@ public class EnemyBase : MonoBehaviour
     public static event Action<GameObject> onEnemyDeath;
     public static event Action onEnemyBlocked;
 
-    const int numBlockHits = 2;
+    [SerializeField, Tooltip("Block after this many hits in a row, if enemy can block")] int numBlockHits = 2;
     private Transform playerTrans;
 
+    private int randomNumber;
 
     // Start is called before the first frame update
     void Start()
@@ -50,21 +52,21 @@ public class EnemyBase : MonoBehaviour
             if(isBlocking)
             {
                 onEnemyBlocked?.Invoke();
+                Debug.Log("Enemy blocked hit");
                 animator.SetTrigger("riposted");
             }
             else
             {
                 health -= (int)Math.Round(damage);
 
-                if(health <= 7.5)
-                {
-                    animator.SetBool("isEnraged", true);
+                if(health <= 7.5)
+                {
+                    animator.SetBool("isEnraged", true);
                 }
 
                 if(health <= 0) {
-                    onEnemyDeath?.Invoke(this.gameObject);
                     animator.SetTrigger("death");
-                    StartCoroutine(Death());
+                    // the death animation should call the public death function
                 } else {
                     Debug.Log("Enemy Health: "+health);
                     animator.SetTrigger("hit");
@@ -98,9 +100,8 @@ public class EnemyBase : MonoBehaviour
         yield return null;
     }
 
-    private IEnumerator Death() {
-        //animator.ResetTrigger("death");
-        yield return new WaitForSeconds(0.6f);
+    public void callDeath() {
+        onEnemyDeath?.Invoke(this.gameObject);
         Destroy(this.gameObject);
     }
 

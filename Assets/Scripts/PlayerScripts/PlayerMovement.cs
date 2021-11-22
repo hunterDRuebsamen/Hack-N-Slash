@@ -47,6 +47,8 @@ public class PlayerMovement : MonoBehaviour
     private float mulFactor = 1;
     private CapsuleCollider2D capsuleCollider;
     private Vector2 velocity;
+
+    private float minX;
  
     private void Awake()
     {
@@ -57,6 +59,7 @@ public class PlayerMovement : MonoBehaviour
 
         healthBar = transform.GetChild(3).GetChild(0);
         playerAnim = transform.GetChild(4).GetComponent<Animator>();
+        minX = gameObject.transform.position.x - 10f; // player cannot move past this
     }
  
     private void Update()
@@ -115,6 +118,7 @@ public class PlayerMovement : MonoBehaviour
             //Deccelerates x component of velocity when no longer pressing "A" or "D"
             velocity.x = Mathf.MoveTowards(velocity.x, 0, deceleration * Time.deltaTime);
         }
+
         if (verticalInput != 0) 
         {
             playerAnim.SetBool("isWalking", true);
@@ -143,8 +147,20 @@ public class PlayerMovement : MonoBehaviour
             //Deccelerates x component of velocity when no longer pressing "A" or "D"
             velocity.y = Mathf.MoveTowards(velocity.y, 0, deceleration * Time.deltaTime);
         }
+
         if (horizontalInput == 0 && verticalInput == 0) {
             playerAnim.SetBool("isWalking", false);
+        }
+
+        // Do not let player move LEFT beyond the minX
+        if (horizontalInput < 0) {
+            // check to see if we are moving LEFT past the minX point
+            if (gameObject.transform.position.x < minX) {
+                velocity.x = 0;
+            }
+            if (minX < gameObject.transform.position.x - 20f) {
+                minX = gameObject.transform.position.x - 20f;
+            }
         }
         //Moves our player by the velocity vector we have calculated multiplied by the amount of time that has elasped
         //to get the total units that should be moved
@@ -152,20 +168,21 @@ public class PlayerMovement : MonoBehaviour
     }
  
     private void collision (Collider2D[] hits) {
-         foreach (Collider2D hit in hits)
+        foreach (Collider2D hit in hits)
         {
             // Ignore our own collider.
-            if (hit.tag == "Player" || hit.tag == "Weapon" || hit.tag == "EnemyWeapon")
+            if (hit.tag == "Player" || hit.tag == "Weapon" || hit.tag == "EnemyWeapon" || hit.tag == "Loot")
                 continue;
  
             ColliderDistance2D colliderDistance = hit.Distance(capsuleCollider);
- 
+
             // Ensure that we are still overlapping this collider.
             // The overlap may no longer exist due to another intersected collider
             // pushing us out of this one.
             if (colliderDistance.isOverlapped)
             {
-                transform.Translate(colliderDistance.pointA - colliderDistance.pointB);
+                transform.Translate((colliderDistance.pointA - colliderDistance.pointB)*1.1f);
+                velocity.x = 0;
             }
         }
     }
@@ -227,7 +244,11 @@ public class PlayerMovement : MonoBehaviour
         canDodge = false;                       // canDodge is false so you can't dodge
         Debug.Log("canDodge = false");
         mulFactor = dodgeFactor;                //Changes speed multiplier when dodging
+        GetComponent<CapsuleCollider2D>().enabled = false;  // disable the player's collider while dodging
+        GetComponentInChildren<BoxCollider2D>().enabled = false;
         yield return new WaitForSeconds(time);     // wait for 3 seconds until you can dodge
+        GetComponent<CapsuleCollider2D>().enabled = true;  // disable the player's collider while dodging
+        GetComponentInChildren<BoxCollider2D>().enabled = true;
         mulFactor = 1.0f;                       //Resets speed multiplier to base speed  
         if (numDodgeLeft > 0)
             canDodge = true;                        // now you can dodge

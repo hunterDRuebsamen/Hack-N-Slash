@@ -843,7 +843,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2591785396657204515}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -959,9 +959,9 @@ TargetJoint2D:
   m_Anchor: {x: 0.012171745, y: 1.9427538}
   m_Target: {x: 0, y: 0}
   m_AutoConfigureTarget: 0
-  m_MaxForce: 350
-  m_DampingRatio: 0.1
-  m_Frequency: 0.75
+  m_MaxForce: 250
+  m_DampingRatio: 1
+  m_Frequency: 0.5
 --- !u!114 &6599629119253940367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1484,8 +1484,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.17000002, y: -0.09333348}
-  m_Size: {x: 1, y: 2.7259274}
+  m_Offset: {x: 0.17000002, y: -0.19130802}
+  m_Size: {x: 1, y: 2.9218764}
   m_Direction: 0
 --- !u!114 &8379217881721483309
 MonoBehaviour:
