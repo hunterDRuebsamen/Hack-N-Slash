@@ -99,24 +99,6 @@ public class EnemyBase : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    private IEnumerator Death() {
-        //animator.ResetTrigger("death");
-/*        randomNumber = Random.Range(0, 100);
-
-        Debug.Log(randomNumber);
-        
-        if (randomNumber > 10)
-        {
-            Instantiate(coinDrop, transform.position, Quaternion.identity);
-        }
-        else 
-        {
-            Instantiate(potionDrop, transform.position, Quaternion.identity);
-        } */
-        yield return new WaitForSeconds(0.25f);
-        Destroy(this.gameObject);
-    }
-
     //This functions performs a block if the number of times the player has hit the enemy exceeds 2
     private IEnumerator blockTimer() { 
         while(health > 0) {
