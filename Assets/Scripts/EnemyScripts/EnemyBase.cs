@@ -58,12 +58,6 @@ public class EnemyBase : MonoBehaviour
             else
             {
                 health -= (int)Math.Round(damage);
-
-                if(health <= 7.5)
-                {
-                    animator.SetBool("isEnraged", true);
-                }
-
                 if(health <= 0) {
                     animator.SetTrigger("death");
                     // the death animation should call the public death function

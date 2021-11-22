@@ -9,7 +9,7 @@ public class EnemyBehavior : MonoBehaviour
     [SerializeField, Tooltip("Attack damage")]
     public float damage = 1f;
     [SerializeField, Tooltip("Attack distance")]
-    private float attackDist = 3.0f;
+    protected float attackDist = 3.0f;
     [SerializeField, Tooltip("Attack cooldown in seconds")]
     float cooldown = 5f;
     [SerializeField, Tooltip("Parry knockback")]
@@ -19,18 +19,17 @@ public class EnemyBehavior : MonoBehaviour
     [SerializeField, Tooltip("How high the y-velocity of player sword must be to parry")]
     float parryVelocity = 1.5f;
     private PlayerMovement playerMovement;
-    private GameObject player;
+    protected GameObject player;
     
     private Transform enemylocal; 
-    private Animator animator;
-    private GameObject target;
+    protected Animator animator;
+    protected GameObject target;
     private CapsuleCollider2D capsuleCollider;
     private BoxCollider2D hitBoxCollider;
     private BoxCollider2D playerWeaponCollider;
     private Rigidbody2D rb;
     //private SpriteRenderer enemyBodySprite;
 
-    private int rand;
     private bool canAttack = true; 
     private bool canDamage = true;
     public enum AttackType
@@ -43,8 +42,8 @@ public class EnemyBehavior : MonoBehaviour
     public static event Action<AttackType> onAttack;
     public static event Action<GameObject> parriedEvent;
 
-    private EnemyBase enemyBase;
-    private float scaleX;
+    protected EnemyBase enemyBase;
+    protected float scaleX;
 
     void Awake()
     {
@@ -120,17 +119,10 @@ public class EnemyBehavior : MonoBehaviour
         if (distToPlayer <= attackDist)
         {
             animator.SetBool("inRange", true);
-            rand = UnityEngine.Random.Range(0, 3);
-
-            if (rand == 0) {
-            animator.SetTrigger("stab");
-            }
-            else if (rand == 1) {
-                animator.SetTrigger("uppercut");
-            }
-            else if (rand == 2) {
+            if (canAttack) {
+                //StartCoroutine(AttackRoutine(0.5f));
                 animator.SetTrigger("attack");
-            }
+            } 
         } else {
             animator.SetBool("inRange", false);
         }
