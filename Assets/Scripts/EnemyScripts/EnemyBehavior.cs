@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class EnemyBehavior : MonoBehaviour
+public class EnemyBehavior : EnemyBehaviorBase
 {
     [SerializeField, Tooltip("Max speed, in units per second, that the character moves.")]
     public float speed = 9;
@@ -11,7 +11,7 @@ public class EnemyBehavior : MonoBehaviour
     [SerializeField, Tooltip("Attack distance")]
     protected float attackDist = 3.0f;
     [SerializeField, Tooltip("Attack cooldown in seconds")]
-    float cooldown = 5f;
+    public float cooldown = 5f;
     [SerializeField, Tooltip("Parry knockback")]
     float parryKnockback = 0.5f;
     [SerializeField, Tooltip("Projectile for ranged enemies")]
@@ -25,13 +25,13 @@ public class EnemyBehavior : MonoBehaviour
     protected Animator animator;
     protected GameObject target;
     private CapsuleCollider2D capsuleCollider;
-    private BoxCollider2D hitBoxCollider;
+    protected BoxCollider2D hitBoxCollider;
     private BoxCollider2D playerWeaponCollider;
     private Rigidbody2D rb;
     //private SpriteRenderer enemyBodySprite;
 
-    private bool canAttack = true; 
-    private bool canDamage = true;
+    protected bool canAttack = true; 
+    protected bool canDamage = true;
     public enum AttackType
     {
         Melee,
@@ -62,7 +62,7 @@ public class EnemyBehavior : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    protected void Update()
     {
         Move();
         // Retrieve all colliders we have intersected after velocity has been applied.
@@ -97,7 +97,7 @@ public class EnemyBehavior : MonoBehaviour
         }
     }
 
-    void Move() 
+    protected override void Move() 
     {
         // check if player is to the right or left of enemy, flip enemy gameobjects based on player position
         if (target.transform.position.x > transform.position.x)
@@ -118,10 +118,12 @@ public class EnemyBehavior : MonoBehaviour
         }
         if (distToPlayer <= attackDist)
         {
+            
             animator.SetBool("inRange", true);
             if (canAttack) {
                 //StartCoroutine(AttackRoutine(0.5f));
                 animator.SetTrigger("attack");
+                canAttack = false;
             } 
         } else {
             animator.SetBool("inRange", false);
@@ -145,9 +147,9 @@ public class EnemyBehavior : MonoBehaviour
     }
 
     // this function is called from the animation player on attack
-    public void Attack() {
+    public override void Attack() {
         canAttack = false;
-        onAttack?.Invoke(AttackType.Melee);
+        emitAttack(AttackType.Melee);
         // enable the hitbox on the weapon
         //hitBoxCollider.enabled = true;
         if (canDamage) {
@@ -165,7 +167,7 @@ public class EnemyBehavior : MonoBehaviour
 
     public void Shoot(){ 
         animator.ResetTrigger("attack");
-        onAttack?.Invoke(AttackType.Projectile); 
+        emitAttack(AttackType.Projectile); 
         canAttack = false;
         Transform firePoint = transform.GetChild(1);
         if(projectile != null){
@@ -181,6 +183,7 @@ public class EnemyBehavior : MonoBehaviour
     }
 
     public IEnumerator AttackCoolDown(float time) { 
+        Debug.Log("Start cooldown");
         yield return new WaitForSeconds(time);     // wait for 3 seconds until enemy can attack again
         canAttack = true;
         canDamage = true;
@@ -201,5 +204,9 @@ public class EnemyBehavior : MonoBehaviour
 
     public void damagePlayerEvent(AttackType attackType) {
         onPlayerDamaged?.Invoke(attackType, getWeaponDamage());
+    }
+
+    protected void emitAttack(AttackType type) {
+        onAttack?.Invoke(type);
     }
 }

@@ -380,6 +380,7 @@ GameObject:
   - component: {fileID: 8954417506345630628}
   - component: {fileID: 1913346242955654224}
   - component: {fileID: 779747019}
+  - component: {fileID: 4889953769244520185}
   m_Layer: 3
   m_Name: Sword_Boss
   m_TagString: Enemy
@@ -416,7 +417,7 @@ Animator:
   m_GameObject: {fileID: 2137895989959622302}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f256d94ad78633f4da3695977645607e, type: 2}
+  m_Controller: {fileID: 9100000, guid: 44c5946e4e573894a99a4365a7308908, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -494,6 +495,25 @@ MonoBehaviour:
   speed: 5
   damage: 5
   attackDist: 4
+  cooldown: 10
+  parryKnockback: 0.5
+  projectile: {fileID: 0}
+  parryVelocity: 1.5
+--- !u!114 &4889953769244520185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2137895989959622302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5c3dcfed8de204897c6fcda13331f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 9
+  damage: 1
+  attackDist: 3
   cooldown: 5
   parryKnockback: 0.5
   projectile: {fileID: 0}
@@ -978,7 +998,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6148051028984445542}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.5, y: 0.12, z: 0}
   m_LocalScale: {x: 0.9718165, y: 0.9062001, z: 1}
   m_Children: []
   m_Father: {fileID: 4876032600605923306}
