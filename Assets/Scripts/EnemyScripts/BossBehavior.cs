@@ -34,8 +34,21 @@ public class BossBehavior : EnemyBehavior
         }
 
     }
+    public override void Attack() {
+        canAttack = false;
+        emitAttack(AttackType.Melee);
+        // enable the hitbox on the weapon
+        //hitBoxCollider.enabled = true;
+        if (canDamage) {
+            // we have not parried, so check for damage
+            if (hitBoxCollider.IsTouching(target.GetComponent<CapsuleCollider2D>())) {
+                // the hitbox is touching the player capsule collider, deal damage!
+                damagePlayerEvent(AttackType.Melee);
+            }
+        }
+    }
 
-    void Move() 
+    override protected void Move() 
     {
         // check if player is to the right or left of enemy, flip enemy gameobjects based on player position
         if (target.transform.position.x > transform.position.x)
@@ -57,19 +70,28 @@ public class BossBehavior : EnemyBehavior
         if (distToPlayer <= attackDist)
         {
             animator.SetBool("inRange", true);
-            int rand = UnityEngine.Random.Range(0, 3);
+            if(canAttack) {
+                canAttack = false;
+                int rand = UnityEngine.Random.Range(0, 3);
+                Debug.Log("random attack: " + rand);
 
-            if (rand == 0) {
-            animator.SetTrigger("stab");
+                if (rand == 0) {
+                animator.SetTrigger("stab");
+                }
+                else if (rand == 1) {
+                    animator.SetTrigger("uppercut");
+                }
+                else if (rand == 2) {
+                    animator.SetTrigger("attack");
+                }
             }
-            else if (rand == 1) {
-                animator.SetTrigger("uppercut");
-            }
-            else if (rand == 2) {
-                animator.SetTrigger("attack");
-            }
+
         } else {
             animator.SetBool("inRange", false);
         }
+    }
+
+    public void startCoolDown() {
+        StartCoroutine(AttackCoolDown(cooldown));
     }
 }
