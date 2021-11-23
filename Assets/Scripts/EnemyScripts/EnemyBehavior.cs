@@ -137,6 +137,7 @@ public class EnemyBehavior : MonoBehaviour
                 if (playerWeaponRB.velocity.y > parryVelocity) {
                     parryEvent();
                     canDamage = false;
+                    animator.SetTrigger("stunned");
                     StartCoroutine(enemyBase.FakeAddForceMotion(parryKnockback));
                 }
             }
