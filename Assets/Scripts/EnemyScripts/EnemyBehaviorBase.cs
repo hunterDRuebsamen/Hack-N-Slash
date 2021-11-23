@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class EnemyBehaviorBase : MonoBehaviour
+public abstract class EnemyBehaviorBase : MonoBehaviour
 {
     protected virtual void Move()
     {}
