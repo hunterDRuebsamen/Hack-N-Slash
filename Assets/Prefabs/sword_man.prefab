@@ -277,6 +277,7 @@ MonoBehaviour:
   knockbackFactor: 0.2
   isBlocking: 0
   hitQueueSize: 5
+  numBlockHits: 2
 --- !u!114 &2634263972391122924
 MonoBehaviour:
   m_ObjectHideFlags: 0
