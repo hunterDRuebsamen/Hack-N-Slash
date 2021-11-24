@@ -6,7 +6,7 @@ using UnityEngine;
 public class projectile : MonoBehaviour
 {
     CapsuleCollider2D col;
-    public EnemyBehavior enemyBehavior;
+    private  EnemyBehavior enemyBehavior;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +27,10 @@ public class projectile : MonoBehaviour
         } else {
             //We hit something else
         }
+    }
+
+    public void attachEnemyBehavior(EnemyBehavior eb) {
+        enemyBehavior = eb;
     }
 
     private async void destroyBullet(int duration) {

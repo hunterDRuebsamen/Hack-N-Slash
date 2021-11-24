@@ -15,7 +15,7 @@ public class EnemyBehavior : MonoBehaviour
     [SerializeField, Tooltip("Parry knockback")]
     float parryKnockback = 0.5f;
     [SerializeField, Tooltip("Type of Attack, melee or projectile")]
-    AttackType attackStyle = AttackType.Melee;
+    public AttackType attackStyle = AttackType.Melee;
     [SerializeField, Tooltip("Projectile for ranged enemies")]
     GameObject projectile = null;
     [SerializeField, Tooltip("How high the y-velocity of player sword must be to parry")]
@@ -179,7 +179,7 @@ public class EnemyBehavior : MonoBehaviour
         Transform firePoint = transform.GetChild(1);
         if(projectile != null){
            Rigidbody2D rbBullet = Instantiate(projectile, firePoint.position, Quaternion.identity).GetComponent<Rigidbody2D>();
-           rbBullet.GetComponent<projectile>().enemyBehavior = this;
+           rbBullet.GetComponent<projectile>().attachEnemyBehavior(this);
 
            Vector3 differenceVect = (target.transform.position - transform.position).normalized;
            Vector2 shootVect = new Vector2(differenceVect.x, differenceVect.y);
