@@ -5,18 +5,28 @@ using UnityEngine;
 
 public class WeaponSpark : MonoBehaviour
 {
-    [SerializeField] ParticleSystem weaponSparks = null;
-    [SerializeField] ParticleSystem bloodSpark = null;
-    [SerializeField] ParticleSystem enemyBloodSpark = null;
-    [SerializeField] float timeBetweensparks = .5f;
-    [SerializeField] float timeBetweenSplat = .5f;
-    [SerializeField] GameObject player = null;
+    [SerializeField, Tooltip("Primary particle system object, contains the spark between weapons")]
+    ParticleSystem weaponSparks = null;
+    [SerializeField, Tooltip("Pariticle system for the player's blood splatter")]
+    ParticleSystem bloodSpark = null;
+    [SerializeField, Tooltip("Pariticle system for the enemy's blood splatter")]
+    ParticleSystem enemyBloodSpark = null;
+    [SerializeField, Tooltip("Time that will occur between each weapon spark")]
+    float timeBetweensparks = .5f;
+    [SerializeField, Tooltip("Time that will occur between each blood splatter")]
+    float timeBetweenSplat = .5f;
+    [SerializeField, Tooltip("Reference to the main player object(used for player location on screen)")]
+    GameObject player = null;
     
     private void Awake()
     {
+        // make sure the the particle systems do not start running on game start
         weaponSparks.Stop();
+        bloodSpark.Stop();
+        enemyBloodSpark.Stop();
     }
 
+    // allow the spark system to trigger during these specific events
     private void OnEnable()
     {
         EnemyBehavior.parriedEvent += spark;
@@ -24,7 +34,6 @@ public class WeaponSpark : MonoBehaviour
         EnemyBehavior.onPlayerDamaged += playerSplat;
 
     }
-
     private void OnDisable()
     {
         EnemyBehavior.parriedEvent += spark;
@@ -35,6 +44,7 @@ public class WeaponSpark : MonoBehaviour
         
     void spark(GameObject enemy)
     {
+        Debug.Log("Weapon sparking should trigger");
         StartCoroutine( sparkEffect(enemy));
     }
 
@@ -51,25 +61,35 @@ public class WeaponSpark : MonoBehaviour
 
     IEnumerator bloodSplat(GameObject enemy)
     {
+        //relocates the weaponSparks object to the enemy's position
         weaponSparks.transform.localPosition = enemy.transform.localPosition;
+
+        //Turns on the bloodSpark(for enemy) and waits some time before stopping it
         enemyBloodSpark.Play();
         yield return new WaitForSeconds(timeBetweensparks);
         enemyBloodSpark.Stop();
     }
     IEnumerator bloodSplat()
     {
+        //relocates the weaponSparks object to the enemy's position and changes the rotation of the object to point away from the player
         weaponSparks.transform.localPosition = player.transform.localPosition;
         weaponSparks.transform.RotateAround(weaponSparks.transform.position, Vector3.up, 180);
 
+        //Turns on the bloodSpark(for player) and waits some time before stopping it
         bloodSpark.Play();
         yield return new WaitForSeconds(timeBetweenSplat);
         bloodSpark.Stop();
+
+        // Waits another set interval before reverting the rotation to prevent the blood splatter to rotate in the process
         yield return new WaitForSeconds(timeBetweenSplat);     
         weaponSparks.transform.RotateAround(weaponSparks.transform.position, Vector3.up, -180);
     }
     IEnumerator sparkEffect(GameObject enemy)
     {
+        //relocates the weaponSparks object to the enemy's position
         weaponSparks.transform.localPosition = enemy.transform.localPosition;
+
+        //Turns on the weaponSparks system for a set interval to be turned off later
         weaponSparks.Play();
         yield return new WaitForSeconds(timeBetweensparks);
         weaponSparks.Stop();
