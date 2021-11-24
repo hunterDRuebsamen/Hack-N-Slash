@@ -14,10 +14,18 @@ public class EnemyBehavior : MonoBehaviour
     float cooldown = 5f;
     [SerializeField, Tooltip("Parry knockback")]
     float parryKnockback = 0.5f;
+    [SerializeField, Tooltip("Type of Attack, melee or projectile")]
+    AttackType attackStyle = AttackType.Melee;
     [SerializeField, Tooltip("Projectile for ranged enemies")]
     GameObject projectile = null;
     [SerializeField, Tooltip("How high the y-velocity of player sword must be to parry")]
     float parryVelocity = 1.5f;
+
+    [SerializeField] public AudioClip attackSound;
+    [SerializeField] public AudioClip hurtSound;
+    [SerializeField] public AudioClip moveSound;
+    [SerializeField] public AudioClip deathSound;
+
     private PlayerMovement playerMovement;
     private GameObject player;
     
@@ -39,7 +47,7 @@ public class EnemyBehavior : MonoBehaviour
     };
 
     public static event Action<AttackType, float> onPlayerDamaged;
-    public static event Action<AttackType> onAttack;
+    public static event Action<GameObject, AttackType> onAttack;
     public static event Action<GameObject> parriedEvent;
 
     private EnemyBase enemyBase;
@@ -121,7 +129,9 @@ public class EnemyBehavior : MonoBehaviour
             animator.SetBool("inRange", true);
             if (canAttack) {
                 //StartCoroutine(AttackRoutine(0.5f));
+                canAttack = false;
                 animator.SetTrigger("attack");
+                onAttack?.Invoke(gameObject, attackStyle);
             } 
         } else {
             animator.SetBool("inRange", false);
@@ -146,14 +156,14 @@ public class EnemyBehavior : MonoBehaviour
     // this function is called from the animation player on attack
     public void Attack() {
         canAttack = false;
-        onAttack?.Invoke(AttackType.Melee);
+        //onAttack?.Invoke(gameObject, AttackType.Melee);
         // enable the hitbox on the weapon
         //hitBoxCollider.enabled = true;
         if (canDamage) {
             // we have not parried, so check for damage
             if (hitBoxCollider.IsTouching(target.GetComponent<CapsuleCollider2D>())) {
                 // the hitbox is touching the player capsule collider, deal damage!
-                damagePlayerEvent(AttackType.Melee);
+                damagePlayerEvent(attackStyle);
             }
         }
         //hitBoxCollider.enabled = false;
@@ -164,7 +174,7 @@ public class EnemyBehavior : MonoBehaviour
 
     public void Shoot(){ 
         animator.ResetTrigger("attack");
-        onAttack?.Invoke(AttackType.Projectile); 
+        //onAttack?.Invoke(gameObject, AttackType.Projectile); 
         canAttack = false;
         Transform firePoint = transform.GetChild(1);
         if(projectile != null){
