@@ -9,6 +9,8 @@ public class BossBehavior : EnemyBehavior
     GameObject shield;
     GameObject handProjectile;
 
+    public GameObject projectile_boss = null;
+
     void Start() {
         maxHealth = enemyBase.health;
         shield = this.gameObject.transform.GetChild(3).GetChild(2).GetChild(0).gameObject;
@@ -48,6 +50,22 @@ public class BossBehavior : EnemyBehavior
         }
     }
 
+    public void Shoot()
+    {
+        emitAttack(AttackType.Projectile);
+        canAttack = false;
+        Transform firePoint = transform.GetChild(3).GetChild(2).GetChild(1);
+        if (projectile_boss != null)
+        {
+            Rigidbody2D rbBullet = Instantiate(projectile_boss, firePoint.position, Quaternion.identity).GetComponent<Rigidbody2D>();
+            rbBullet.GetComponent<projectile>().enemyBehavior = this;
+
+            Vector3 differenceVect = (target.transform.position - transform.position).normalized;
+            Vector2 shootVect = new Vector2(differenceVect.x, differenceVect.y);
+            rbBullet.AddForce(shootVect * 2f, ForceMode2D.Impulse);
+        }
+    }
+
     override protected void Move() 
     {
         // check if player is to the right or left of enemy, flip enemy gameobjects based on player position
@@ -72,7 +90,7 @@ public class BossBehavior : EnemyBehavior
             animator.SetBool("inRange", true);
             if(canAttack) {
                 canAttack = false;
-                int rand = UnityEngine.Random.Range(0, 3);
+                int rand = UnityEngine.Random.Range(0, 4);
                 Debug.Log("random attack: " + rand);
 
                 if (rand == 0) {
@@ -83,6 +101,9 @@ public class BossBehavior : EnemyBehavior
                 }
                 else if (rand == 2) {
                     animator.SetTrigger("attack");
+                }
+                else if (rand == 3) {
+                    animator.SetTrigger("enraged");
                 }
             }
 
