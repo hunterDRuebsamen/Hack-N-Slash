@@ -8,7 +8,17 @@ public class PauseMenu : MonoBehaviour
     public static event Action onUnpause;
     
     public GameObject pauseMenuUI;
+    bool deadPlayer = false;
+    private void OnEnable(){
+        PlayerHealth.onPlayerDeath+=playerdeath;
+    }
 
+    private void OnDisable(){
+        PlayerHealth.onPlayerDeath-=playerdeath;
+    }
+    private void playerdeath (){
+        deadPlayer = true; 
+    }
     void Resume()
     {
         Time.timeScale = 1;
@@ -28,7 +38,7 @@ public class PauseMenu : MonoBehaviour
         {
             Pause();
         }
-        else if(Input.GetKeyDown(KeyCode.Space))
+        else if(Input.GetKeyDown(KeyCode.Space)&& !deadPlayer)
         {
            
             Resume(); 
