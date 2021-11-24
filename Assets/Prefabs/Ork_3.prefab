@@ -32,9 +32,21 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2668338774259654818, guid: d478b32d5475cec50b46932f5f4ea88a, type: 3}
+      propertyPath: hurtSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 62263718fa70f9dffaa824d18008ae74, type: 3}
+    - target: {fileID: 2668338774259654818, guid: d478b32d5475cec50b46932f5f4ea88a, type: 3}
       propertyPath: attackDist
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 2668338774259654818, guid: d478b32d5475cec50b46932f5f4ea88a, type: 3}
+      propertyPath: deathSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 960873d7724518f1f95c3c90b155a3f0, type: 3}
+    - target: {fileID: 2668338774259654818, guid: d478b32d5475cec50b46932f5f4ea88a, type: 3}
+      propertyPath: attackSound
+      value: 
+      objectReference: {fileID: 8300000, guid: ce867720dc6211921afcbaa2cac863d2, type: 3}
     - target: {fileID: 2668338774259654818, guid: d478b32d5475cec50b46932f5f4ea88a, type: 3}
       propertyPath: parryKnockback
       value: 0.25
