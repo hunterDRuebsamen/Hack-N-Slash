@@ -7,8 +7,9 @@ public class WeaponSpark : MonoBehaviour
 {
     [SerializeField] ParticleSystem weaponSparks = null;
     [SerializeField] ParticleSystem bloodSpark = null;
+    [SerializeField] ParticleSystem enemyBloodSpark = null;
     [SerializeField] float timeBetweensparks = .5f;
-    [SerializeField] float timeBetweenSplats = 1f;
+    [SerializeField] float timeBetweenSplat = .5f;
     [SerializeField] GameObject player = null;
     
     private void Awake()
@@ -20,7 +21,7 @@ public class WeaponSpark : MonoBehaviour
     {
         EnemyBehavior.parriedEvent += spark;
         WeaponBase.onEnemyDamaged += enemySplat;
-        PlayerHealth.onPlayerHealthChanged += playerSplat;
+        EnemyBehavior.onPlayerDamaged += playerSplat;
 
     }
 
@@ -28,7 +29,7 @@ public class WeaponSpark : MonoBehaviour
     {
         EnemyBehavior.parriedEvent += spark;
         WeaponBase.onEnemyDamaged -= enemySplat;
-        PlayerHealth.onPlayerHealthChanged -= playerSplat;
+        EnemyBehavior.onPlayerDamaged -= playerSplat;
     }
 
         
@@ -42,7 +43,7 @@ public class WeaponSpark : MonoBehaviour
         Debug.Log("Splat should be triggered");
         StartCoroutine(bloodSplat(enemy));
     }
-    void playerSplat(int test)
+    void playerSplat(EnemyBehavior.AttackType y, float x)
     {
         Debug.Log("Splat should be triggered");
         StartCoroutine(bloodSplat());
@@ -51,21 +52,20 @@ public class WeaponSpark : MonoBehaviour
     IEnumerator bloodSplat(GameObject enemy)
     {
         weaponSparks.transform.localPosition = enemy.transform.localPosition;
-        bloodSpark.Play();
+        enemyBloodSpark.Play();
         yield return new WaitForSeconds(timeBetweensparks);
-        bloodSpark.Stop();
+        enemyBloodSpark.Stop();
     }
     IEnumerator bloodSplat()
     {
         weaponSparks.transform.localPosition = player.transform.localPosition;
-        Quaternion rotate_particle = weaponSparks.transform.localRotation;
-        //rotate_particle.y *= -1;
-        //weaponSparks.transform.localRotation = rotate_particle;
+        weaponSparks.transform.RotateAround(weaponSparks.transform.position, Vector3.up, 180);
+
         bloodSpark.Play();
-        yield return new WaitForSeconds(timeBetweenSplats);
-        //rotate_particle.y *= -1;
-        //weaponSparks.transform.localRotation = rotate_particle;
+        yield return new WaitForSeconds(timeBetweenSplat);
         bloodSpark.Stop();
+        yield return new WaitForSeconds(timeBetweenSplat);     
+        weaponSparks.transform.RotateAround(weaponSparks.transform.position, Vector3.up, -180);
     }
     IEnumerator sparkEffect(GameObject enemy)
     {
