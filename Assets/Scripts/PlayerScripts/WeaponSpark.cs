@@ -6,6 +6,7 @@ public class WeaponSpark : MonoBehaviour
 {
     [SerializeField] ParticleSystem weaponSparks = null;
     [SerializeField] float timeBetweensparks = .5f;
+    [SerializeField] GameObject player = null;
 
     private void Awake()
     {
@@ -14,15 +15,17 @@ public class WeaponSpark : MonoBehaviour
 
     private void OnEnable()
     {
-        WeaponBase.onEnemyDamaged += spark;
+        EnemyBehavior.parriedEvent += spark;
+
     }
 
     private void OnDisable()
     {
-        WeaponBase.onEnemyDamaged -= spark;
+        EnemyBehavior.parriedEvent += spark;
     }
 
-    void spark(float dmg, GameObject enemy)
+        
+    void spark(GameObject enemy)
     {
         StartCoroutine( sparkEffect(enemy));
     }
