@@ -7,7 +7,7 @@ public class WeaponSpark : MonoBehaviour
 {
     [SerializeField, Tooltip("Primary particle system object, contains the spark between weapons")]
     ParticleSystem weaponSparks = null;
-    [SerializeField, Tooltip("Pariticle system for the player's blood splatter")]
+    [SerializeField, Tooltip("Pariticle system for the player's blood splatter")] //particle system is located in the player game object
     ParticleSystem bloodSpark = null;
     [SerializeField, Tooltip("Pariticle system for the enemy's blood splatter")]
     ParticleSystem enemyBloodSpark = null;
@@ -75,19 +75,11 @@ public class WeaponSpark : MonoBehaviour
 
     //routrine for blood splat for player
     IEnumerator bloodSplat()
-    {
-        //relocates the weaponSparks object to the enemy's position and changes the rotation of the object to point away from the player
-        this.transform.localPosition = player.transform.localPosition;
-        this.transform.RotateAround(weaponSparks.transform.position, Vector3.up, 180);
-
+    { 
         //Turns on the bloodSpark(for player) and waits some time before stopping it
         bloodSpark.Play();
         yield return new WaitForSeconds(timeBetweenSplat);
         bloodSpark.Stop();
-
-        // Waits another set interval before reverting the rotation to prevent the blood splatter to rotate in the process
-        yield return new WaitForSeconds(timeBetweenSplat);     
-        this.transform.RotateAround(weaponSparks.transform.position, Vector3.up, -180);
     }
 
     //routine for spark effects upon any parry event
