@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -7,6 +8,8 @@ public class projectile : MonoBehaviour
 {
     CapsuleCollider2D col;
     public EnemyBehavior enemyBehavior;
+    //Event when the player parries the projectile
+    public static event Action<GameObject> onProjecParry;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +26,7 @@ public class projectile : MonoBehaviour
         } else if(collision.gameObject.tag == "Weapon") {
             //We hit the player's weapon
             enemyBehavior.parryEvent();
+            onProjecParry?.Invoke(this.gameObject);
             Destroy(this.gameObject);
         } else {
             //We hit something else

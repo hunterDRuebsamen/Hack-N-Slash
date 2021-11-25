@@ -30,13 +30,15 @@ public class WeaponSpark : MonoBehaviour
     private void OnEnable()
     {
         EnemyBehavior.parriedEvent += spark;
+        projectile.onProjecParry += spark;
         WeaponBase.onEnemyDamaged += enemySplat;
         EnemyBehavior.onPlayerDamaged += playerSplat;
 
     }
     private void OnDisable()
     {
-        EnemyBehavior.parriedEvent += spark;
+        EnemyBehavior.parriedEvent -= spark;
+        projectile.onProjecParry -= spark;
         WeaponBase.onEnemyDamaged -= enemySplat;
         EnemyBehavior.onPlayerDamaged -= playerSplat;
     }
@@ -58,22 +60,25 @@ public class WeaponSpark : MonoBehaviour
         Debug.Log("Splat should be triggered");
         StartCoroutine(bloodSplat());
     }
-
+    
+    //routine for blood splat for enemy
     IEnumerator bloodSplat(GameObject enemy)
     {
         //relocates the weaponSparks object to the enemy's position
-        weaponSparks.transform.localPosition = enemy.transform.localPosition;
+        this.transform.localPosition = enemy.transform.localPosition;
 
         //Turns on the bloodSpark(for enemy) and waits some time before stopping it
         enemyBloodSpark.Play();
         yield return new WaitForSeconds(timeBetweensparks);
         enemyBloodSpark.Stop();
     }
+
+    //routrine for blood splat for player
     IEnumerator bloodSplat()
     {
         //relocates the weaponSparks object to the enemy's position and changes the rotation of the object to point away from the player
-        weaponSparks.transform.localPosition = player.transform.localPosition;
-        weaponSparks.transform.RotateAround(weaponSparks.transform.position, Vector3.up, 180);
+        this.transform.localPosition = player.transform.localPosition;
+        this.transform.RotateAround(weaponSparks.transform.position, Vector3.up, 180);
 
         //Turns on the bloodSpark(for player) and waits some time before stopping it
         bloodSpark.Play();
@@ -82,12 +87,14 @@ public class WeaponSpark : MonoBehaviour
 
         // Waits another set interval before reverting the rotation to prevent the blood splatter to rotate in the process
         yield return new WaitForSeconds(timeBetweenSplat);     
-        weaponSparks.transform.RotateAround(weaponSparks.transform.position, Vector3.up, -180);
+        this.transform.RotateAround(weaponSparks.transform.position, Vector3.up, -180);
     }
+
+    //routine for spark effects upon any parry event
     IEnumerator sparkEffect(GameObject enemy)
     {
         //relocates the weaponSparks object to the enemy's position
-        weaponSparks.transform.localPosition = enemy.transform.localPosition;
+        this.transform.localPosition = enemy.transform.localPosition;
 
         //Turns on the weaponSparks system for a set interval to be turned off later
         weaponSparks.Play();
