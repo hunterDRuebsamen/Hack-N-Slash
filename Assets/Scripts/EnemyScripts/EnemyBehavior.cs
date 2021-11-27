@@ -210,8 +210,6 @@ public class EnemyBehavior : EnemyBehaviorBase
         onAttack?.Invoke(type);
     }
 
-    protected void attackCoolDownFunc(float cooldown) {
-        AttackCoolDown(cooldown);
-    }
+
 
 }
