@@ -209,4 +209,9 @@ public class EnemyBehavior : EnemyBehaviorBase
     protected void emitAttack(AttackType type) {
         onAttack?.Invoke(type);
     }
+
+    protected void attackCoolDownFunc(float cooldown) {
+        AttackCoolDown(cooldown);
+    }
+
 }

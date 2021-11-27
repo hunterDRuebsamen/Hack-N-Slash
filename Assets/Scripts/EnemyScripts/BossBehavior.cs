@@ -45,6 +45,7 @@ public class BossBehavior : EnemyBehavior
                 damagePlayerEvent(AttackType.Melee);
             }
         }
+        attackCoolDownFunc(cooldown);
     }
 
     public override void Shoot()
@@ -60,6 +61,7 @@ public class BossBehavior : EnemyBehavior
             Vector3 differenceVect = (target.transform.position - transform.position).normalized;
             Vector2 shootVect = new Vector2(differenceVect.x, differenceVect.y);
             rbBullet.AddForce(shootVect * 2f, ForceMode2D.Impulse);
+            attackCoolDownFunc(cooldown);
         }
     }
 
@@ -87,11 +89,13 @@ public class BossBehavior : EnemyBehavior
             animator.SetBool("inRange", true);
             if(canAttack) {
                 canAttack = false;
-                int rand = UnityEngine.Random.Range(0, 4);
-                Debug.Log("random attack: " + rand);
-
+                int rand = UnityEngine.Random.Range(0, 3);
+                
+                if(enemyBase.health <= maxHealth/2){
+                    rand = UnityEngine.Random.Range(0, 4);
+                }
                 if (rand == 0) {
-                animator.SetTrigger("stab");
+                    animator.SetTrigger("stab");
                 }
                 else if (rand == 1) {
                     animator.SetTrigger("uppercut");
