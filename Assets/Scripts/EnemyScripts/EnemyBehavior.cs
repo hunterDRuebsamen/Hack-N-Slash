@@ -15,7 +15,7 @@ public class EnemyBehavior : EnemyBehaviorBase
     [SerializeField, Tooltip("Parry knockback")]
     float parryKnockback = 0.5f;
     [SerializeField, Tooltip("Projectile for ranged enemies")]
-    GameObject projectile = null;
+    protected GameObject projectile = null;
     [SerializeField, Tooltip("How high the y-velocity of player sword must be to parry")]
     float parryVelocity = 1.5f;
     private PlayerMovement playerMovement;
@@ -165,7 +165,7 @@ public class EnemyBehavior : EnemyBehaviorBase
         StartCoroutine(AttackCoolDown(cooldown));
     }
 
-    public void Shoot(){ 
+    public override void Shoot(){ 
         animator.ResetTrigger("attack");
         emitAttack(AttackType.Projectile); 
         canAttack = false;

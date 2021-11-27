@@ -9,8 +9,6 @@ public class BossBehavior : EnemyBehavior
     GameObject shield;
     GameObject handProjectile;
 
-    public GameObject projectile_boss = null;
-
     void Start() {
         maxHealth = enemyBase.health;
         shield = this.gameObject.transform.GetChild(3).GetChild(2).GetChild(0).gameObject;
@@ -29,7 +27,6 @@ public class BossBehavior : EnemyBehavior
         if (this != null && this.gameObject == enemyObject) {
             if(enemyBase.health <= maxHealth/2)
             {
-                animator.SetBool("isEnraged", true);
                 shield.SetActive(false);
                 handProjectile.SetActive(true);
             }
@@ -50,14 +47,14 @@ public class BossBehavior : EnemyBehavior
         }
     }
 
-    public void Shoot()
+    public override void Shoot()
     {
         emitAttack(AttackType.Projectile);
         canAttack = false;
         Transform firePoint = transform.GetChild(3).GetChild(2).GetChild(1);
-        if (projectile_boss != null)
+        if (projectile != null)
         {
-            Rigidbody2D rbBullet = Instantiate(projectile_boss, firePoint.position, Quaternion.identity).GetComponent<Rigidbody2D>();
+            Rigidbody2D rbBullet = Instantiate(projectile, firePoint.position, Quaternion.identity).GetComponent<Rigidbody2D>();
             rbBullet.GetComponent<projectile>().enemyBehavior = this;
 
             Vector3 differenceVect = (target.transform.position - transform.position).normalized;
@@ -102,7 +99,7 @@ public class BossBehavior : EnemyBehavior
                 else if (rand == 2) {
                     animator.SetTrigger("attack");
                 }
-                else if (rand == 3) {
+                else if (rand == 3 && enemyBase.health <= maxHealth/2) {
                     animator.SetTrigger("enraged");
                 }
             }
