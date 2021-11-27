@@ -92,7 +92,7 @@ public class BossBehavior : EnemyBehavior
                 int rand = UnityEngine.Random.Range(0, 3);
                 
                 if(enemyBase.health <= maxHealth/2){
-                    rand = UnityEngine.Random.Range(0, 4);
+                    rand = UnityEngine.Random.Range(0, 6);
                 }
                 if (rand == 0) {
                     animator.SetTrigger("stab");
@@ -103,7 +103,7 @@ public class BossBehavior : EnemyBehavior
                 else if (rand == 2) {
                     animator.SetTrigger("attack");
                 }
-                else if (rand == 3 && enemyBase.health <= maxHealth/2) {
+                else if (rand > 3 && enemyBase.health <= maxHealth/2) {
                     animator.SetTrigger("enraged");
                 }
             }

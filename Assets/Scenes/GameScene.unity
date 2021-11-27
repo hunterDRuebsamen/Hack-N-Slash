@@ -1566,7 +1566,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.3129897, y: 1.3341198, z: -10.01}
+  m_LocalPosition: {x: -6.3111777, y: 1.3341198, z: -10.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2933,7 +2933,7 @@ PrefabInstance:
     - target: {fileID: 779747019, guid: 0d5c41728d151a644997a7149f70454b, type: 3}
       propertyPath: projectile
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1659273401739453581, guid: d1875334bf754af4f9b40accb88ff2d9, type: 3}
     - target: {fileID: 779747019, guid: 0d5c41728d151a644997a7149f70454b, type: 3}
       propertyPath: projectile_boss
       value: 
@@ -3022,7 +3022,8 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.04
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4889953769244520185, guid: 0d5c41728d151a644997a7149f70454b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0d5c41728d151a644997a7149f70454b, type: 3}
 --- !u!1 &1306423049
 GameObject:
@@ -8825,7 +8826,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1840438654}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.3129897, y: 1.3341198, z: -10.01}
+  m_LocalPosition: {x: -6.3111777, y: 1.3341198, z: -10.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1922294290}
