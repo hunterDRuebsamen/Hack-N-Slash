@@ -11,7 +11,7 @@ public class GameEvents : MonoBehaviour
     private SpriteRenderer bloodOverlayRenderer;
     private Animation bloodAnim;
     private AudioSource musicSource;
-
+    [SerializeField] GameObject container;
     [SerializeField] GameObject lampPrefab;
 
     [SerializeField, Tooltip("List of Bushes")]
@@ -24,6 +24,7 @@ public class GameEvents : MonoBehaviour
     private bool cleanup = true;
 
     const int bushRange = 25;
+    const float lampY = -0.4f;
 
     private void Start() {
         musicSource = GameObject.Find("MusicManager").GetComponent<AudioSource>();  
@@ -32,8 +33,10 @@ public class GameEvents : MonoBehaviour
         bloodAnim = GameObject.Find("BloodOverlay").GetComponent<Animation>();
         playerTrans = phObject.GetComponent<Transform>();
         // add 2 lamps (lights)
-        lamps[0] = Instantiate(lampPrefab, new Vector3(-20, -1.4f, 0), Quaternion.identity);
-        lamps[1] = Instantiate(lampPrefab, new Vector3(0, -1.4f, 0), Quaternion.identity);
+        lamps[0] = Instantiate(lampPrefab, new Vector3(-20, lampY, 0), Quaternion.identity);
+        lamps[0].transform.parent = container.transform;
+        lamps[1] = Instantiate(lampPrefab, new Vector3(0, lampY, 0), Quaternion.identity);
+        lamps[1].transform.parent = container.transform;
         cleanup = true;
         SpawnFoilage();
         ClearFoilage(20f);
@@ -75,8 +78,8 @@ public class GameEvents : MonoBehaviour
         if ((playerTrans.position.x > lamps[1].transform.position.x) || 
             (playerTrans.position.x < lamps[0].transform.position.x)) {
             // lamp is beyond player range, move it to correct position
-            lamps[0].transform.position = new Vector2(playerTrans.position.x - (playerTrans.position.x % 20),-1.4f);
-            lamps[1].transform.position = new Vector2(playerTrans.position.x - (playerTrans.position.x % 20) + 20,-1.4f);
+            lamps[0].transform.position = new Vector2(playerTrans.position.x - (playerTrans.position.x % 20), lampY);
+            lamps[1].transform.position = new Vector2(playerTrans.position.x - (playerTrans.position.x % 20) + 20, lampY);
         }
     }
 
@@ -94,15 +97,18 @@ public class GameEvents : MonoBehaviour
                     }
                     
                     float _ySpawnPos = UnityEngine.Random.Range(-3.5f,-1.3f);
-                
-                    bushList.Add(Instantiate(bushSpawnList[index], new Vector3(_xSpawnPos, _ySpawnPos, 0), Quaternion.identity));
+                    GameObject bush = Instantiate(bushSpawnList[index], new Vector3(_xSpawnPos, _ySpawnPos, 0), Quaternion.identity);
+                    bush.transform.parent = container.transform;
+                    bushList.Add(bush);
                 }
             } else {
                 // no bushes. Spawn one
                 float _xSpawnPos = playerTrans.position.x + bushRange + UnityEngine.Random.Range(-5,10);
                 float _ySpawnPos = UnityEngine.Random.Range(-3.5f,-1.3f);
+                GameObject bush = Instantiate(bushSpawnList[index], new Vector3(_xSpawnPos, _ySpawnPos, 0), Quaternion.identity);
+                bush.transform.parent = container.transform;
+                bushList.Add(bush);
                 
-                bushList.Add(Instantiate(bushSpawnList[index], new Vector3(_xSpawnPos, _ySpawnPos, 0), Quaternion.identity));
             }
         }
     }
