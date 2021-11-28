@@ -2,22 +2,22 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class EnemyBehavior : MonoBehaviour
+public class EnemyBehavior : EnemyBehaviorBase
 {
     [SerializeField, Tooltip("Max speed, in units per second, that the character moves.")]
     public float speed = 9;
     [SerializeField, Tooltip("Attack damage")]
     public float damage = 1f;
     [SerializeField, Tooltip("Attack distance")]
-    private float attackDist = 3.0f;
+    protected float attackDist = 3.0f;
     [SerializeField, Tooltip("Attack cooldown in seconds")]
-    float cooldown = 5f;
+    public float cooldown = 5f;
     [SerializeField, Tooltip("Parry knockback")]
     float parryKnockback = 0.5f;
     [SerializeField, Tooltip("Type of Attack, melee or projectile")]
     public AttackType attackStyle = AttackType.Melee;
     [SerializeField, Tooltip("Projectile for ranged enemies")]
-    GameObject projectile = null;
+    protected GameObject projectile = null;
     [SerializeField, Tooltip("How high the y-velocity of player sword must be to parry")]
     float parryVelocity = 1.5f;
 
@@ -27,19 +27,19 @@ public class EnemyBehavior : MonoBehaviour
     [SerializeField] public AudioClip deathSound;
 
     private PlayerMovement playerMovement;
-    private GameObject player;
+    protected GameObject player;
     
     private Transform enemylocal; 
-    private Animator animator;
-    private GameObject target;
+    protected Animator animator;
+    protected GameObject target;
     private CapsuleCollider2D capsuleCollider;
-    private BoxCollider2D hitBoxCollider;
+    protected BoxCollider2D hitBoxCollider;
     private BoxCollider2D playerWeaponCollider;
     private Rigidbody2D rb;
     //private SpriteRenderer enemyBodySprite;
 
-    private bool canAttack = true; 
-    private bool canDamage = true;
+    protected bool canAttack = true; 
+    protected bool canDamage = true;
     public enum AttackType
     {
         Melee,
@@ -50,8 +50,8 @@ public class EnemyBehavior : MonoBehaviour
     public static event Action<GameObject, AttackType> onAttack;
     public static event Action<GameObject> parriedEvent;
 
-    private EnemyBase enemyBase;
-    private float scaleX;
+    protected EnemyBase enemyBase;
+    protected float scaleX;
 
     void Awake()
     {
@@ -70,7 +70,7 @@ public class EnemyBehavior : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    protected void Update()
     {
         Move();
         // Retrieve all colliders we have intersected after velocity has been applied.
@@ -105,7 +105,7 @@ public class EnemyBehavior : MonoBehaviour
         }
     }
 
-    void Move() 
+    protected override void Move() 
     {
         // check if player is to the right or left of enemy, flip enemy gameobjects based on player position
         if (target.transform.position.x > transform.position.x)
@@ -126,6 +126,7 @@ public class EnemyBehavior : MonoBehaviour
         }
         if (distToPlayer <= attackDist)
         {
+            
             animator.SetBool("inRange", true);
             if (canAttack) {
                 //StartCoroutine(AttackRoutine(0.5f));
@@ -147,6 +148,7 @@ public class EnemyBehavior : MonoBehaviour
                 if (playerWeaponRB.velocity.y > parryVelocity) {
                     parryEvent();
                     canDamage = false;
+                    animator.SetTrigger("stunned");
                     StartCoroutine(enemyBase.FakeAddForceMotion(parryKnockback));
                 }
             }
@@ -154,7 +156,7 @@ public class EnemyBehavior : MonoBehaviour
     }
 
     // this function is called from the animation player on attack
-    public void Attack() {
+    public override void Attack() {
         canAttack = false;
         //onAttack?.Invoke(gameObject, AttackType.Melee);
         // enable the hitbox on the weapon
@@ -172,7 +174,7 @@ public class EnemyBehavior : MonoBehaviour
         StartCoroutine(AttackCoolDown(cooldown));
     }
 
-    public void Shoot(){ 
+    public override void Shoot(){ 
         animator.ResetTrigger("attack");
         //onAttack?.Invoke(gameObject, AttackType.Projectile); 
         canAttack = false;
@@ -190,6 +192,7 @@ public class EnemyBehavior : MonoBehaviour
     }
 
     public IEnumerator AttackCoolDown(float time) { 
+        Debug.Log("Start cooldown");
         yield return new WaitForSeconds(time);     // wait for 3 seconds until enemy can attack again
         canAttack = true;
         canDamage = true;
@@ -211,4 +214,11 @@ public class EnemyBehavior : MonoBehaviour
     public void damagePlayerEvent(AttackType attackType) {
         onPlayerDamaged?.Invoke(attackType, getWeaponDamage());
     }
+
+    protected void emitAttack(AttackType type) {
+        onAttack?.Invoke(type);
+    }
+
+
+
 }

@@ -1,35 +1,94 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class WeaponSpark : MonoBehaviour
 {
-    [SerializeField] ParticleSystem weaponSparks = null;
-    [SerializeField] float timeBetweensparks = .5f;
-
+    [SerializeField, Tooltip("Primary particle system object, contains the spark between weapons")]
+    ParticleSystem weaponSparks = null;
+    [SerializeField, Tooltip("Pariticle system for the player's blood splatter")] //particle system is located in the player game object
+    ParticleSystem bloodSpark = null;
+    [SerializeField, Tooltip("Pariticle system for the enemy's blood splatter")]
+    ParticleSystem enemyBloodSpark = null;
+    [SerializeField, Tooltip("Time that will occur between each weapon spark")]
+    float timeBetweensparks = .5f;
+    [SerializeField, Tooltip("Time that will occur between each blood splatter")]
+    float timeBetweenSplat = .5f;
+    [SerializeField, Tooltip("Reference to the main player object(used for player location on screen)")]
+    GameObject player = null;
+    
     private void Awake()
     {
+        // make sure the the particle systems do not start running on game start
         weaponSparks.Stop();
+        bloodSpark.Stop();
+        enemyBloodSpark.Stop();
     }
 
+    // allow the spark system to trigger during these specific events
     private void OnEnable()
     {
-        WeaponBase.onEnemyDamaged += spark;
-    }
+        EnemyBehavior.parriedEvent += spark;
+        projectile.onProjecParry += spark;
+        WeaponBase.onEnemyDamaged += enemySplat;
+        EnemyBehavior.onPlayerDamaged += playerSplat;
 
+    }
     private void OnDisable()
     {
-        WeaponBase.onEnemyDamaged -= spark;
+        EnemyBehavior.parriedEvent -= spark;
+        projectile.onProjecParry -= spark;
+        WeaponBase.onEnemyDamaged -= enemySplat;
+        EnemyBehavior.onPlayerDamaged -= playerSplat;
     }
 
-    void spark(float dmg, GameObject enemy)
+        
+    void spark(GameObject enemy)
     {
+        Debug.Log("Weapon sparking should trigger");
         StartCoroutine( sparkEffect(enemy));
     }
 
+    void enemySplat(float test, GameObject enemy)
+    {
+        Debug.Log("Splat should be triggered");
+        StartCoroutine(bloodSplat(enemy));
+    }
+    void playerSplat(EnemyBehavior.AttackType y, float x)
+    {
+        Debug.Log("Splat should be triggered");
+        StartCoroutine(bloodSplat());
+    }
+    
+    //routine for blood splat for enemy
+    IEnumerator bloodSplat(GameObject enemy)
+    {
+        //relocates the weaponSparks object to the enemy's position
+        this.transform.localPosition = enemy.transform.localPosition;
+
+        //Turns on the bloodSpark(for enemy) and waits some time before stopping it
+        enemyBloodSpark.Play();
+        yield return new WaitForSeconds(timeBetweensparks);
+        enemyBloodSpark.Stop();
+    }
+
+    //routrine for blood splat for player
+    IEnumerator bloodSplat()
+    { 
+        //Turns on the bloodSpark(for player) and waits some time before stopping it
+        bloodSpark.Play();
+        yield return new WaitForSeconds(timeBetweenSplat);
+        bloodSpark.Stop();
+    }
+
+    //routine for spark effects upon any parry event
     IEnumerator sparkEffect(GameObject enemy)
     {
-        weaponSparks.transform.localPosition = enemy.transform.localPosition;
+        //relocates the weaponSparks object to the enemy's position
+        this.transform.localPosition = enemy.transform.localPosition;
+
+        //Turns on the weaponSparks system for a set interval to be turned off later
         weaponSparks.Play();
         yield return new WaitForSeconds(timeBetweensparks);
         weaponSparks.Stop();
