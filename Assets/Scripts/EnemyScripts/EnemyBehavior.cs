@@ -216,7 +216,7 @@ public class EnemyBehavior : EnemyBehaviorBase
     }
 
     protected void emitAttack(AttackType type) {
-        onAttack?.Invoke(type);
+        onAttack?.Invoke(gameObject, type);
     }
 
 
