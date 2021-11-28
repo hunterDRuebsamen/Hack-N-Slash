@@ -479,6 +479,7 @@ MonoBehaviour:
   knockbackFactor: 0.2
   isBlocking: 0
   hitQueueSize: 5
+  numBlockHits: 2
 --- !u!114 &3681707564614303911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -496,8 +497,13 @@ MonoBehaviour:
   attackDist: 12
   cooldown: 4.5
   parryKnockback: 0.5
+  attackStyle: 1
   projectile: {fileID: 3356283867471977943, guid: a5ebb0c5980fdae469bdfccdfb7b7d40, type: 3}
   parryVelocity: 1.5
+  attackSound: {fileID: 8300000, guid: 29046e7d8c0e26fb185f73181e3ae63d, type: 3}
+  hurtSound: {fileID: 0}
+  moveSound: {fileID: 0}
+  deathSound: {fileID: 0}
 --- !u!1 &5169324678139623501
 GameObject:
   m_ObjectHideFlags: 0

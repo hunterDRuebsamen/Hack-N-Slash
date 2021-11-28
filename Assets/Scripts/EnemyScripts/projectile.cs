@@ -33,6 +33,10 @@ public class projectile : MonoBehaviour
         }
     }
 
+    public void attachEnemyBehavior(EnemyBehavior eb) {
+        enemyBehavior = eb;
+    }
+
     private async void destroyBullet(int duration) {
         await Task.Delay(duration); //Duration is in miliseconds
         Destroy(this.gameObject);
