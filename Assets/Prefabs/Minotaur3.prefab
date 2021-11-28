@@ -23,6 +23,10 @@ PrefabInstance:
       propertyPath: attackDist
       value: 2.4
       objectReference: {fileID: 0}
+    - target: {fileID: 744160879924657725, guid: 992e91d1028fb1e3cb54e56f7f52166d, type: 3}
+      propertyPath: attackSound
+      value: 
+      objectReference: {fileID: 8300000, guid: bec0a34c4b05186e0a77b44126b40c5c, type: 3}
     - target: {fileID: 988442214581185322, guid: 992e91d1028fb1e3cb54e56f7f52166d, type: 3}
       propertyPath: m_Sprite
       value: 

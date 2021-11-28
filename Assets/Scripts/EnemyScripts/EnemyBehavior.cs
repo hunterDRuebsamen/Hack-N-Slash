@@ -14,10 +14,18 @@ public class EnemyBehavior : EnemyBehaviorBase
     public float cooldown = 5f;
     [SerializeField, Tooltip("Parry knockback")]
     float parryKnockback = 0.5f;
+    [SerializeField, Tooltip("Type of Attack, melee or projectile")]
+    public AttackType attackStyle = AttackType.Melee;
     [SerializeField, Tooltip("Projectile for ranged enemies")]
     protected GameObject projectile = null;
     [SerializeField, Tooltip("How high the y-velocity of player sword must be to parry")]
     float parryVelocity = 1.5f;
+
+    [SerializeField] public AudioClip attackSound;
+    [SerializeField] public AudioClip hurtSound;
+    [SerializeField] public AudioClip moveSound;
+    [SerializeField] public AudioClip deathSound;
+
     private PlayerMovement playerMovement;
     protected GameObject player;
     
@@ -39,7 +47,7 @@ public class EnemyBehavior : EnemyBehaviorBase
     };
 
     public static event Action<AttackType, float> onPlayerDamaged;
-    public static event Action<AttackType> onAttack;
+    public static event Action<GameObject, AttackType> onAttack;
     public static event Action<GameObject> parriedEvent;
 
     protected EnemyBase enemyBase;
@@ -122,8 +130,9 @@ public class EnemyBehavior : EnemyBehaviorBase
             animator.SetBool("inRange", true);
             if (canAttack) {
                 //StartCoroutine(AttackRoutine(0.5f));
-                animator.SetTrigger("attack");
                 canAttack = false;
+                animator.SetTrigger("attack");
+                onAttack?.Invoke(gameObject, attackStyle);
             } 
         } else {
             animator.SetBool("inRange", false);
@@ -149,14 +158,14 @@ public class EnemyBehavior : EnemyBehaviorBase
     // this function is called from the animation player on attack
     public override void Attack() {
         canAttack = false;
-        emitAttack(AttackType.Melee);
+        //onAttack?.Invoke(gameObject, AttackType.Melee);
         // enable the hitbox on the weapon
         //hitBoxCollider.enabled = true;
         if (canDamage) {
             // we have not parried, so check for damage
             if (hitBoxCollider.IsTouching(target.GetComponent<CapsuleCollider2D>())) {
                 // the hitbox is touching the player capsule collider, deal damage!
-                damagePlayerEvent(AttackType.Melee);
+                damagePlayerEvent(attackStyle);
             }
         }
         //hitBoxCollider.enabled = false;
@@ -167,12 +176,12 @@ public class EnemyBehavior : EnemyBehaviorBase
 
     public override void Shoot(){ 
         animator.ResetTrigger("attack");
-        emitAttack(AttackType.Projectile); 
+        //onAttack?.Invoke(gameObject, AttackType.Projectile); 
         canAttack = false;
         Transform firePoint = transform.GetChild(1);
         if(projectile != null){
            Rigidbody2D rbBullet = Instantiate(projectile, firePoint.position, Quaternion.identity).GetComponent<Rigidbody2D>();
-           rbBullet.GetComponent<projectile>().enemyBehavior = this;
+           rbBullet.GetComponent<projectile>().attachEnemyBehavior(this);
 
            Vector3 differenceVect = (target.transform.position - transform.position).normalized;
            Vector2 shootVect = new Vector2(differenceVect.x, differenceVect.y);
@@ -207,7 +216,7 @@ public class EnemyBehavior : EnemyBehaviorBase
     }
 
     protected void emitAttack(AttackType type) {
-        onAttack?.Invoke(type);
+        onAttack?.Invoke(gameObject, type);
     }
 
 
