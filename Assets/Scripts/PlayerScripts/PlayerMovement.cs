@@ -29,6 +29,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField, Tooltip("Length in Time a Dodge boost lasts")]
     public float dodgeLength = 0.5f;
 
+    [SerializeField, Tooltip("Size of Spawn Chunks")]
+    public float chunkSize = 30f;
+
     float horizontalInput;
     float verticalInput;
  
@@ -43,12 +46,13 @@ public class PlayerMovement : MonoBehaviour
     private Animator playerAnim;
     private Transform healthBar;
    
- 
+    public static event Action<float, int> onChunk;  // xValue (float) and chunkNumber (int)
     private float mulFactor = 1;
     private CapsuleCollider2D capsuleCollider;
     private Vector2 velocity;
 
-    private float minX;
+    private float nextChunkX;
+    private float previousChunkX;
  
     private void Awake()
     {
@@ -59,7 +63,9 @@ public class PlayerMovement : MonoBehaviour
 
         healthBar = transform.GetChild(3).GetChild(0);
         playerAnim = transform.GetChild(4).GetComponent<Animator>();
-        minX = gameObject.transform.position.x - 10f; // player cannot move past this
+
+        nextChunkX = gameObject.transform.position.x + chunkSize;
+        previousChunkX = gameObject.transform.position.x - chunkSize;
     }
  
     private void Update()
@@ -111,7 +117,8 @@ public class PlayerMovement : MonoBehaviour
             //Calculate x component of velocity with an acceleration rate when pressing "A" or "D"
             velocity.x = Mathf.MoveTowards(velocity.x, horizontalSpeed * mulFactor * horizontalInput, acceleration * Time.deltaTime);
 
-            // registers "A" or "D" presses to check if player is trying to flip their character
+            // nextChunkX = currentPos + RemainderOf(currentPos/chunkSize)
+            
         }
         else
         {
@@ -152,16 +159,26 @@ public class PlayerMovement : MonoBehaviour
             playerAnim.SetBool("isWalking", false);
         }
 
-        // Do not let player move LEFT beyond the minX
+        // Do not let player move LEFT beyond the previousChunkX
         if (horizontalInput < 0) {
             // check to see if we are moving LEFT past the minX point
-            if (gameObject.transform.position.x < minX) {
+            if (gameObject.transform.position.x < previousChunkX) {
                 velocity.x = 0;
             }
-            if (minX < gameObject.transform.position.x - 20f) {
-                minX = gameObject.transform.position.x - 20f;
+        }
+        if (horizontalInput > 0) {
+            // check to see if we hit the nextChunk
+            if (gameObject.transform.position.x > nextChunkX) {
+                // send out an event (freeze the screen + spawn enemies) ****
+                onChunk?.Invoke(nextChunkX, (int)(nextChunkX/chunkSize));
+                Debug.Log("Invoked onChunk: " + nextChunkX);
+
+                // calculate new next & previous chunks
+                nextChunkX = nextChunkX + chunkSize;
+                previousChunkX = previousChunkX + chunkSize;
             }
         }
+
         //Moves our player by the velocity vector we have calculated multiplied by the amount of time that has elasped
         //to get the total units that should be moved
         transform.Translate(velocity * Time.deltaTime);
