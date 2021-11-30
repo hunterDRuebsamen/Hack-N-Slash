@@ -35,6 +35,8 @@ public class EnemySpawner : MonoBehaviour
 
     private bool inChunk = false;
 
+    private int difficulty = 0;
+
     void Start() 
     {
         player = FindObjectOfType<PlayerHealth>().gameObject;
@@ -68,9 +70,6 @@ public class EnemySpawner : MonoBehaviour
 
 
     private void chunkReached(float currentX, int chunkNumber) {
-        // grab a reference to player movement so we can get Y-bounds
-        PlayerMovement pm = player.GetComponent<PlayerMovement>();
-
         inChunk = true;
         // 1. pause camera movement
         var composer = vcam.GetCinemachineComponent<CinemachineFramingTransposer>();
@@ -79,14 +78,11 @@ public class EnemySpawner : MonoBehaviour
         walls[0] = Instantiate(tempWall, new Vector3(currentX-11.5f,0,0), Quaternion.identity);
         walls[1] = Instantiate(tempWall, new Vector3(currentX+12.9f,0,0), Quaternion.identity);
         walls[0].transform.parent = enemyContainer.transform;
+        walls[0].transform.localScale = new Vector3(-1f, 1f, 1f);;
         walls[1].transform.parent = enemyContainer.transform;
         // 3. Spawn Enemies (TODO)
-        int enemyIndex = UnityEngine.Random.Range(0,enemyList.Capacity);
-        float _xSpawnPos = currentX + Mathf.Round(UnityEngine.Random.Range(-16f,-14f));
-        float _ySpawnPos = UnityEngine.Random.Range(pm.minY+0.5f,pm.maxY-0.5f);
-        GameObject enemy = Instantiate(enemyList[enemyIndex], new Vector3(_xSpawnPos, _ySpawnPos, 0), Quaternion.identity);
-        enemy.transform.parent = enemyContainer.transform;
-        numEnemies++;
+        enemyChunkSpawner(3000, chunkNumber, difficulty, currentX);
+        
         // 4. When enemies are killed go back to normal movement!
         CheckChunkCleared(2000);
     } 
@@ -158,6 +154,39 @@ public class EnemySpawner : MonoBehaviour
                 var composer = vcam.GetCinemachineComponent<CinemachineFramingTransposer>();
                 composer.m_DeadZoneWidth = originalDeadzoneWidth;
             }
+        }
+    }
+
+    private async void enemyChunkSpawner(int delay_ms, int chunkNumber, int difficulty, float currentX) {
+        // grab a reference to player movement so we can get Y-bounds
+        PlayerMovement pm = player.GetComponent<PlayerMovement>();
+
+        //Gets a random enemy type from the enemy list
+        int enemyIndex = UnityEngine.Random.Range(0,enemyList.Capacity);
+        int enemySpawnNumber = 0;
+        
+        //Spawn positions of the Enemy
+        float _xSpawnPos = currentX + Mathf.Round(UnityEngine.Random.Range(-16f,-14f));
+        float _ySpawnPos = UnityEngine.Random.Range(pm.minY+0.5f,pm.maxY-0.5f);
+
+        //Determines whether the enemy should spawn on the right or left of the player
+        int enemySpawnDirection = -1; 
+
+        //If statements determine the number of enemies that should spawn
+        if(chunkNumber <= 3) {
+            enemySpawnNumber = UnityEngine.Random.Range(5, 8);
+        }
+        else if (chunkNumber > 3 && chunkNumber <= 8) {
+            enemySpawnNumber = UnityEngine.Random.Range(8, 13);
+        }
+
+        for(int i = 0; i < enemySpawnNumber; i++) {
+            enemyIndex = UnityEngine.Random.Range(0,enemyList.Capacity);
+            enemySpawnDirection *= -1;
+            GameObject enemy = Instantiate(enemyList[enemyIndex], new Vector3((_xSpawnPos * enemySpawnDirection), _ySpawnPos, 0), Quaternion.identity);
+            enemy.transform.parent = enemyContainer.transform;
+            numEnemies++;
+            await Task.Delay(delay_ms);
         }
     }
 }
