@@ -8,29 +8,27 @@ public class WeaponHandler : MonoBehaviour
     //List<Transform> allChildren = new List<Transform>();
     Component[] allChildren;
     Transform child;
-    List<GameObject> weaponObjects = new List<GameObject>();
+
+    [SerializeField]
+    List<GameObject> weaponObjects;
 
     HingeJoint2D arm;
-    void Start()
-    {
-        
 
-        allChildren = GetComponentsInChildren<Transform>();
-        child = this.gameObject.transform;
+    void Awake()
+    {   
         arm = this.gameObject.transform.parent.GetChild(1).GetComponent<HingeJoint2D>();
-        //Stores all possible weapon children inside an array
-        for(int i = 0; i < 4; i++) {
-            if(child.GetChild(i).gameObject.activeSelf)
-                weaponObjects.Add(child.GetChild(i).gameObject);
-        }
-        // foreach (Transform child in allChildren)
-        // { 
-        //     if(child != null)
-        //         weaponObjects.Add(child.gameObject);
-        // }
-        arm.connectedBody = weaponObjects[0].GetComponent<Rigidbody2D>();
-        
-        
 
+        int curWeapon = 0; // default weapon
+        if (GlobalVariables.HasKey("WeaponType")) 
+            curWeapon = GlobalVariables.Get<int>("WeaponType");
+
+        // check to see we don't try and choose a weapon not in the list
+        if (curWeapon < weaponObjects.Count) {
+            GameObject weapon = Instantiate(weaponObjects[curWeapon]);
+            weapon.transform.parent = transform;  // set this gameObject (Weapon) to be the parent
+            arm.connectedBody = weapon.GetComponent<Rigidbody2D>();
+        }
+        else  // something went wrong
+            Debug.LogAssertion("Error: Weapon does not exist");
     }
 }
