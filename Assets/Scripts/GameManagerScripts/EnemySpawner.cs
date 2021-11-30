@@ -166,11 +166,8 @@ public class EnemySpawner : MonoBehaviour
         int enemySpawnNumber = 0;
         
         //Spawn positions of the Enemy
-        float _xSpawnPos = currentX + Mathf.Round(UnityEngine.Random.Range(-16f,-14f));
+        //float _xSpawnPos = currentX + Mathf.Round(UnityEngine.Random.Range(-25f,-20f));
         float _ySpawnPos = UnityEngine.Random.Range(pm.minY+0.5f,pm.maxY-0.5f);
-
-        //Determines whether the enemy should spawn on the right or left of the player
-        int enemySpawnDirection = -1; 
 
         //If statements determine the number of enemies that should spawn
         if(chunkNumber <= 3) {
@@ -181,9 +178,17 @@ public class EnemySpawner : MonoBehaviour
         }
 
         for(int i = 0; i < enemySpawnNumber; i++) {
+            float _xSpawnPos;
             enemyIndex = UnityEngine.Random.Range(0,enemyList.Capacity);
-            enemySpawnDirection *= -1;
-            GameObject enemy = Instantiate(enemyList[enemyIndex], new Vector3((_xSpawnPos * enemySpawnDirection), _ySpawnPos, 0), Quaternion.identity);
+
+            // Randomly spawn enemies to the left or right of the player
+            if (UnityEngine.Random.value < 0.5f) {
+                _xSpawnPos = currentX + Mathf.Round(UnityEngine.Random.Range(-25f,-20f));
+            } else {
+                _xSpawnPos = currentX + Mathf.Round(UnityEngine.Random.Range(20f,25f));
+            }
+
+            GameObject enemy = Instantiate(enemyList[enemyIndex], new Vector3((_xSpawnPos), _ySpawnPos, 0), Quaternion.identity);
             enemy.transform.parent = enemyContainer.transform;
             numEnemies++;
             await Task.Delay(delay_ms);
