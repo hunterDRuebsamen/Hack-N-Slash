@@ -60,6 +60,7 @@ public class EnemyBase : MonoBehaviour
                 health -= (int)Math.Round(damage);
                 if(health <= 0) {
                     animator.SetTrigger("death");
+                    onEnemyDeath?.Invoke(this.gameObject);
                     // the death animation should call the public death function
                 } else {
                     Debug.Log("Enemy Health: "+health);
@@ -95,7 +96,7 @@ public class EnemyBase : MonoBehaviour
     }
 
     public void callDeath() {
-        onEnemyDeath?.Invoke(this.gameObject);
+        
         Destroy(this.gameObject);
     }
 

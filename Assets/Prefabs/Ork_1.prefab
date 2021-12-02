@@ -921,8 +921,13 @@ MonoBehaviour:
   attackDist: 3.5
   cooldown: 7
   parryKnockback: 0.5
+  attackStyle: 0
   projectile: {fileID: 0}
   parryVelocity: 1.5
+  attackSound: {fileID: 8300000, guid: a0bf7b433bb440ff4b9e9f8f1dc363ec, type: 3}
+  hurtSound: {fileID: 8300000, guid: 69bea0409871048deb7739ac9315b102, type: 3}
+  moveSound: {fileID: 8300000, guid: 0053784f2e5d5f15c8db959946a63d38, type: 3}
+  deathSound: {fileID: 8300000, guid: 8411b21ea9c4b0be3bfaacd6bd32da33, type: 3}
 --- !u!1 &7135523125749902832
 GameObject:
   m_ObjectHideFlags: 0

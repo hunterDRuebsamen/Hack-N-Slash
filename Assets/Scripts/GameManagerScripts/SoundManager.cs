@@ -7,11 +7,10 @@ public class SoundManager : MonoBehaviour
 
     private AudioSource audioSource;
 
-    [SerializeField] AudioClip playerHitSound;
-    [SerializeField] AudioClip parrySound;
+    [SerializeField] List<AudioClip> playerHitSound;
+    [SerializeField] List<AudioClip> parrySound;
     [SerializeField] AudioClip enemyHitSound;
     [SerializeField] AudioClip playerDeathSound;
-    [SerializeField] AudioClip cannonFireSound;
     [SerializeField] AudioClip bulletHitSound;
     [SerializeField] AudioClip lootPickupSound;
     [SerializeField] AudioClip potionPickupSound;
@@ -36,6 +35,7 @@ public class SoundManager : MonoBehaviour
         PlayerHealth.onPlayerHealthChanged += onPlayerHealth;
         EnemyBehavior.onAttack += onEnemyAttack;
         EnemyBase.onEnemyBlocked += onEnemyBlocked;
+        EnemyBase.onEnemyDeath += onEnemyDeath;
         LootBase.onLootPickup += onLootPickup;
     } 
     private void onDisable() {
@@ -46,6 +46,7 @@ public class SoundManager : MonoBehaviour
         PlayerHealth.onPlayerHealthChanged -= onPlayerHealth;
         EnemyBehavior.onAttack -= onEnemyAttack;
         EnemyBase.onEnemyBlocked -= onEnemyBlocked;
+        EnemyBase.onEnemyDeath -= onEnemyDeath;
         LootBase.onLootPickup -= onLootPickup;
     } 
 
@@ -53,8 +54,15 @@ public class SoundManager : MonoBehaviour
     {
         if (attackType == EnemyBehavior.AttackType.Projectile)
             audioSource.PlayOneShot(bulletHitSound);
-        else
-            audioSource.PlayOneShot(playerHitSound); // play hit sound
+        else {
+            if (dmg < 5) {
+                audioSource.PlayOneShot(playerHitSound[2]); // play hit sound
+            } else if (dmg < 10) {
+                audioSource.PlayOneShot(playerHitSound[1]); // play hit sound
+            } else {
+                audioSource.PlayOneShot(playerHitSound[0]); // play hit sound
+            }
+        }
     }
 
     private void onPlayerHealth(int cur_health) 
@@ -68,16 +76,21 @@ public class SoundManager : MonoBehaviour
     
     private void onParry(GameObject enemyObject) 
     {
-        audioSource.PlayOneShot(parrySound);
+        int randomInt = UnityEngine.Random.Range(0,parrySound.Count);
+        audioSource.PlayOneShot(parrySound[randomInt]);
     }
-     private void onEnemyBlocked() 
+    private void onEnemyBlocked() 
     {
-        audioSource.PlayOneShot(parrySound);
+        int randomInt = UnityEngine.Random.Range(0,parrySound.Count);
+        audioSource.PlayOneShot(parrySound[randomInt]);
     }
 
     private void onEnemyHit(float dmg, GameObject enemyObject) 
     {
         audioSource.PlayOneShot(enemyHitSound);
+        AudioClip clip = enemyObject.GetComponent<EnemyBehavior>().hurtSound;
+        if (clip != null) 
+            audioSource.PlayOneShot(clip);
     }
 
     private void onPlayerDeath() {
@@ -85,9 +98,16 @@ public class SoundManager : MonoBehaviour
         audioSource.PlayOneShot(playerDeathSound);
     }
 
-    private void onEnemyAttack(EnemyBehavior.AttackType attackType) {
-        if (attackType == EnemyBehavior.AttackType.Projectile)
-            audioSource.PlayOneShot(cannonFireSound,0.5f);
+    private void onEnemyAttack(GameObject enemyObject, EnemyBehavior.AttackType attackType) {
+        AudioClip clip = enemyObject.GetComponent<EnemyBehavior>().attackSound;
+        if (clip != null) 
+            audioSource.PlayOneShot(clip);
+    }
+
+    private void onEnemyDeath(GameObject enemyObject) {
+        AudioClip clip = enemyObject.GetComponent<EnemyBehavior>().deathSound;
+        if (clip != null) 
+            audioSource.PlayOneShot(clip);
     }
 
     private void onLootPickup(LootBase.LootType type, int val) {
