@@ -54,12 +54,14 @@ public class WeaponSpark : MonoBehaviour
     void enemySplat(float test, GameObject enemy)
     {
         Debug.Log("Splat should be triggered");
+        Instantiate(bloodSpark, enemy.transform.position, Quaternion.identity);
         Instantiate(enemyBloodSpark, enemy.transform.position, Quaternion.identity);
         //StartCoroutine(bloodSplat(enemy));
     }
     void playerSplat(EnemyBehavior.AttackType y, float x)
     {
         Debug.Log("Splat should be triggered");
+        Instantiate(bloodSpark, player.transform.position, Quaternion.identity);
         Instantiate(enemyBloodSpark, player.transform.position, Quaternion.identity);
         //StartCoroutine(bloodSplat());
     }
