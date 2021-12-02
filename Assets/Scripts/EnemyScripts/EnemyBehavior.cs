@@ -30,7 +30,7 @@ public class EnemyBehavior : EnemyBehaviorBase
     protected GameObject player;
     
     private Transform enemylocal; 
-    protected Animator animator;
+    public Animator animator;
     protected GameObject target;
     private CapsuleCollider2D capsuleCollider;
     protected BoxCollider2D hitBoxCollider;
