@@ -53,7 +53,8 @@ public class WeaponSpark : MonoBehaviour
     void enemySplat(float test, GameObject enemy)
     {
         Debug.Log("Splat should be triggered");
-        StartCoroutine(bloodSplat(enemy));
+        Instantiate(enemyBloodSpark, enemy.transform.position, Quaternion.identity);
+        //StartCoroutine(bloodSplat(enemy));
     }
     void playerSplat(EnemyBehavior.AttackType y, float x)
     {
@@ -65,10 +66,11 @@ public class WeaponSpark : MonoBehaviour
     IEnumerator bloodSplat(GameObject enemy)
     {
         //relocates the weaponSparks object to the enemy's position
-        this.transform.localPosition = enemy.transform.localPosition;
+        //this.transform.localPosition = enemy.transform.localPosition;
+        Instantiate(enemyBloodSpark, enemy.transform.position, Quaternion.identity);
 
         //Turns on the bloodSpark(for enemy) and waits some time before stopping it
-        enemyBloodSpark.Play();
+        //enemyBloodSpark.Play();
         yield return new WaitForSeconds(timeBetweensparks);
         enemyBloodSpark.Stop();
     }
