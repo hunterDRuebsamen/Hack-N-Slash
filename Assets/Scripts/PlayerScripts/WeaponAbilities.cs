@@ -15,26 +15,59 @@ public class WeaponAbilities : MonoBehaviour
 
     private EnemyBehavior enemy;
     private BoxCollider2D hitBoxCollider;
+    [SerializeField]
+    private int hitLimitKatana = 5;
+    [SerializeField]
+    private int hitLimitKama = 10;
+    [SerializeField]
+    private int hitLimitAxe = 10;
+    private int curWeapon = 0;
+
 
     // Start is called before the first frame update
     void Start()
     {
         score = GameObject.Find("ScoreSystem").GetComponent<Score>();
-        //player = GameObject.Find("PlayerV4").GetComponent<PlayerHealth>();
+    
         weaponBase = GetComponent<WeaponBase>();
         enemy = GetComponent<EnemyBehavior>();
         hitBoxCollider = transform.GetChild(0).GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         playerWeaponCollider = GameObject.FindGameObjectWithTag("Weapon").GetComponent<BoxCollider2D>();
+
+        if (GlobalVariables.HasKey("WeaponType")) 
+            curWeapon = GlobalVariables.Get<int>("WeaponType");
     }
- 
-    private void Update()
-    {
-        if (score.scoreValue > 1 && score.scoreValue % 5 == 0 ) // checks to see if score is multiple of 5
-        {
-            weaponPowerUp = true;
+
+    private void OnEnable() { // Watches for when the enemy gets hit
+        WeaponBase.onEnemyDamaged += weaponAbilitySelector;
+    } 
+    private void OnDisable() {
+        WeaponBase.onEnemyDamaged -= weaponAbilitySelector;
+    } 
+
+    private void weaponAbilitySelector(float damage, GameObject enemyObject) {
+        int weaponLimit = 0;
+        //This if block determines the hitLimit we should be using, based on the weapon
+        if (curWeapon == 1){
+            weaponLimit = hitLimitKatana;
+        }
+        else if (curWeapon == 2) {
+            weaponLimit = hitLimitKama;
+        }
+        else if (curWeapon == 3) {
+            weaponLimit = hitLimitAxe;
         }
 
+        if (score.scoreValue < weaponLimit) {
+            return;
+        }
+        //Checks for whether or not player is activiating their ability
+        else {
+            if(Input.GetMouseButton(0) && curWeapon == 3) {
+                enemyStun(enemyObject);
+            }
+        }
     }
 
 /* What I'm trying to do here is to have the weapon only be able to have ability when the score is divisible of 5
@@ -44,17 +77,10 @@ the weapon touches an enemy and gets stunned */
 /* I tried looking at EnemyBehavior for the animator's animations and how you wrote the collision of the weapon and the enemy
 so some of the code is "inspired" from that script but I'm not sure if it's right */
 
-    void enemyStun()
+    void enemyStun(GameObject enemyObject)
     {
-        if (weaponPowerUp = true && Input.GetKey(KeyCode.Mouse0)) // checks to see if score is multiple of 5
-        {
-            if (hitBoxCollider.IsTouching(playerWeaponCollider)) // checking to see if weapon colides with enemy
-            {
-                Rigidbody2D playerWeaponRB = GameObject.FindGameObjectWithTag("Weapon").GetComponent<Rigidbody2D>();
-                //enemy.animator.SetTrigger("stunned"); // stun the enemy (doesn't have animation yet, might just freeze enemy)
-            }
-            weaponPowerUp = false;
-        }
+        Animator enemyAnimator = enemyObject.GetComponent<Animator>();
+        enemyAnimator.SetTrigger("stunned"); // stun the enemy (doesn't have animation yet, might just freeze enemy)
     }
 
 }
