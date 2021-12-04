@@ -15,6 +15,7 @@ public class minotaurBehavior : EnemyBehavior
     }
 
     public override void Attack() {
+        Debug.Log("minotaur attack");
         canAttack = false;
         emitAttack(AttackType.Melee);
         // enable the hitbox on the weapon
@@ -62,7 +63,7 @@ public class minotaurBehavior : EnemyBehavior
                 canAttack = false;
                 Debug.Log("Charge");
                 animator.SetTrigger("charge");
-                emitAttack(AttackType.Melee);
+                //emitAttack(AttackType.Melee);
             }
         } else {
             animator.SetBool("inRange", false);

@@ -1444,7 +1444,7 @@ GameObject:
   - component: {fileID: 8865632324802986758}
   - component: {fileID: 5559099829932200032}
   - component: {fileID: 4861960314743687165}
-  - component: {fileID: 744160879924657725}
+  - component: {fileID: 749965510}
   m_Layer: 3
   m_Name: Minotaur1
   m_TagString: Enemy
@@ -1519,7 +1519,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: f397e8665f2a28a49afe25ea68aec385, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -1542,7 +1542,7 @@ MonoBehaviour:
   isBlocking: 0
   hitQueueSize: 5
   numBlockHits: 3
---- !u!114 &744160879924657725
+--- !u!114 &749965510
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1551,7 +1551,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8227591780945116037}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6cda7c3b1184ed49a19272058cfedaf, type: 3}
+  m_Script: {fileID: 11500000, guid: ae05499ef05abaf43a4f6fc9270d4ecc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3.5
@@ -1562,8 +1562,8 @@ MonoBehaviour:
   attackStyle: 0
   projectile: {fileID: 0}
   parryVelocity: 1.5
-  attackSound: {fileID: 8300000, guid: e0d000de505f13da78b32e3efac1fb92, type: 3}
+  attackSound: {fileID: 8300000, guid: 40c22058f3c6013c2a6582c083c66f97, type: 3}
   hurtSound: {fileID: 8300000, guid: 052643c9301bc4c4eb255d895c775833, type: 3}
   moveSound: {fileID: 8300000, guid: c4ad03f332d095f6c83c9916fc93a80f, type: 3}
-  deathSound: {fileID: 8300000, guid: c945918fc1d5ba8e284b93424bc3601a, type: 3}
+  deathSound: {fileID: 8300000, guid: c3e7b26573c03c801a2af41b78e0ec5f, type: 3}
   animator: {fileID: 0}
