@@ -380,7 +380,6 @@ GameObject:
   - component: {fileID: 8954417506345630628}
   - component: {fileID: 1913346242955654224}
   - component: {fileID: 779747019}
-  - component: {fileID: 4889953769244520185}
   m_Layer: 3
   m_Name: Sword_Boss
   m_TagString: Enemy
@@ -496,30 +495,6 @@ MonoBehaviour:
   damage: 5
   attackDist: 4
   cooldown: 10
-  parryKnockback: 0.5
-  attackStyle: 0
-  projectile: {fileID: 0}
-  parryVelocity: 1.5
-  attackSound: {fileID: 0}
-  hurtSound: {fileID: 0}
-  moveSound: {fileID: 0}
-  deathSound: {fileID: 0}
---- !u!114 &4889953769244520185
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2137895989959622302}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a5c3dcfed8de204897c6fcda13331f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 9
-  damage: 1
-  attackDist: 3
-  cooldown: 5
   parryKnockback: 0.5
   attackStyle: 0
   projectile: {fileID: 0}
