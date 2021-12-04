@@ -9106,7 +9106,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnDist: 15
   maxEnemies: 2
-  spawnTime: 10
+  spawnTime: 2
   maxDist: 40
   enemyContainer: {fileID: 1063116255}
   tempWall: {fileID: 1377937986284142024, guid: b41f2b1476de7ae97aa6a45f4077ef39, type: 3}
