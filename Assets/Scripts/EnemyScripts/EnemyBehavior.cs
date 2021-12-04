@@ -158,9 +158,6 @@ public class EnemyBehavior : EnemyBehaviorBase
     // this function is called from the animation player on attack
     public override void Attack() {
         canAttack = false;
-        //onAttack?.Invoke(gameObject, AttackType.Melee);
-        // enable the hitbox on the weapon
-        //hitBoxCollider.enabled = true;
         if (canDamage) {
             // we have not parried, so check for damage
             if (hitBoxCollider.IsTouching(target.GetComponent<CapsuleCollider2D>())) {
