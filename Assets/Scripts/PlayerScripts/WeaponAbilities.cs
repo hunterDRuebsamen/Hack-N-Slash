@@ -22,6 +22,7 @@ public class WeaponAbilities : MonoBehaviour
     [SerializeField]
     private int hitLimitAxe = 10;
     private int curWeapon = 0;
+    public bool breakBlock = false;
 
 
     // Start is called before the first frame update
@@ -41,9 +42,11 @@ public class WeaponAbilities : MonoBehaviour
 
     private void OnEnable() { // Watches for when the enemy gets hit
         WeaponBase.onEnemyDamaged += weaponAbilitySelector;
+        EnemyBase.onEnemyBlocked += isBlocking;
     } 
     private void OnDisable() {
         WeaponBase.onEnemyDamaged -= weaponAbilitySelector;
+        EnemyBase.onEnemyBlocked -= isBlocking;
     } 
 
     private void weaponAbilitySelector(float damage, GameObject enemyObject) {
@@ -64,10 +67,21 @@ public class WeaponAbilities : MonoBehaviour
         }
         //Checks for whether or not player is activiating their ability
         else {
-            if(Input.GetMouseButton(0) && curWeapon == 3) {
+            // break block ability for katana
+            if(Input.GetMouseButton(0) && curWeapon == 1) {
+                breakEnemyBlock(enemyObject);
+            }
+            // stun ability for axe
+            else if(Input.GetMouseButton(0) && curWeapon == 3) {
                 enemyStun(enemyObject);
             }
         }
+    
+    private void isBlocking() {
+        pass
+    }
+
+
     }
 
 /* What I'm trying to do here is to have the weapon only be able to have ability when the score is divisible of 5
@@ -82,5 +96,13 @@ so some of the code is "inspired" from that script but I'm not sure if it's righ
         Animator enemyAnimator = enemyObject.GetComponent<Animator>();
         enemyAnimator.SetTrigger("stunned"); // stun the enemy (doesn't have animation yet, might just freeze enemy)
     }
+
+    void breakEnemyBlock(GameObject enemyObject)
+    {
+        Animator enemyAnimator = enemyObject.GetComponent<Animator>();
+        breakBlock = true;
+        enemyAnimator.SetTrigger("guardBroken");
+    }
+
 
 }

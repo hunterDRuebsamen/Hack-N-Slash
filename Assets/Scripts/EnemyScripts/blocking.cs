@@ -5,11 +5,14 @@ using UnityEngine;
 public class blocking : StateMachineBehaviour
 {
     EnemyBase enemyBase;
+    WeaponAbilities weaponAbility;
+
     //OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
        enemyBase = animator.GetComponent<EnemyBase>();
-       enemyBase.isBlocking = true;
+       if(weaponAbility.breakBlock == false)
+         enemyBase.isBlocking = true;
        Debug.Log("Enemy is blocking");
     }
 
