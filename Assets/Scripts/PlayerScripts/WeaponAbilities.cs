@@ -42,11 +42,9 @@ public class WeaponAbilities : MonoBehaviour
 
     private void OnEnable() { // Watches for when the enemy gets hit
         WeaponBase.onEnemyDamaged += weaponAbilitySelector;
-        EnemyBase.onEnemyBlocked += isBlocking;
     } 
     private void OnDisable() {
         WeaponBase.onEnemyDamaged -= weaponAbilitySelector;
-        EnemyBase.onEnemyBlocked -= isBlocking;
     } 
 
     private void weaponAbilitySelector(float damage, GameObject enemyObject) {
@@ -70,6 +68,7 @@ public class WeaponAbilities : MonoBehaviour
             // break block ability for katana
             if(Input.GetMouseButton(0) && curWeapon == 1) {
                 breakEnemyBlock(enemyObject);
+                breakBlock = false;
             }
             // stun ability for axe
             else if(Input.GetMouseButton(0) && curWeapon == 3) {
@@ -77,9 +76,6 @@ public class WeaponAbilities : MonoBehaviour
             }
         }
     
-    private void isBlocking() {
-        pass
-    }
 
 
     }

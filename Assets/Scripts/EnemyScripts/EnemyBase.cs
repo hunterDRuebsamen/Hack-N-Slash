@@ -63,7 +63,6 @@ public class EnemyBase : MonoBehaviour
                     onEnemyDeath?.Invoke(this.gameObject);
                     // the death animation should call the public death function
                 } else {
-                    Debug.Log("Enemy Health: "+health);
                     animator.SetTrigger("hit");
                     currentHits += 1;
                     //Calculate knockback force

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2768242753947231900}
   - component: {fileID: 4022670267110121995}
   - component: {fileID: 1610688941282773123}
+  - component: {fileID: 6756688926793359306}
   m_Layer: 3
   m_Name: Kama
   m_TagString: Weapon
@@ -129,6 +130,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.24374342, y: 1.5854886}
   m_EdgeRadius: 0
+--- !u!114 &6756688926793359306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3711458255986119285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc0e3fae6e3c12f40bc9f4d73cfbc15c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitLimitKatana: 5
+  hitLimitKama: 10
+  hitLimitAxe: 10
+  breakBlock: 0
 --- !u!1 &6482159471529252065
 GameObject:
   m_ObjectHideFlags: 0
