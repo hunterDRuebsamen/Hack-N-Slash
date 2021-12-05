@@ -386,7 +386,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2135046972943316784
 Transform:
   m_ObjectHideFlags: 0
@@ -473,7 +473,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
-  knockbackFactor: 0.2
+  knockbackFactor: 0.3
   isBlocking: 0
   hitQueueSize: 5
   numBlockHits: 2
@@ -490,12 +490,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  damage: 5
+  damage: 9
   attackDist: 4
-  cooldown: 10
+  cooldown: 4
   parryKnockback: 0.5
   attackStyle: 0
-  projectile: {fileID: 0}
+  projectile: {fileID: 1659273401739453581, guid: d1875334bf754af4f9b40accb88ff2d9, type: 3}
   parryVelocity: 1.5
   attackSound: {fileID: 0}
   hurtSound: {fileID: 0}
@@ -1157,7 +1157,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
