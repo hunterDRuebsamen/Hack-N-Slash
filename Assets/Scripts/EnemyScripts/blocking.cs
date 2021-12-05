@@ -17,6 +17,8 @@ public class blocking : StateMachineBehaviour
 
       if(weaponAbility.breakBlock == false) {
          enemyBase.isBlocking = true;
+      } else {
+         enemyBase.isBlocking = false;
       }
          
 

@@ -22,6 +22,8 @@ public class EnemySpawner : MonoBehaviour
 
     [SerializeField] private CinemachineVirtualCamera vcam;
 
+    [SerializeField] int enemyRespawnTimer = 0;
+
     private int numEnemies = 0;
     private bool _stopSpawn = false;
     private GameObject player;
@@ -81,7 +83,7 @@ public class EnemySpawner : MonoBehaviour
         walls[0].transform.localScale = new Vector3(-1f, 1f, 1f);;
         walls[1].transform.parent = enemyContainer.transform;
         // 3. Spawn Enemies (TODO)
-        enemyChunkSpawner(3000, chunkNumber, difficulty, currentX);
+        enemyChunkSpawner(enemyRespawnTimer, chunkNumber, difficulty, currentX);
         
         // 4. When enemies are killed go back to normal movement!
         CheckChunkCleared(2000);
@@ -171,7 +173,7 @@ public class EnemySpawner : MonoBehaviour
 
         //If statements determine the number of enemies that should spawn
         if(chunkNumber <= 3) {
-            enemySpawnNumber = UnityEngine.Random.Range(5, 8);
+            enemySpawnNumber = UnityEngine.Random.Range(6, 8);
         }
         else if (chunkNumber > 3 && chunkNumber <= 8) {
             enemySpawnNumber = UnityEngine.Random.Range(8, 13);
