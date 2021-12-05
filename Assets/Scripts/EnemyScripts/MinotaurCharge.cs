@@ -29,7 +29,7 @@ public class MinotaurCharge : StateMachineBehaviour
         if (hitbox.IsTouching(player.GetComponent<CapsuleCollider2D>()) && !hasDamagedPlayer) {
             // the hitbox is touching the player capsule collider, deal damage!
             mb.damagePlayerEvent(EnemyBehavior.AttackType.Melee);
-
+            animator.SetTrigger("chargeFinale");
             FakeAddForceMotion(1);
 
             hasDamagedPlayer = true;

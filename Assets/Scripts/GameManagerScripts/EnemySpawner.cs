@@ -77,8 +77,9 @@ public class EnemySpawner : MonoBehaviour
         var composer = vcam.GetCinemachineComponent<CinemachineFramingTransposer>();
         composer.m_DeadZoneWidth = 2f;
         // 2. limit player movement to screen (-11.5, 12.9) - by spawing walls
-        walls[0] = Instantiate(tempWall, new Vector3(currentX-11.5f,0,0), Quaternion.identity);
-        walls[1] = Instantiate(tempWall, new Vector3(currentX+12.9f,0,0), Quaternion.identity);
+        
+        walls[0] = Instantiate(tempWall, new Vector3(vcam.transform.position.x-12.5f,0,0), Quaternion.identity);
+        walls[1] = Instantiate(tempWall, new Vector3(vcam.transform.position.x+12.5f,0,0), Quaternion.identity);
         walls[0].transform.parent = enemyContainer.transform;
         walls[0].transform.localScale = new Vector3(-1f, 1f, 1f);;
         walls[1].transform.parent = enemyContainer.transform;

@@ -195,11 +195,6 @@ public class EnemyBehavior : EnemyBehaviorBase
         canDamage = true;
     }
 
-    public IEnumerator riposteReset(float time) {
-        yield return new WaitForSeconds(time);
-        animator.SetBool("riposted", false);
-    }
-
     public float getWeaponDamage() {
         return damage;
     }
