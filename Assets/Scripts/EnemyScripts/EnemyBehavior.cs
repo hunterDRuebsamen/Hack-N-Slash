@@ -35,7 +35,7 @@ public class EnemyBehavior : EnemyBehaviorBase
     private CapsuleCollider2D capsuleCollider;
     protected BoxCollider2D hitBoxCollider;
     private BoxCollider2D playerWeaponCollider;
-    private Rigidbody2D rb;
+    protected Rigidbody2D rb;
     //private SpriteRenderer enemyBodySprite;
 
     protected bool canAttack = true; 

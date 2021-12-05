@@ -8,10 +8,11 @@ public class BossBehavior : EnemyBehavior
     int maxHealth = 0;
     GameObject shield;
     GameObject handProjectile;
+    public bool escaped = false;
 
     void Start() {
         maxHealth = enemyBase.health;
-        handProjectile = this.gameObject.transform.GetChild(3).GetChild(2).GetChild(1).gameObject;
+        //handProjectile = this.gameObject.transform.GetChild(3).GetChild(2).GetChild(1).gameObject;
     }
     private void OnEnable() { // Watches for when the enemy gets hit
         WeaponBase.onEnemyDamaged += onBossHit;
@@ -22,14 +23,13 @@ public class BossBehavior : EnemyBehavior
 
     private void onBossHit(float damage, GameObject enemyObject) 
     {
-        // check to see if the enemy that was hit is this enemy.
-        /*if (this != null && this.gameObject == enemyObject) {
+        if (this != null && this.gameObject == enemyObject && !escaped) {
             if(enemyBase.health <= maxHealth/2)
             {
-                shield.SetActive(false);
-                handProjectile.SetActive(true);
+                animator.SetTrigger("escape");
+                escaped = true;
             }
-        }*/
+        }
 
     }
     public override void Attack() {
@@ -114,5 +114,10 @@ public class BossBehavior : EnemyBehavior
 
     public void startCoolDown() {
         StartCoroutine(AttackCoolDown(cooldown));
+    }
+
+    public void escape() {
+        Vector2 newPos = Vector2.MoveTowards(rb.position, new Vector2(player.transform.position.x +20f, 0), speed*Time.deltaTime*7);
+        rb.MovePosition(newPos);
     }
 }

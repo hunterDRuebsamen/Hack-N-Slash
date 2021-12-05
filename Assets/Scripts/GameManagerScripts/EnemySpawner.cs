@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using Cinemachine;
 
-public class EnemySpawner : MonoBehaviour
+public class EnemySpawner : EnemySpawnerBase
 {
     [SerializeField, Tooltip("Takes the x position of the player or GameManager as a whole to determine where the enemy is spawned")]
     public float spawnDist; //= transform.position.x
@@ -17,27 +17,27 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField, Tooltip("The maximum distance away from the player an enemy can be before it is despawned.")]
     public float maxDist = 40f;
 
-    [SerializeField] private GameObject enemyContainer;
-    [SerializeField] private GameObject tempWall;
+    [SerializeField] protected GameObject enemyContainer;
+    [SerializeField] protected GameObject tempWall;
 
-    [SerializeField] private CinemachineVirtualCamera vcam;
+    [SerializeField] protected CinemachineVirtualCamera vcam;
 
-    [SerializeField] int enemyRespawnTimer = 0;
+    [SerializeField] protected int enemyRespawnTimer = 0;
 
-    private int numEnemies = 0;
+    protected int numEnemies = 0;
     private bool _stopSpawn = false;
-    private GameObject player;
+    protected GameObject player;
 
     private float originalDeadzoneWidth;
 
     [SerializeField, Tooltip("List of Enemies we will randomly spawn")]
-    List<GameObject> enemyList;
+    protected List<GameObject> enemyList;
 
-    private GameObject[] walls = {null, null};
+    protected GameObject[] walls = {null, null};
 
-    private bool inChunk = false;
+    protected bool inChunk = false;
 
-    private int difficulty = 0;
+    public int difficulty = 0;
 
     void Start() 
     {
@@ -71,7 +71,7 @@ public class EnemySpawner : MonoBehaviour
     }
 
 
-    private void chunkReached(float currentX, int chunkNumber) {
+    protected override void chunkReached(float currentX, int chunkNumber) {
         inChunk = true;
         // 1. pause camera movement
         var composer = vcam.GetCinemachineComponent<CinemachineFramingTransposer>();
@@ -130,7 +130,7 @@ public class EnemySpawner : MonoBehaviour
     }
 
 
-    private async void CheckChunkCleared(int delay_ms)
+    protected async void CheckChunkCleared(int delay_ms)
     {
         bool done = false;
 
@@ -160,7 +160,7 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    private async void enemyChunkSpawner(int delay_ms, int chunkNumber, int difficulty, float currentX) {
+    protected override async void enemyChunkSpawner(int delay_ms, int chunkNumber, int difficulty, float currentX) {
         // grab a reference to player movement so we can get Y-bounds
         PlayerMovement pm = player.GetComponent<PlayerMovement>();
 
