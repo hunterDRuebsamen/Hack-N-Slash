@@ -6016,7 +6016,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.112203, y: 1.3341198, z: -10.01}
+  m_LocalPosition: {x: 3.1117926, y: 1.3341198, z: -10.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -16927,6 +16927,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 779747019, guid: 0d5c41728d151a644997a7149f70454b, type: 3}
+      propertyPath: cooldown
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 779747019, guid: 0d5c41728d151a644997a7149f70454b, type: 3}
+      propertyPath: projectile
+      value: 
+      objectReference: {fileID: 1659273401739453581, guid: d1875334bf754af4f9b40accb88ff2d9, type: 3}
     - target: {fileID: 2135046972943316784, guid: 0d5c41728d151a644997a7149f70454b, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -16975,13 +16983,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sword_Boss
       objectReference: {fileID: 0}
-    - target: {fileID: 4307644397194756735, guid: 0d5c41728d151a644997a7149f70454b, type: 3}
-      propertyPath: m_AnchorMax.x
+    - target: {fileID: 2137895989959622302, guid: 0d5c41728d151a644997a7149f70454b, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4307644397194756735, guid: 0d5c41728d151a644997a7149f70454b, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4307644397194756735, guid: 0d5c41728d151a644997a7149f70454b, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9019540853725021663, guid: 0d5c41728d151a644997a7149f70454b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d5c41728d151a644997a7149f70454b, type: 3}
@@ -22479,7 +22495,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1672596104
 Transform:
   m_ObjectHideFlags: 0
@@ -22803,7 +22819,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1840438654}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.112203, y: 1.3341198, z: -10.01}
+  m_LocalPosition: {x: 3.1117926, y: 1.3341198, z: -10.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1922294290}

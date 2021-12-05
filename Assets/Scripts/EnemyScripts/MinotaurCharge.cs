@@ -19,6 +19,7 @@ public class MinotaurCharge : StateMachineBehaviour
        hitbox = animator.GetComponentInChildren<BoxCollider2D>();
        mb = animator.GetComponent<minotaurBehavior>();
        previousPlayerPos = player.position;
+       animator.ResetTrigger("chargeFinale");
     }
 
     //OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

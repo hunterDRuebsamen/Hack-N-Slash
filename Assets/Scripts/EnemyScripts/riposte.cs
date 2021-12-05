@@ -18,6 +18,7 @@ public class riposte : StateMachineBehaviour
        rb = animator.GetComponent<Rigidbody2D>();
        hitbox = animator.GetComponentInChildren<BoxCollider2D>();
        eb = animator.GetComponent<EnemyBehavior>();
+       animator.ResetTrigger("riposteFinale");
     }
 
     //OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -28,7 +29,7 @@ public class riposte : StateMachineBehaviour
         if (hitbox.IsTouching(player.GetComponent<CapsuleCollider2D>()) && !hasDamagedPlayer) {
             // the hitbox is touching the player capsule collider, deal damage!
             eb.damagePlayerEvent(EnemyBehavior.AttackType.Melee);
-
+            animator.SetTrigger("riposteFinale");
             FakeAddForceMotion(1);
 
             hasDamagedPlayer = true;
@@ -39,6 +40,7 @@ public class riposte : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         hasDamagedPlayer = false;
+        animator.SetTrigger("riposteFinale");
     }
 
     private async void FakeAddForceMotion(float forceAmount)

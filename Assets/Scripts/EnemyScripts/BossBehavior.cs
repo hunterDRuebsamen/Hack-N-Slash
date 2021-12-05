@@ -11,7 +11,6 @@ public class BossBehavior : EnemyBehavior
 
     void Start() {
         maxHealth = enemyBase.health;
-        shield = this.gameObject.transform.GetChild(3).GetChild(2).GetChild(0).gameObject;
         handProjectile = this.gameObject.transform.GetChild(3).GetChild(2).GetChild(1).gameObject;
     }
     private void OnEnable() { // Watches for when the enemy gets hit
@@ -24,13 +23,13 @@ public class BossBehavior : EnemyBehavior
     private void onBossHit(float damage, GameObject enemyObject) 
     {
         // check to see if the enemy that was hit is this enemy.
-        if (this != null && this.gameObject == enemyObject) {
+        /*if (this != null && this.gameObject == enemyObject) {
             if(enemyBase.health <= maxHealth/2)
             {
                 shield.SetActive(false);
                 handProjectile.SetActive(true);
             }
-        }
+        }*/
 
     }
     public override void Attack() {
@@ -52,7 +51,7 @@ public class BossBehavior : EnemyBehavior
     {
         emitAttack(AttackType.Projectile);
         canAttack = false;
-        Transform firePoint = transform.GetChild(3).GetChild(2).GetChild(1);
+        Transform firePoint = transform.GetChild(1).GetChild(2).GetChild(0);
         if (projectile != null)
         {
             Rigidbody2D rbBullet = Instantiate(projectile, firePoint.position, Quaternion.identity).GetComponent<Rigidbody2D>();
