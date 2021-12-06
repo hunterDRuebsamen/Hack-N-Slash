@@ -45,7 +45,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 3797258624682d0489c2857f9cfa9591, type: 3}
     - target: {fileID: 4861960314743687165, guid: 992e91d1028fb1e3cb54e56f7f52166d, type: 3}
       propertyPath: health
-      value: 20
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4861960314743687165, guid: 992e91d1028fb1e3cb54e56f7f52166d, type: 3}
       propertyPath: numBlockHits

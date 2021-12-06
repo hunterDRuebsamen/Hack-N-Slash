@@ -54,7 +54,7 @@ public class minotaurBehavior : EnemyBehavior
             if(canAttack) {
                 canAttack = false;
                 animator.SetTrigger("attack");
-                emitAttack(AttackType.Melee);
+                //emitAttack(AttackType.Melee);
             }
         }
         else if (distToPlayer > attackDist && distToPlayer < (attackDist + chargeDistance) && charge){

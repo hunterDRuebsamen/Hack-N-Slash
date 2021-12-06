@@ -18,6 +18,7 @@ public class EnemySpawner : MonoBehaviour
     public float maxDist = 40f;
 
     [SerializeField] protected GameObject enemyContainer;
+    [SerializeField] private GameObject backGroundContainer;
     [SerializeField] protected GameObject tempWall;
 
     [SerializeField] protected CinemachineVirtualCamera vcam;
@@ -80,9 +81,9 @@ public class EnemySpawner : MonoBehaviour
         
         walls[0] = Instantiate(tempWall, new Vector3(vcam.transform.position.x-12.5f,0,0), Quaternion.identity);
         walls[1] = Instantiate(tempWall, new Vector3(vcam.transform.position.x+12.5f,0,0), Quaternion.identity);
-        walls[0].transform.parent = enemyContainer.transform;
-        walls[0].transform.localScale = new Vector3(-1f, 1f, 1f);;
-        walls[1].transform.parent = enemyContainer.transform;
+        walls[0].transform.parent = backGroundContainer.transform;
+        walls[1].transform.parent = backGroundContainer.transform;
+        walls[1].transform.localScale = new Vector3(1f, 1f, 1f);;
         // 3. Spawn Enemies (TODO)
         enemyChunkSpawner(enemyRespawnTimer, chunkNumber, difficulty, currentX);
         
