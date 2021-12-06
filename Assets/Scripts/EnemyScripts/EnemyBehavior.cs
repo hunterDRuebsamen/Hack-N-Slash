@@ -80,7 +80,7 @@ public class EnemyBehavior : EnemyBehaviorBase
         foreach (Collider2D hit in hits)
         {
             // Ignore our own collider.
-            if (hit.tag=="Player" || hit.tag == "Enemy" || hit.tag == "EnemyWeapon" || hit.tag == "Weapon" || hit.tag == "Loot")
+            if (hit.tag=="Player" || hit.tag == "Enemy" || hit.tag == "EnemyWeapon" || hit.tag == "Weapon" || hit.tag == "Loot" || hit.tag == "wall")
                 continue;
  
             ColliderDistance2D colliderDistance = hit.Distance(capsuleCollider);

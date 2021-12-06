@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using Cinemachine;
 
-public class EnemySpawner : EnemySpawnerBase
+public class EnemySpawner : MonoBehaviour
 {
     [SerializeField, Tooltip("Takes the x position of the player or GameManager as a whole to determine where the enemy is spawned")]
     public float spawnDist; //= transform.position.x
@@ -49,13 +49,13 @@ public class EnemySpawner : EnemySpawnerBase
         originalDeadzoneWidth = composer.m_DeadZoneWidth;
     }
 
-    void OnEnable() {
+    protected virtual void OnEnable() {
         EnemyBase.onEnemyDeath += enemyDeath;
         PlayerHealth.onPlayerDeath += playerDeath;
         PlayerMovement.onChunk += chunkReached;
     }
 
-    void OnDisable() {
+    protected virtual void OnDisable() {
         EnemyBase.onEnemyDeath -= enemyDeath;
         PlayerHealth.onPlayerDeath += playerDeath;
         PlayerMovement.onChunk += chunkReached;
@@ -71,7 +71,7 @@ public class EnemySpawner : EnemySpawnerBase
     }
 
 
-    protected override void chunkReached(float currentX, int chunkNumber) {
+    public virtual void chunkReached(float currentX, int chunkNumber) {
         inChunk = true;
         // 1. pause camera movement
         var composer = vcam.GetCinemachineComponent<CinemachineFramingTransposer>();
@@ -130,15 +130,16 @@ public class EnemySpawner : EnemySpawnerBase
     }
 
 
-    protected async void CheckChunkCleared(int delay_ms)
+    protected virtual async void CheckChunkCleared(int delay_ms)
     {
         bool done = false;
 
         while(!done)
         {
             await Task.Delay(delay_ms);
-            EnemyBase[] enemies = GameObject.FindObjectsOfType<EnemyBase>();
-            if (enemies.Length == 0) {
+            //EnemyBase[] enemies = GameObject.FindObjectsOfType<EnemyBase>();
+            //Transform[] enemies = enemyContainer.GetComponentsInChildren<Transform>();
+            if (enemyContainer.transform.childCount == 0) {
                 Debug.Log("enemies cleared!!!");
                 done = true;
                 inChunk = false;
@@ -160,7 +161,7 @@ public class EnemySpawner : EnemySpawnerBase
         }
     }
 
-    protected override async void enemyChunkSpawner(int delay_ms, int chunkNumber, int difficulty, float currentX) {
+    protected virtual async void enemyChunkSpawner(int delay_ms, int chunkNumber, int difficulty, float currentX) {
         // grab a reference to player movement so we can get Y-bounds
         PlayerMovement pm = player.GetComponent<PlayerMovement>();
 

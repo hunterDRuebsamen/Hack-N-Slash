@@ -10,6 +10,8 @@ public class BossBehavior : EnemyBehavior
     GameObject handProjectile;
     public bool escaped = false;
 
+    public static event Action onSpawnMinion;
+
     void Start() {
         maxHealth = enemyBase.health;
         //handProjectile = this.gameObject.transform.GetChild(3).GetChild(2).GetChild(1).gameObject;
@@ -119,5 +121,9 @@ public class BossBehavior : EnemyBehavior
     public void escape() {
         Vector2 newPos = Vector2.MoveTowards(rb.position, new Vector2(player.transform.position.x +20f, 0), speed*Time.deltaTime*7);
         rb.MovePosition(newPos);
+    }
+
+    public void spawnMinion() {
+        onSpawnMinion?.Invoke();
     }
 }
