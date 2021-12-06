@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using Cinemachine;
 
 public class BossBehavior : EnemyBehavior
 {
@@ -9,11 +10,13 @@ public class BossBehavior : EnemyBehavior
     GameObject shield;
     GameObject handProjectile;
     public bool escaped = false;
+    CinemachineVirtualCamera vcam;
 
     public static event Action onSpawnMinion;
 
     void Start() {
         maxHealth = enemyBase.health;
+        vcam = GameObject.Find("CM vcam1").GetComponent<CinemachineVirtualCamera>();
         //handProjectile = this.gameObject.transform.GetChild(3).GetChild(2).GetChild(1).gameObject;
     }
     private void OnEnable() { // Watches for when the enemy gets hit
@@ -119,7 +122,7 @@ public class BossBehavior : EnemyBehavior
     }
 
     public void escape() {
-        Vector2 newPos = Vector2.MoveTowards(rb.position, new Vector2(player.transform.position.x +20f, 0), speed*Time.deltaTime*7);
+        Vector2 newPos = Vector2.MoveTowards(rb.position, new Vector2(vcam.transform.position.x +20f, 0), speed*Time.deltaTime*7);
         rb.MovePosition(newPos);
     }
 
