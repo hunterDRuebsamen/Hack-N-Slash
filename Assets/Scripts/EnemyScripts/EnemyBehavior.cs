@@ -30,12 +30,12 @@ public class EnemyBehavior : EnemyBehaviorBase
     protected GameObject player;
     
     private Transform enemylocal; 
-    protected Animator animator;
+    public Animator animator;
     protected GameObject target;
     private CapsuleCollider2D capsuleCollider;
     protected BoxCollider2D hitBoxCollider;
     private BoxCollider2D playerWeaponCollider;
-    private Rigidbody2D rb;
+    protected Rigidbody2D rb;
     //private SpriteRenderer enemyBodySprite;
 
     protected bool canAttack = true; 
@@ -80,7 +80,7 @@ public class EnemyBehavior : EnemyBehaviorBase
         foreach (Collider2D hit in hits)
         {
             // Ignore our own collider.
-            if (hit.tag=="Player" || hit.tag == "Enemy" || hit.tag == "EnemyWeapon" || hit.tag == "Weapon" || hit.tag == "Loot")
+            if (hit.tag=="Player" || hit.tag == "Enemy" || hit.tag == "EnemyWeapon" || hit.tag == "Weapon" || hit.tag == "Loot" || hit.tag == "wall")
                 continue;
  
             ColliderDistance2D colliderDistance = hit.Distance(capsuleCollider);
@@ -158,9 +158,6 @@ public class EnemyBehavior : EnemyBehaviorBase
     // this function is called from the animation player on attack
     public override void Attack() {
         canAttack = false;
-        //onAttack?.Invoke(gameObject, AttackType.Melee);
-        // enable the hitbox on the weapon
-        //hitBoxCollider.enabled = true;
         if (canDamage) {
             // we have not parried, so check for damage
             if (hitBoxCollider.IsTouching(target.GetComponent<CapsuleCollider2D>())) {
@@ -196,11 +193,6 @@ public class EnemyBehavior : EnemyBehaviorBase
         yield return new WaitForSeconds(time);     // wait for 3 seconds until enemy can attack again
         canAttack = true;
         canDamage = true;
-    }
-
-    public IEnumerator riposteReset(float time) {
-        yield return new WaitForSeconds(time);
-        animator.SetBool("riposted", false);
     }
 
     public float getWeaponDamage() {

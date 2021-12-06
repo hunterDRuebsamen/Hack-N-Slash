@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 1693356030996477141}
   - component: {fileID: 4511398084106639512}
   - component: {fileID: 6033652936322889167}
+  - component: {fileID: -1476935321331313450}
   m_Layer: 3
   m_Name: Katana
   m_TagString: Weapon
@@ -211,3 +212,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.24374342, y: 1.5854886}
   m_EdgeRadius: 0
+--- !u!114 &-1476935321331313450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6747665735237029288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc0e3fae6e3c12f40bc9f4d73cfbc15c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitLimitKatana: 5
+  hitLimitKama: 10
+  hitLimitAxe: 10

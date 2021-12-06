@@ -12,4 +12,5 @@ public abstract class EnemyBehaviorBase : MonoBehaviour
 
     public virtual void Shoot()
     {}
+
 }

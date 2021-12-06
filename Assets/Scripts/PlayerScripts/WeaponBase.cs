@@ -34,7 +34,6 @@ public class WeaponBase : MonoBehaviour
                 //Calculate the damage based on velocity
                 float vel = rb.velocity.magnitude;
                 float damage = vel * damageFactor;
-                Debug.Log("Wepaon hit damage: "+damage);
                 onEnemyDamaged?.Invoke(damage, col.gameObject);
                 canAttack = false;
                 StartCoroutine(AttackCoolDown(coolDownTimer));

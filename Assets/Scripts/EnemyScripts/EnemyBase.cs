@@ -19,6 +19,7 @@ public class EnemyBase : MonoBehaviour
     private Queue<int> hitQueue = new Queue<int>();
     Rigidbody2D rigidBody; 
     BoxCollider2D enemyWeapon;
+    CapsuleCollider2D enemyCollider;
     Animator animator;
     public static event Action<GameObject> onEnemyDeath;
     public static event Action onEnemyBlocked;
@@ -35,6 +36,7 @@ public class EnemyBase : MonoBehaviour
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         playerTrans = GameObject.Find("PlayerV4").GetComponent<Transform>();
+        enemyCollider = GetComponent<CapsuleCollider2D>();
         StartCoroutine(blockTimer());
     }
     private void OnEnable() { // Watches for when the enemy gets hit
@@ -57,13 +59,14 @@ public class EnemyBase : MonoBehaviour
             }
             else
             {
+                animator.ResetTrigger("riposted");
                 health -= (int)Math.Round(damage);
                 if(health <= 0) {
                     animator.SetTrigger("death");
                     onEnemyDeath?.Invoke(this.gameObject);
+                    enemyCollider.enabled = false;
                     // the death animation should call the public death function
                 } else {
-                    Debug.Log("Enemy Health: "+health);
                     animator.SetTrigger("hit");
                     currentHits += 1;
                     //Calculate knockback force

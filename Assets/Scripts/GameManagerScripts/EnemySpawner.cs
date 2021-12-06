@@ -17,25 +17,28 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField, Tooltip("The maximum distance away from the player an enemy can be before it is despawned.")]
     public float maxDist = 40f;
 
-    [SerializeField] private GameObject enemyContainer;
-    [SerializeField] private GameObject tempWall;
+    [SerializeField] protected GameObject enemyContainer;
+    [SerializeField] private GameObject backGroundContainer;
+    [SerializeField] protected GameObject tempWall;
 
-    [SerializeField] private CinemachineVirtualCamera vcam;
+    [SerializeField] protected CinemachineVirtualCamera vcam;
 
-    private int numEnemies = 0;
+    [SerializeField] protected int enemyRespawnTimer = 0;
+
+    protected int numEnemies = 0;
     private bool _stopSpawn = false;
-    private GameObject player;
+    protected GameObject player;
 
     private float originalDeadzoneWidth;
 
     [SerializeField, Tooltip("List of Enemies we will randomly spawn")]
-    List<GameObject> enemyList;
+    protected List<GameObject> enemyList;
 
-    private GameObject[] walls = {null, null};
+    protected GameObject[] walls = {null, null};
 
-    private bool inChunk = false;
+    protected bool inChunk = false;
 
-    private int difficulty = 0;
+    public int difficulty = 0;
 
     void Start() 
     {
@@ -47,13 +50,13 @@ public class EnemySpawner : MonoBehaviour
         originalDeadzoneWidth = composer.m_DeadZoneWidth;
     }
 
-    void OnEnable() {
+    protected virtual void OnEnable() {
         EnemyBase.onEnemyDeath += enemyDeath;
         PlayerHealth.onPlayerDeath += playerDeath;
         PlayerMovement.onChunk += chunkReached;
     }
 
-    void OnDisable() {
+    protected virtual void OnDisable() {
         EnemyBase.onEnemyDeath -= enemyDeath;
         PlayerHealth.onPlayerDeath += playerDeath;
         PlayerMovement.onChunk += chunkReached;
@@ -69,19 +72,20 @@ public class EnemySpawner : MonoBehaviour
     }
 
 
-    private void chunkReached(float currentX, int chunkNumber) {
+    public virtual void chunkReached(float currentX, int chunkNumber) {
         inChunk = true;
         // 1. pause camera movement
         var composer = vcam.GetCinemachineComponent<CinemachineFramingTransposer>();
         composer.m_DeadZoneWidth = 2f;
         // 2. limit player movement to screen (-11.5, 12.9) - by spawing walls
-        walls[0] = Instantiate(tempWall, new Vector3(currentX-11.5f,0,0), Quaternion.identity);
-        walls[1] = Instantiate(tempWall, new Vector3(currentX+12.9f,0,0), Quaternion.identity);
-        walls[0].transform.parent = enemyContainer.transform;
-        walls[0].transform.localScale = new Vector3(-1f, 1f, 1f);;
-        walls[1].transform.parent = enemyContainer.transform;
+        
+        walls[0] = Instantiate(tempWall, new Vector3(vcam.transform.position.x-12.5f,0,0), Quaternion.identity);
+        walls[1] = Instantiate(tempWall, new Vector3(vcam.transform.position.x+12.5f,0,0), Quaternion.identity);
+        walls[0].transform.parent = backGroundContainer.transform;
+        walls[1].transform.parent = backGroundContainer.transform;
+        walls[1].transform.localScale = new Vector3(1f, 1f, 1f);;
         // 3. Spawn Enemies (TODO)
-        enemyChunkSpawner(3000, chunkNumber, difficulty, currentX);
+        enemyChunkSpawner(enemyRespawnTimer, chunkNumber, difficulty, currentX);
         
         // 4. When enemies are killed go back to normal movement!
         CheckChunkCleared(2000);
@@ -127,15 +131,16 @@ public class EnemySpawner : MonoBehaviour
     }
 
 
-    private async void CheckChunkCleared(int delay_ms)
+    protected virtual async void CheckChunkCleared(int delay_ms)
     {
         bool done = false;
 
         while(!done)
         {
             await Task.Delay(delay_ms);
-            EnemyBase[] enemies = GameObject.FindObjectsOfType<EnemyBase>();
-            if (enemies.Length == 0) {
+            //EnemyBase[] enemies = GameObject.FindObjectsOfType<EnemyBase>();
+            //Transform[] enemies = enemyContainer.GetComponentsInChildren<Transform>();
+            if (enemyContainer.transform.childCount == 0) {
                 Debug.Log("enemies cleared!!!");
                 done = true;
                 inChunk = false;
@@ -157,7 +162,7 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    private async void enemyChunkSpawner(int delay_ms, int chunkNumber, int difficulty, float currentX) {
+    protected virtual async void enemyChunkSpawner(int delay_ms, int chunkNumber, int difficulty, float currentX) {
         // grab a reference to player movement so we can get Y-bounds
         PlayerMovement pm = player.GetComponent<PlayerMovement>();
 
@@ -171,7 +176,7 @@ public class EnemySpawner : MonoBehaviour
 
         //If statements determine the number of enemies that should spawn
         if(chunkNumber <= 3) {
-            enemySpawnNumber = UnityEngine.Random.Range(5, 8);
+            enemySpawnNumber = UnityEngine.Random.Range(6, 8);
         }
         else if (chunkNumber > 3 && chunkNumber <= 8) {
             enemySpawnNumber = UnityEngine.Random.Range(8, 13);

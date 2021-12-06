@@ -6078,6 +6078,7 @@ MonoBehaviour:
   dodgeCoolDownTime: 1
   maxDodgeBoosts: 3
   dodgeLength: 0.25
+  chunkSize: 30
 --- !u!50 &5173848242019840426
 Rigidbody2D:
   serializedVersion: 4
@@ -6197,10 +6198,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponObjects:
-  - {fileID: 7563099973927152401, guid: f4d3f62a89f84e89884edcbbda0dff3b, type: 3}
-  - {fileID: 3711458255986119285, guid: b3f04ac688392a96f83b3affc1c06167, type: 3}
-  - {fileID: 6747665735237029288, guid: 9185c736cc2a79872905a32e70cdc985, type: 3}
   - {fileID: 3957412810975368397, guid: ef78997c3cfcec241a10d36e509a552c, type: 3}
+  - {fileID: 6747665735237029288, guid: 9185c736cc2a79872905a32e70cdc985, type: 3}
+  - {fileID: 3711458255986119285, guid: b3f04ac688392a96f83b3affc1c06167, type: 3}
+  - {fileID: 7563099973927152401, guid: f4d3f62a89f84e89884edcbbda0dff3b, type: 3}
 --- !u!1 &9023773114994596493
 GameObject:
   m_ObjectHideFlags: 0

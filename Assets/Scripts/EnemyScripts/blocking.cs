@@ -4,13 +4,24 @@ using UnityEngine;
 
 public class blocking : StateMachineBehaviour
 {
-    EnemyBase enemyBase;
+   EnemyBase enemyBase;
+
+   WeaponAbilities weaponAbility;
+   GameObject weapon;
+
     //OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-       enemyBase = animator.GetComponent<EnemyBase>();
-       enemyBase.isBlocking = true;
-       Debug.Log("Enemy is blocking");
+      enemyBase = animator.GetComponent<EnemyBase>();
+      weaponAbility = GameObject.Find("PlayerV4").transform.GetChild(2).GetChild(0).gameObject.GetComponent<WeaponAbilities>();
+
+      if(weaponAbility.breakBlock == false) {
+         enemyBase.isBlocking = true;
+      } else {
+         enemyBase.isBlocking = false;
+      }
+         
+
     }
 
     //OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

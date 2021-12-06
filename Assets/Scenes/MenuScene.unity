@@ -2907,13 +2907,13 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
-    - m_Text: Axe
-      m_Image: {fileID: 0}
-    - m_Text: Kama
+    - m_Text: DullSword
       m_Image: {fileID: 0}
     - m_Text: Katana
       m_Image: {fileID: 0}
-    - m_Text: Sword
+    - m_Text: Kama
+      m_Image: {fileID: 0}
+    - m_Text: Axe
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using Cinemachine;
 
 public class BossBehavior : EnemyBehavior
 {
@@ -8,11 +9,15 @@ public class BossBehavior : EnemyBehavior
     int maxHealth = 0;
     GameObject shield;
     GameObject handProjectile;
+    public bool escaped = false;
+    CinemachineVirtualCamera vcam;
+
+    public static event Action onSpawnMinion;
 
     void Start() {
         maxHealth = enemyBase.health;
-        shield = this.gameObject.transform.GetChild(3).GetChild(2).GetChild(0).gameObject;
-        handProjectile = this.gameObject.transform.GetChild(3).GetChild(2).GetChild(1).gameObject;
+        vcam = GameObject.Find("CM vcam1").GetComponent<CinemachineVirtualCamera>();
+        //handProjectile = this.gameObject.transform.GetChild(3).GetChild(2).GetChild(1).gameObject;
     }
     private void OnEnable() { // Watches for when the enemy gets hit
         WeaponBase.onEnemyDamaged += onBossHit;
@@ -23,12 +28,11 @@ public class BossBehavior : EnemyBehavior
 
     private void onBossHit(float damage, GameObject enemyObject) 
     {
-        // check to see if the enemy that was hit is this enemy.
-        if (this != null && this.gameObject == enemyObject) {
+        if (this != null && this.gameObject == enemyObject && !escaped) {
             if(enemyBase.health <= maxHealth/2)
             {
-                shield.SetActive(false);
-                handProjectile.SetActive(true);
+                animator.SetTrigger("escape");
+                escaped = true;
             }
         }
 
@@ -52,7 +56,7 @@ public class BossBehavior : EnemyBehavior
     {
         emitAttack(AttackType.Projectile);
         canAttack = false;
-        Transform firePoint = transform.GetChild(3).GetChild(2).GetChild(1);
+        Transform firePoint = transform.GetChild(1).GetChild(2).GetChild(0);
         if (projectile != null)
         {
             Rigidbody2D rbBullet = Instantiate(projectile, firePoint.position, Quaternion.identity).GetComponent<Rigidbody2D>();
@@ -115,5 +119,14 @@ public class BossBehavior : EnemyBehavior
 
     public void startCoolDown() {
         StartCoroutine(AttackCoolDown(cooldown));
+    }
+
+    public void escape() {
+        Vector2 newPos = Vector2.MoveTowards(rb.position, new Vector2(vcam.transform.position.x +20f, 0), speed*Time.deltaTime*7);
+        rb.MovePosition(newPos);
+    }
+
+    public void spawnMinion() {
+        onSpawnMinion?.Invoke();
     }
 }
