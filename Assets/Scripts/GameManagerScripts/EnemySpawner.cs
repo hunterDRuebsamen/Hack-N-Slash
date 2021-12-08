@@ -22,6 +22,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] protected GameObject tempWall;
 
     [SerializeField] protected CinemachineVirtualCamera vcam;
+    [SerializeField] private GameObject levelTransistor;
 
     [SerializeField] protected int enemyRespawnTimer = 0;
 
@@ -178,8 +179,13 @@ public class EnemySpawner : MonoBehaviour
         if(chunkNumber <= 3) {
             enemySpawnNumber = UnityEngine.Random.Range(6, 8);
         }
-        else if (chunkNumber > 3 && chunkNumber <= 8) {
+        else if (chunkNumber > 3 && chunkNumber <= 5) {
             enemySpawnNumber = UnityEngine.Random.Range(8, 13);
+        } 
+        else if (chunkNumber > 5) {
+            enemySpawnNumber = 0;
+            GameObject BossTransition = Instantiate(levelTransistor, new Vector3(20f, _ySpawnPos, 0), Quaternion.identity);
+            BossTransition.transform.parent = enemyContainer.transform;
         }
 
         for(int i = 0; i < enemySpawnNumber; i++) {
