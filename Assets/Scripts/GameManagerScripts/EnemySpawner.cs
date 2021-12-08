@@ -184,8 +184,8 @@ public class EnemySpawner : MonoBehaviour
         } 
         else if (chunkNumber > 5) {
             enemySpawnNumber = 0;
-            GameObject BossTransition = Instantiate(levelTransistor, new Vector3(20f, _ySpawnPos, 0), Quaternion.identity);
-            BossTransition.transform.parent = enemyContainer.transform;
+            GameObject BossTransition = Instantiate(levelTransistor, new Vector3(currentX + 20f, -1, 0), Quaternion.identity);
+            BossTransition.transform.parent = backGroundContainer.transform;
         }
 
         for(int i = 0; i < enemySpawnNumber; i++) {

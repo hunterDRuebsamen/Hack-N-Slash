@@ -16,5 +16,6 @@ public class endMinotaurCharge : StateMachineBehaviour
        animator.ResetTrigger("charge");
        animator.ResetTrigger("chargeFinale");
        mb.chargeTimer(10000);
+       //mb.canAttack = true;
     }
 }

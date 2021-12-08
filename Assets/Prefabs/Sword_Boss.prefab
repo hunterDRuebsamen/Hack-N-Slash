@@ -472,8 +472,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aea4c0f1db8754c3892cc0e1129a50ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
-  knockbackFactor: 0.2
+  health: 100
+  knockbackFactor: 0.15
   isBlocking: 0
   hitQueueSize: 5
   numBlockHits: 2
@@ -502,6 +502,8 @@ MonoBehaviour:
   moveSound: {fileID: 0}
   deathSound: {fileID: 0}
   animator: {fileID: 0}
+  canAttack: 1
+  escaped: 0
 --- !u!1 &2137921575445706826
 GameObject:
   m_ObjectHideFlags: 0

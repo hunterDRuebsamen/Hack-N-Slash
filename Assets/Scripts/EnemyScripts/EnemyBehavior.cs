@@ -38,7 +38,7 @@ public class EnemyBehavior : EnemyBehaviorBase
     protected Rigidbody2D rb;
     //private SpriteRenderer enemyBodySprite;
 
-    protected bool canAttack = true; 
+    public bool canAttack = true; 
     protected bool canDamage = true;
     public enum AttackType
     {

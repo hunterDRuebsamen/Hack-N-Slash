@@ -1556,7 +1556,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3.5
   damage: 2
-  attackDist: 3
+  attackDist: 2.7
   cooldown: 2.5
   parryKnockback: 0.4
   attackStyle: 0
