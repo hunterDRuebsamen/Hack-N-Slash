@@ -29,7 +29,7 @@ public class LootManager : MonoBehaviour
        EnemyBase.onEnemyDeath += spawnLoot;
     }
     
-    private void onDisable() {
+    private void OnDisable() {
        LootBase.onLootPickup -= lootPickup;
        EnemyBase.onEnemyDeath -= spawnLoot;
     }

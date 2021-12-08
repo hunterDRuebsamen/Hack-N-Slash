@@ -38,7 +38,7 @@ public class SoundManager : MonoBehaviour
         EnemyBase.onEnemyDeath += onEnemyDeath;
         LootBase.onLootPickup += onLootPickup;
     } 
-    private void onDisable() {
+    private void OnDisable() {
         EnemyBehavior.onPlayerDamaged -= onPlayerHit;
         EnemyBehavior.parriedEvent -= onParry;
         WeaponBase.onEnemyDamaged -= onEnemyHit;

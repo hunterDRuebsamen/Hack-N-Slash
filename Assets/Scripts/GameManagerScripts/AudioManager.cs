@@ -19,12 +19,12 @@ public class AudioManager : MonoBehaviour
         }
     }
     
-    void onEnable (){
+    void OnEnable (){
         PauseMenu.onUnpause+=changeMusicvol;
 
     }
 
-    void onDisable (){
+    void OnDisable (){
         PauseMenu.onUnpause-=changeMusicvol;
     }
 

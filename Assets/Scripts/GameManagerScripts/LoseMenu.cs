@@ -16,7 +16,7 @@ public class LoseMenu : MonoBehaviour
     private void OnEnable() { // Watches for when the enemy gets hit
         PlayerHealth.onPlayerDeath += Lose;
     } 
-    private void onDisable() {
+    private void OnDisable() {
         PlayerHealth.onPlayerDeath -= Lose;
     }
 

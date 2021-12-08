@@ -11,7 +11,7 @@ public class Score : MonoBehaviour
    private void OnEnable() {
        WeaponBase.onEnemyDamaged += changeScore;
    }
-    private void onDisable() {
+    private void OnDisable() {
        WeaponBase.onEnemyDamaged -= changeScore;
        //EnemyBehavior.onPlayerDamaged += resetScore;
    }
