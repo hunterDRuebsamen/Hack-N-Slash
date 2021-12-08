@@ -6711,7 +6711,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.111587, y: 1.3341198, z: -10.01}
+  m_LocalPosition: {x: 3.1120007, y: 1.3341198, z: -10.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -17519,7 +17519,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8379217881721483309, guid: 8aa7b1e53e8cf4f47a54008408471bc6, type: 3}
       propertyPath: maxHealth
-      value: 100
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8aa7b1e53e8cf4f47a54008408471bc6, type: 3}
@@ -24432,6 +24432,7 @@ MonoBehaviour:
   spawnTime: 10
   maxDist: 40
   enemyContainer: {fileID: 1063116255}
+  backGroundContainer: {fileID: 907124154}
   tempWall: {fileID: 1377937986284142024, guid: b41f2b1476de7ae97aa6a45f4077ef39, type: 3}
   vcam: {fileID: 1840438655}
   enemyRespawnTimer: 5000
@@ -24725,7 +24726,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1840438654}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.111587, y: 1.3341198, z: -10.01}
+  m_LocalPosition: {x: 3.1120007, y: 1.3341198, z: -10.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1922294290}

@@ -65,7 +65,7 @@ public class BossEnemySpawner : EnemySpawner
     {
         bool done = false;
 
-        while(!done)
+        while(!done && !_stopSpawn)
         {
             await Task.Delay(delay_ms);
             //EnemyBase[] enemies = GameObject.FindObjectsOfType<EnemyBase>();
@@ -96,6 +96,8 @@ public class BossEnemySpawner : EnemySpawner
         enemySpawnNumber = UnityEngine.Random.Range(5, 8);
 
         for(int i = 0; i < enemySpawnNumber; i++) {
+            if (_stopSpawn)
+                break;
             float _xSpawnPos;
             enemyIndex = UnityEngine.Random.Range(0,enemyList.Capacity);
 

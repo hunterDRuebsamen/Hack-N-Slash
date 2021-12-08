@@ -21,7 +21,7 @@ public class EnemyHealth : MonoBehaviour
         WeaponBase.onEnemyDamaged += TakeDamage;
     }
 
-    void onDisable() {
+    void OnDisable() {
         WeaponBase.onEnemyDamaged -= TakeDamage;
     }
 

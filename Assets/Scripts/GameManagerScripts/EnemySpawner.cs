@@ -26,7 +26,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] protected int enemyRespawnTimer = 0;
 
     protected int numEnemies = 0;
-    private bool _stopSpawn = false;
+    protected bool _stopSpawn = false;
     protected GameObject player;
 
     private float originalDeadzoneWidth;
@@ -58,8 +58,8 @@ public class EnemySpawner : MonoBehaviour
 
     protected virtual void OnDisable() {
         EnemyBase.onEnemyDeath -= enemyDeath;
-        PlayerHealth.onPlayerDeath += playerDeath;
-        PlayerMovement.onChunk += chunkReached;
+        PlayerHealth.onPlayerDeath -= playerDeath;
+        PlayerMovement.onChunk -= chunkReached;
     }
 
     private void enemyDeath(GameObject gO) {
@@ -135,7 +135,7 @@ public class EnemySpawner : MonoBehaviour
     {
         bool done = false;
 
-        while(!done)
+        while(!done && !_stopSpawn)
         {
             await Task.Delay(delay_ms);
             //EnemyBase[] enemies = GameObject.FindObjectsOfType<EnemyBase>();
@@ -183,6 +183,8 @@ public class EnemySpawner : MonoBehaviour
         }
 
         for(int i = 0; i < enemySpawnNumber; i++) {
+            if (_stopSpawn)
+                break;
             float _xSpawnPos;
             enemyIndex = UnityEngine.Random.Range(0,enemyList.Capacity);
 

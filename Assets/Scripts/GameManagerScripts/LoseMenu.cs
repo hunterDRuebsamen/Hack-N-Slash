@@ -16,7 +16,7 @@ public class LoseMenu : MonoBehaviour
     private void OnEnable() { // Watches for when the enemy gets hit
         PlayerHealth.onPlayerDeath += Lose;
     } 
-    private void onDisable() {
+    private void OnDisable() {
         PlayerHealth.onPlayerDeath -= Lose;
     }
 
@@ -30,7 +30,7 @@ public class LoseMenu : MonoBehaviour
     IEnumerator LostTheGame()
     {
         yield return new WaitForSecondsRealtime(5);
-        SceneManager.LoadScene("GameOverScene");
+        SceneManager.LoadScene("GameOverScene", LoadSceneMode.Single);
         Time.timeScale = 1;
     }
 }
