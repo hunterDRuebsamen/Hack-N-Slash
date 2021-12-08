@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 514064223902586324}
   - component: {fileID: 2634263972391122924}
   m_Layer: 3
-  m_Name: sword_man
+  m_Name: FrogMan3
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -381,7 +381,7 @@ GameObject:
   - component: {fileID: 1913346242955654224}
   - component: {fileID: 779747019}
   m_Layer: 3
-  m_Name: Sword_Boss
+  m_Name: AxolotlBoss
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
