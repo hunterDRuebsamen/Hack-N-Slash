@@ -38,8 +38,8 @@ public class GameEvents : MonoBehaviour
         lamps[1] = Instantiate(lampPrefab, new Vector3(0, lampY, 0), Quaternion.identity);
         lamps[1].transform.parent = container.transform;
         cleanup = true;
-        SpawnFoilage();
-        ClearFoilage(20f);
+        //SpawnFoilage();
+        //ClearFoilage(20f);
     }
 
     private void OnDestroy() {

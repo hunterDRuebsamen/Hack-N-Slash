@@ -30,7 +30,7 @@ public class LoseMenu : MonoBehaviour
     IEnumerator LostTheGame()
     {
         yield return new WaitForSecondsRealtime(5);
-        SceneManager.LoadScene("GameOverScene");
+        SceneManager.LoadScene("GameOverScene", LoadSceneMode.Single);
         Time.timeScale = 1;
     }
 }

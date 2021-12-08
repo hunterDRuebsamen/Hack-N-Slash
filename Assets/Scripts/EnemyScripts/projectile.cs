@@ -39,6 +39,7 @@ public class projectile : MonoBehaviour
 
     private async void destroyBullet(int duration) {
         await Task.Delay(duration); //Duration is in miliseconds
-        Destroy(this.gameObject);
+        if (this != null)
+            Destroy(this.gameObject);
     }
 }
