@@ -62,6 +62,7 @@ public class PlayerHealth : MonoBehaviour
             healthBar.SetHealth(currentHealth);
             healCall?.Invoke();
             Debug.Log("Player has healed" + currentHealth);
+            score.scoreValue = 0;
         }
         else {
             return;
