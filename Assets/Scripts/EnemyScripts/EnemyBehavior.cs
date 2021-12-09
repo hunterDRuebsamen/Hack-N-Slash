@@ -182,6 +182,10 @@ public class EnemyBehavior : EnemyBehaviorBase
 
            Vector3 differenceVect = (target.transform.position - transform.position).normalized;
            Vector2 shootVect = new Vector2(differenceVect.x, differenceVect.y);
+           if (shootVect.x > 0) {
+               rbBullet.transform.localScale = new Vector3(rbBullet.transform.localScale.x*-1,1,1);
+           }
+
            rbBullet.AddForce(shootVect * 2f, ForceMode2D.Impulse); 
         }
         
