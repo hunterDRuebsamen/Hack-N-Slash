@@ -157,7 +157,7 @@ TargetJoint2D:
   m_Target: {x: 0, y: 0}
   m_AutoConfigureTarget: 0
   m_MaxForce: 250
-  m_DampingRatio: 0.5
+  m_DampingRatio: 0.75
   m_Frequency: 1
 --- !u!114 &1693356030996477141
 MonoBehaviour:
@@ -227,3 +227,4 @@ MonoBehaviour:
   hitLimitKatana: 5
   hitLimitKama: 10
   hitLimitAxe: 10
+  breakBlock: 0

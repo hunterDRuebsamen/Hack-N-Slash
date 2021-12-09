@@ -60,6 +60,7 @@ public class PlayerHealth : MonoBehaviour
         if (score.scoreValue >= healLimitCount && Input.GetKeyDown("h")) {
             currentHealth += 10;
             healthBar.SetHealth(currentHealth);
+            healCall?.Invoke();
             Debug.Log("Player has healed" + currentHealth);
         }
         else {

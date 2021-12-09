@@ -131,7 +131,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 2.5
+  m_Mass: 10
   m_LinearDrag: 0
   m_AngularDrag: 0.01
   m_GravityScale: 0
@@ -157,8 +157,8 @@ TargetJoint2D:
   m_Target: {x: 0, y: 0}
   m_AutoConfigureTarget: 0
   m_MaxForce: 250
-  m_DampingRatio: 0.5
-  m_Frequency: 1
+  m_DampingRatio: 1
+  m_Frequency: 0.75
 --- !u!114 &4986332079117580326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -183,7 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74b29a9658ad07b45bd03cf024b9590b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageFactor: 0.5
+  damageFactor: 1
   coolDownTimer: 0.6
   Name: Axe
 --- !u!61 &8362801395238752411
@@ -224,3 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc0e3fae6e3c12f40bc9f4d73cfbc15c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitLimitKatana: 5
+  hitLimitKama: 10
+  hitLimitAxe: 10
+  breakBlock: 0

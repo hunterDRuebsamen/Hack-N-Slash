@@ -122,6 +122,7 @@ public class SoundManager : MonoBehaviour
     }
 
     private void onHeal() {
+        Debug.Log("Healed");
         audioSource.PlayOneShot(healSound);
     }
 }
