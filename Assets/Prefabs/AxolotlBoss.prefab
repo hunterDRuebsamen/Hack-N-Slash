@@ -489,7 +489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a5c3dcfed8de204897c6fcda13331f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 10
   damage: 9
   attackDist: 4
   cooldown: 5
@@ -497,10 +497,10 @@ MonoBehaviour:
   attackStyle: 0
   projectile: {fileID: 1659273401739453581, guid: d1875334bf754af4f9b40accb88ff2d9, type: 3}
   parryVelocity: 1.5
-  attackSound: {fileID: 0}
-  hurtSound: {fileID: 0}
-  moveSound: {fileID: 0}
-  deathSound: {fileID: 0}
+  attackSound: {fileID: 8300000, guid: ce867720dc6211921afcbaa2cac863d2, type: 3}
+  hurtSound: {fileID: 8300000, guid: 69bea0409871048deb7739ac9315b102, type: 3}
+  moveSound: {fileID: 8300000, guid: 0053784f2e5d5f15c8db959946a63d38, type: 3}
+  deathSound: {fileID: 8300000, guid: 7b5d5ba87e73b6b3e86b2e3029efb095, type: 3}
   animator: {fileID: 0}
   canAttack: 1
   escaped: 0

@@ -157,8 +157,8 @@ TargetJoint2D:
   m_Target: {x: 0, y: 0}
   m_AutoConfigureTarget: 0
   m_MaxForce: 250
-  m_DampingRatio: 0.65
-  m_Frequency: 15
+  m_DampingRatio: 1
+  m_Frequency: 1
 --- !u!114 &5410442946950216795
 MonoBehaviour:
   m_ObjectHideFlags: 0

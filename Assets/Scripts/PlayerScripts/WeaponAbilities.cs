@@ -67,8 +67,8 @@ public class WeaponAbilities : MonoBehaviour
         else {
             // break block ability for katana
             if(Input.GetMouseButton(0) && curWeapon == 1) {
-                breakEnemyBlock(enemyObject);
-                breakBlock = false;
+                //breakEnemyBlock(enemyObject);
+                //breakBlock = false;
             }
             // stun ability for axe
             else if(Input.GetMouseButton(0) && curWeapon == 3) {
