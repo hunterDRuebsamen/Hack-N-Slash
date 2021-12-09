@@ -10,6 +10,8 @@ public class BossBehavior : EnemyBehavior
     GameObject shield;
     GameObject handProjectile;
     public bool escaped = false;
+    float meleeAttackDist = 0f;
+    float enrageAttackDist = 0f;
     CinemachineVirtualCamera vcam;
 
     public static event Action onSpawnMinion;
@@ -18,6 +20,8 @@ public class BossBehavior : EnemyBehavior
         maxHealth = enemyBase.health;
         vcam = GameObject.Find("CM vcam1").GetComponent<CinemachineVirtualCamera>();
         //handProjectile = this.gameObject.transform.GetChild(3).GetChild(2).GetChild(1).gameObject;
+        meleeAttackDist = attackDist;
+        enrageAttackDist = attackDist*3.5f;
     }
     private void OnEnable() { // Watches for when the enemy gets hit
         WeaponBase.onEnemyDamaged += onBossHit;
@@ -108,7 +112,9 @@ public class BossBehavior : EnemyBehavior
                     animator.SetTrigger("attack");
                 }
                 else if (rand > 3 && enemyBase.health <= maxHealth/2) {
-                    animator.SetTrigger("enraged");
+                    animator.SetTrigger("enraged"); // (this is the projectile attack)
+                    attackDist = enrageAttackDist;
+                    StartCoroutine(EnrageCoolDown(4));
                 }
             }
 
@@ -128,5 +134,10 @@ public class BossBehavior : EnemyBehavior
 
     public void spawnMinion() {
         onSpawnMinion?.Invoke();
+    }
+
+    public IEnumerator EnrageCoolDown(float time) { 
+        yield return new WaitForSeconds(time);     // wait for 3 seconds until enemy can attack again
+        attackDist = meleeAttackDist;
     }
 }
