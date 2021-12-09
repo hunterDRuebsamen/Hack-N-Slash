@@ -590,6 +590,7 @@ MonoBehaviour:
   bulletHitSound: {fileID: 8300000, guid: 31e5d811a7c86478191c7a7d7626c1bb, type: 3}
   lootPickupSound: {fileID: 8300000, guid: 97a0f01089eccd14593d70a32aac26d2, type: 3}
   potionPickupSound: {fileID: 8300000, guid: 019b13c17be9a64439668cb567756461, type: 3}
+  healSound: {fileID: 0}
 --- !u!82 &357204807
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6081,7 +6082,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -21.247448, y: 1.3341198, z: -10.01}
+  m_LocalPosition: {x: -21.248, y: 1.3341198, z: -10.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -23160,7 +23161,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1840438654}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -21.247448, y: 1.3341198, z: -10.01}
+  m_LocalPosition: {x: -21.248, y: 1.3341198, z: -10.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1922294290}
