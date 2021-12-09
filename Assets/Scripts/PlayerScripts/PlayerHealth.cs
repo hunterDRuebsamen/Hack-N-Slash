@@ -57,13 +57,13 @@ public class PlayerHealth : MonoBehaviour
     }
 
     void heal() {
-        if (score.scoreValue < healLimitCount && !Input.GetKeyDown("h")) {
-            return;
-        }
-        else {
+        if (score.scoreValue >= healLimitCount && Input.GetKeyDown("h")) {
             currentHealth += 10;
             healthBar.SetHealth(currentHealth);
             Debug.Log("Player has healed" + currentHealth);
+        }
+        else {
+            return;
         }
     }
 
