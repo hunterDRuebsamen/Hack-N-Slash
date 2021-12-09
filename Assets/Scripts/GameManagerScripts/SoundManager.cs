@@ -14,6 +14,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] AudioClip bulletHitSound;
     [SerializeField] AudioClip lootPickupSound;
     [SerializeField] AudioClip potionPickupSound;
+    [SerializeField] AudioClip healSound;
     AudioClip heartbeatSound;
     
 
@@ -31,6 +32,7 @@ public class SoundManager : MonoBehaviour
         EnemyBehavior.onPlayerDamaged += onPlayerHit;
         EnemyBehavior.parriedEvent += onParry;
         WeaponBase.onEnemyDamaged += onEnemyHit;
+        PlayerHealth.healCall += onHeal;
         PlayerHealth.onPlayerDeath += onPlayerDeath;
         PlayerHealth.onPlayerHealthChanged += onPlayerHealth;
         EnemyBehavior.onAttack += onEnemyAttack;
@@ -42,6 +44,7 @@ public class SoundManager : MonoBehaviour
         EnemyBehavior.onPlayerDamaged -= onPlayerHit;
         EnemyBehavior.parriedEvent -= onParry;
         WeaponBase.onEnemyDamaged -= onEnemyHit;
+        PlayerHealth.healCall -= onHeal;
         PlayerHealth.onPlayerDeath -= onPlayerDeath;
         PlayerHealth.onPlayerHealthChanged -= onPlayerHealth;
         EnemyBehavior.onAttack -= onEnemyAttack;
@@ -116,5 +119,9 @@ public class SoundManager : MonoBehaviour
         } else {
             audioSource.PlayOneShot(lootPickupSound);
         }
+    }
+
+    private void onHeal() {
+        audioSource.PlayOneShot(healSound);
     }
 }

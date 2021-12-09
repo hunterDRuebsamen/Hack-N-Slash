@@ -9,12 +9,12 @@ public class PlayerHealth : MonoBehaviour
     private int maxHealth = 100;
     private int currentHealth;
     public int healLimitCount = 15;
-
     public int criticalHealthLevel = 35;
     private HealthBar healthBar;
 
     public static event Action onPlayerDeath;
     public static event Action<int> onPlayerHealthChanged;
+    public static event Action healCall;
     private Score score;
 
     // Start is called before the first frame update
