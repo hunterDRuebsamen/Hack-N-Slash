@@ -10,10 +10,11 @@ public class Score : MonoBehaviour
 
    private void OnEnable() {
        WeaponBase.onEnemyDamaged += changeScore;
+       EnemyBehavior.onPlayerDamaged += resetScore;
    }
     private void OnDisable() {
        WeaponBase.onEnemyDamaged -= changeScore;
-       //EnemyBehavior.onPlayerDamaged += resetScore;
+       EnemyBehavior.onPlayerDamaged -= resetScore;
    }
 
    void changeScore(float damage, GameObject enemyObject) {
@@ -28,8 +29,10 @@ public class Score : MonoBehaviour
        score.text = result;
    }
 
-   /*public void resetScore(enemeyattack) {
-
-   }*/
+   public void resetScore(EnemyBehavior.AttackType attackType, float damage) {
+       scoreValue = 0;
+       string result = "Score: " + scoreValue;
+       score.text = result;
+   }
 
 }

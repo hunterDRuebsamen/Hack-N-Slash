@@ -80,17 +80,12 @@ public class WeaponAbilities : MonoBehaviour
 
     }
 
-/* What I'm trying to do here is to have the weapon only be able to have ability when the score is divisible of 5
-and then I'm trying to have it so that when weaponPowerUp is true and you click left mouse button, it'll detect once
-the weapon touches an enemy and gets stunned */
-
-/* I tried looking at EnemyBehavior for the animator's animations and how you wrote the collision of the weapon and the enemy
-so some of the code is "inspired" from that script but I'm not sure if it's right */
 
     void enemyStun(GameObject enemyObject)
     {
         Animator enemyAnimator = enemyObject.GetComponent<Animator>();
         enemyAnimator.SetTrigger("stunned"); // stun the enemy (doesn't have animation yet, might just freeze enemy)
+        score.scoreValue = 0;
     }
 
     void breakEnemyBlock(GameObject enemyObject)
@@ -98,6 +93,7 @@ so some of the code is "inspired" from that script but I'm not sure if it's righ
         Animator enemyAnimator = enemyObject.GetComponent<Animator>();
         breakBlock = true;
         enemyAnimator.SetTrigger("guardBroken");
+        score.scoreValue = 0;
     }
 
 
