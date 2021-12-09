@@ -177,10 +177,10 @@ public class EnemySpawner : MonoBehaviour
 
         //If statements determine the number of enemies that should spawn
         if(chunkNumber <= 3) {
-            enemySpawnNumber = UnityEngine.Random.Range(6, 8);
+            enemySpawnNumber = UnityEngine.Random.Range(4, 6);
         }
         else if (chunkNumber > 3 && chunkNumber <= 5) {
-            enemySpawnNumber = UnityEngine.Random.Range(8, 13);
+            enemySpawnNumber = UnityEngine.Random.Range(6, 8);
         } 
         else if (chunkNumber > 5) {
             enemySpawnNumber = 0;
