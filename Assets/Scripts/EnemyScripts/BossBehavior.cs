@@ -35,8 +35,8 @@ public class BossBehavior : EnemyBehavior
                 escaped = true;
             }
         }
-
     }
+
     public override void Attack() {
         canAttack = false;
         emitAttack(AttackType.Melee);
