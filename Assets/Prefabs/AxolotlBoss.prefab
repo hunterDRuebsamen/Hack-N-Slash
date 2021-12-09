@@ -495,13 +495,12 @@ MonoBehaviour:
   cooldown: 5
   parryKnockback: 0.5
   attackStyle: 0
-  projectile: {fileID: 1659273401739453581, guid: d1875334bf754af4f9b40accb88ff2d9, type: 3}
+  projectile: {fileID: 5715507686823753756, guid: bbbb5a380ea0b633eaf1a2bef22f574f, type: 3}
   parryVelocity: 1.5
   attackSound: {fileID: 8300000, guid: ce867720dc6211921afcbaa2cac863d2, type: 3}
   hurtSound: {fileID: 8300000, guid: 69bea0409871048deb7739ac9315b102, type: 3}
   moveSound: {fileID: 8300000, guid: 0053784f2e5d5f15c8db959946a63d38, type: 3}
   deathSound: {fileID: 8300000, guid: 7b5d5ba87e73b6b3e86b2e3029efb095, type: 3}
-  animator: {fileID: 0}
   canAttack: 1
   escaped: 0
 --- !u!1 &2137921575445706826
