@@ -6082,7 +6082,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -21.248, y: 1.3341198, z: -10.01}
+  m_LocalPosition: {x: -21.248247, y: 1.3341198, z: -10.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -22874,7 +22874,10 @@ MonoBehaviour:
   levelTransistor: {fileID: 0}
   enemyRespawnTimer: 0
   enemyList:
-  - {fileID: 5077174038295370615, guid: f817a9d06a3cecb4bbb9d6404774dff2, type: 3}
+  - {fileID: 2406226144676770712, guid: b879e866e85f8fd45888cfcaf5c406f9, type: 3}
+  - {fileID: 1290715225530138, guid: 6877fb649746c674d8fbbcf60d41892b, type: 3}
+  - {fileID: 7305137451236092877, guid: cf013fa621198ba1a8421c5a06f5f55c, type: 3}
+  - {fileID: 2915781049691060984, guid: a5dfc50e1309d8c418699124ecedfa58, type: 3}
   difficulty: 0
   boss: {fileID: 2137895989959622302, guid: 0d5c41728d151a644997a7149f70454b, type: 3}
   bossTrigger: {fileID: 1601828076}
@@ -23023,7 +23026,7 @@ SpriteRenderer:
   m_SortingLayerID: 519901987
   m_SortingLayer: 1
   m_SortingOrder: 100
-  m_Sprite: {fileID: 21300000, guid: 0d7b8cdf104c05a1289913c7078e1f9e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2b8e1fd707209e847aac03db46d2de28, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -23161,7 +23164,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1840438654}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -21.248, y: 1.3341198, z: -10.01}
+  m_LocalPosition: {x: -21.248247, y: 1.3341198, z: -10.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1922294290}

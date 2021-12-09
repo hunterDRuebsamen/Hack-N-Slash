@@ -485,8 +485,8 @@ MonoBehaviour:
   projectile: {fileID: 0}
   parryVelocity: 1
   attackSound: {fileID: 8300000, guid: e0d000de505f13da78b32e3efac1fb92, type: 3}
-  hurtSound: {fileID: 8300000, guid: c4ad03f332d095f6c83c9916fc93a80f, type: 3}
-  moveSound: {fileID: 8300000, guid: c4ad03f332d095f6c83c9916fc93a80f, type: 3}
+  hurtSound: {fileID: 8300000, guid: 23c47780db08dacb39f37bd6c6da09e2, type: 3}
+  moveSound: {fileID: 0}
   deathSound: {fileID: 8300000, guid: c945918fc1d5ba8e284b93424bc3601a, type: 3}
   canAttack: 1
 --- !u!1 &2406431207437017406
