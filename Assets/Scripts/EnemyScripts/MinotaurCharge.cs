@@ -9,17 +9,24 @@ public class MinotaurCharge : StateMachineBehaviour
     Rigidbody2D rb;
     minotaurBehavior mb;
     BoxCollider2D hitbox;
+    bool forceEndCharge = false;
     bool hasDamagedPlayer = false;
     Vector2 previousPlayerPos;
     //OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-       player = GameObject.FindWithTag("Player").transform;
+       // must use this to actually get the main player gameobject!
+       player = GameObject.Find("PlayerV4").transform;
+
+
        rb = animator.GetComponent<Rigidbody2D>();
        hitbox = animator.GetComponentInChildren<BoxCollider2D>();
        mb = animator.GetComponent<minotaurBehavior>();
        previousPlayerPos = player.position;
        animator.ResetTrigger("chargeFinale");
+       animator.ResetTrigger("charge");
+       forceEndCharge = false;
+       chargeTimeout(1150);
     }
 
     //OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -38,6 +45,15 @@ public class MinotaurCharge : StateMachineBehaviour
         if (rb.position == previousPlayerPos) {
             animator.SetTrigger("chargeFinale");
         }
+        if (forceEndCharge) {
+            animator.ResetTrigger("charge");
+            animator.SetTrigger("chargeFinale");
+        }
+    }
+
+    async void chargeTimeout(int msec) {
+        await Task.Delay(msec);
+        forceEndCharge = true;
     }
 
     //OnStateExit is called when a transition ends and the state machine finishes evaluating this state

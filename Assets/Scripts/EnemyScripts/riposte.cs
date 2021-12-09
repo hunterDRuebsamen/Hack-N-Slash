@@ -14,7 +14,7 @@ public class riposte : StateMachineBehaviour
     //OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-       player = GameObject.FindWithTag("Player").transform;
+       player = GameObject.Find("PlayerV4").transform;
        rb = animator.GetComponent<Rigidbody2D>();
        hitbox = animator.GetComponentInChildren<BoxCollider2D>();
        eb = animator.GetComponent<EnemyBehavior>();
